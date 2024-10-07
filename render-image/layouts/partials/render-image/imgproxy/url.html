@@ -1,0 +1,20 @@
+{{- $conf := site.Params.renderImage.imgproxy}}
+{{- $params := merge (dict "ext" "avif" "process_options" "" ) . -}}
+
+{{- $src := $params.src -}}
+{{- $ext := $params.ext | strings.TrimLeft "." -}}
+{{- $process_options :=  trim $params.process_options "/" -}}
+{{- $host := $conf.host | strings.TrimRight "/" -}}    
+
+{{- $path := "" -}}
+
+{{- if eq $conf.sourceStyle "encoded" -}}
+    {{- $encoded_src := partial "render-image/imgproxy/base64encode" $src -}}
+    {{- $path = printf "/%s/%s.%s" $process_options $encoded_src $ext -}}
+{{- else -}}
+    {{- $path = printf "/%s/plain/%s@%s" $process_options $src $ext -}}
+{{- end -}}
+{{- $signature := partial "render-image/imgproxy/signature" $path -}}
+
+{{- return (printf "%s/%s%s" $host $signature $path) -}}
+

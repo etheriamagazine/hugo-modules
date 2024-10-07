@@ -1,0 +1,15 @@
+{{/*  Returns a responsive srcset as a map  */}}
+{{- $src := . -}}
+{{- $sizes := site.Params.renderImage.sizes }}
+{{- $srcset := slice -}}
+
+{{ range $i, $w := $sizes }}
+    {{- $url := partial "render-image/imgproxy/url" (dict 
+        "src" $src 
+        "process_options" (printf "rs:fit:%s" (string $w)) 
+        "ext" "avif") 
+        -}}
+    {{- $srcset = append (slice (printf "%s %sw" $url (string $w))) $srcset -}}        
+{{ end }}
+
+{{ return $srcset }}

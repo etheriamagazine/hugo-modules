@@ -1,0 +1,24 @@
+<figure>
+{{- $ctx := . }}
+{{- $u := urls.Parse $ctx.src -}}
+{{- $src := $u.String -}}
+{{- if not $u.IsAbs -}}
+    {{- with or (.Page.Resources.Get $u.Path) (resources.Get $u.Path) -}}
+        {{- $src = .RelPermalink -}}
+    {{- end -}}
+{{- end -}}
+
+{{ if site.Params.renderImage.responsive  }}
+    {{- $srcset := partial "render-image/srcset" $src -}}
+
+    <img 
+        src="{{$src}}"
+        {{ if $srcset -}}
+        srcset="
+        {{ range $i, $v := $srcset -}}
+          {{ $v }}{{- if ne (add $i 1) (len $srcset) -}},{{- end }}
+        {{ end }}"
+      {{ end -}}
+    >
+{{ end }}
+</figure>
