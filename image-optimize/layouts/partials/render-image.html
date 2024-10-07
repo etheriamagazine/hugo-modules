@@ -8,7 +8,7 @@
     {{- end -}}
 {{- end -}}
 
-{{ if site.Params.renderImage.responsive  }}
+{{ if site.Params.imageOptimize.responsive  }}
     {{- $srcset := partial "render-image/srcset" $src -}}
 
     <img 
