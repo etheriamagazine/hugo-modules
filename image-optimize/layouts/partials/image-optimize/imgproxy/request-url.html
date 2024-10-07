@@ -9,12 +9,12 @@
 {{- $path := "" -}}
 
 {{- if eq $conf.sourceStyle "encoded" -}}
-    {{- $encoded_src := partial "render-image/imgproxy/base64encode" $src -}}
+    {{- $encoded_src := partial "image-optimize/base64encode" $src -}}
     {{- $path = printf "/%s/%s.%s" $process_options $encoded_src $ext -}}
 {{- else -}}
     {{- $path = printf "/%s/plain/%s@%s" $process_options $src $ext -}}
 {{- end -}}
-{{- $signature := partial "render-image/imgproxy/signature" $path -}}
+{{- $signature := partial "image-optimize/imgproxy/signature" $path -}}
 
 {{- return (printf "%s/%s%s" $host $signature $path) -}}
 
