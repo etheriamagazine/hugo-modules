@@ -9,7 +9,7 @@
 {{- $path := "" -}}
 
 {{- if eq $conf.sourceStyle "encoded" -}}
-    {{- $encoded_src := partial "image-optimize/base64encode" $src -}}
+    {{- $encoded_src := partial "image-optimize/imgproxy/base64-encode" $src -}}
     {{- $path = printf "/%s/%s.%s" $process_options $encoded_src $ext -}}
 {{- else -}}
     {{- $path = printf "/%s/plain/%s@%s" $process_options $src $ext -}}

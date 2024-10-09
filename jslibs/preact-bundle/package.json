@@ -1,0 +1,18 @@
+{
+  "name": "preact-bundle",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A bundled version of Preact, HTM and Preact Signals in just one single file.",
+  "type": "module",
+  "sideEffects": false,
+  "source": "index.js",
+  "license": "MIT",
+  "exports": {
+    "default": "./dist/preact-bundle.js"
+  },
+  "devDependencies": {
+    "@preact/signals": "^1.2.2",
+    "htm": "^3.1.1",
+    "preact": "^10.19.6"
+  }
+}

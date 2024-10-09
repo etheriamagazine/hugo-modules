@@ -1,0 +1,44 @@
+
+{{- $src := .Destination -}}
+{{- $srcset := false -}}
+
+{{- if site.Params.imageOptimize.enabled }}
+  {{- $srcset = partial "image-optimize/srcset" $src -}}
+{{- end -}}
+
+{{/* 
+  Standalone image, render figure & figcaption
+  Inside paragraph, render plain <img/> tag.
+  See https://developer.mozilla.org/en-US/docs/Web/HTML/Content_categories#phrasing_content
+*/}}  
+{{ if .IsBlock }}
+  <figure>
+    <img
+      src="{{ $src | safeURL }}"
+      {{ with $srcset -}}
+        srcset="{{ delimit . ",\n" }}"
+      {{- end }}
+      {{ with .Text -}}
+        alt="{{ . }}"
+      {{- end }}
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption>{{ .Title }}</figcaption>
+  </figure>
+{{ else }}
+  <img
+    src="{{ $src | safeURL }}"
+    {{ with $srcset -}}
+      srcset="{{ delimit . ",\n" }}"
+    {{- end }}    
+    {{ with .Text -}}
+      alt="{{ . }}"
+    {{- end }}
+    {{ with .Title -}}
+      title="{{ . }}"
+    {{- end }}           
+    loading="lazy"
+    decoding="async"
+  />
+{{ end }}

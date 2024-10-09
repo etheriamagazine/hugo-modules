@@ -1,0 +1,4 @@
+[module]
+  [[module.mounts]]
+    source = "package/dist/module.esm.js"
+    target = "assets/jslibs/alpinejs.js"

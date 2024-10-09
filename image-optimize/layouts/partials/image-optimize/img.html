@@ -1,0 +1,23 @@
+{{- $u := urls.Parse .src -}}
+{{- $src := $u.String -}}
+{{- if not $u.IsAbs -}}
+    {{- with or (.Page.Resources.Get $u.Path) (resources.Get $u.Path) -}}
+        {{- $src = .Permalink -}}
+    {{- end -}}
+{{- end -}}
+
+{{ $srcset := false}}
+
+{{- if site.Params.imageOptimize.enabled  }}
+    {{- $srcset = partial "image-optimize/srcset" $src -}}    
+{{- end -}}
+
+<img 
+    src="{{$src}}"
+    {{ with $srcset -}}
+      srcset="{{delimit  . ",\n"}}"
+    {{- end }}
+    {{ with .alt -}}
+      alt="{{ . }}"
+    {{- end }}    
+>

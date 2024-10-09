@@ -11,5 +11,9 @@ Add the following code to your module list in the `config/_default/module.toml` 
 
 ```toml
 [[imports]]
-path = "github.com/etheriamagazine/hugo-modules/render-image"
+path = "github.com/etheriamagazine/hugo-modules/image-optimize"
+```
+
+```go 
+  {{ partial "image-optimize" ( dict "src" "https://fotos.etheriamagazine.com/2024/04/portada-mujeres-viajeras.jpg" ) }}
 ```
