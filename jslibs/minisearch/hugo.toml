@@ -1,0 +1,4 @@
+[module]
+  [[module.mounts]]
+    source = "package/dist/es/index.js"
+    target = "assets/jslibs/minisearch.js"     
