@@ -31,7 +31,7 @@
     src="{{ $src | safeURL }}"
     {{ with $srcset -}}
       srcset="{{ delimit . ",\n" }}"
-    {{- end }}    
+    {{- end }}        
     {{ with .Text -}}
       alt="{{ . }}"
     {{- end }}

@@ -6,8 +6,8 @@ import {
   useSignal,
   useEffect,
   useComputed,
-} from "@jslibs/preact-bundle.js";
-import MiniSearch from "@jslibs/minisearch.js";
+} from "jslibs/preact-bundle.js";
+import MiniSearch from "jslibs/minisearch.js";
 
 async function fetchIndex() {
   const response = await fetch("/index.json");
@@ -108,7 +108,7 @@ export function Search(props) {
       class="fixed z-30 top-0 left-0 h-screen w-screen backdrop-blur-sm flex flex-col
       p-8 mb-8 bg-[#0003]"
     >
-      <div class="bg-white shadow-lg grow w-full  rounded-lg">
+      <div class="bg-white shadow-lg grow w-full  rounded-lg ring-amber-300">
         <div class="flex flex-col">
           <header class="flex border-b border-b-slate-100">
             <form class="flex-auto flex">
@@ -166,6 +166,7 @@ export function Search(props) {
       </div>
     </div>`;
   } else {
-    return null;
+    return html`<div>hola preact</div>`
+    // return null;
   }
 }

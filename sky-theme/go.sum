@@ -1,0 +1,8 @@
+github.com/etheriamagazine/hugo-modules/image-optimize v0.0.0-20241009150218-b59537d54347 h1:j6sHM9t8Y1RTT7J0DXNxgiMfDmKjZ95c2aZUPVZ0lCE=
+github.com/etheriamagazine/hugo-modules/image-optimize v0.0.0-20241009150218-b59537d54347/go.mod h1:lkdm2MlEyTg7X2JIl91Jrn2PYb8maQ0kx4fvvx9NrlY=
+github.com/etheriamagazine/hugo-modules/jslibs/alpinejs v0.0.0-20241009150218-b59537d54347 h1:GZZFc5eHkrGj8lBjJBFZAxaqBD1hII7IUAXuJXUpym0=
+github.com/etheriamagazine/hugo-modules/jslibs/alpinejs v0.0.0-20241009150218-b59537d54347/go.mod h1:8kERE9YbF5n/CHX6h0WsVqXit3gy3kYjhmeGwHLwrEs=
+github.com/etheriamagazine/hugo-modules/jslibs/minisearch v0.0.0-20241009150218-b59537d54347 h1:ws0Io/uquACZYWIn9FH+G6bTHkLCHBweB3I3dNHBb/w=
+github.com/etheriamagazine/hugo-modules/jslibs/minisearch v0.0.0-20241009150218-b59537d54347/go.mod h1:9BPv0197y0UIfXPxElx4o7xyjzymlhu+EY9BsRltA8M=
+github.com/etheriamagazine/hugo-modules/jslibs/preact-bundle v0.0.0-20241009150218-b59537d54347 h1:BbttF5omFPfAnyLq7t8XmY5wAwk9gMBD0K0nljKSDX8=
+github.com/etheriamagazine/hugo-modules/jslibs/preact-bundle v0.0.0-20241009150218-b59537d54347/go.mod h1:5RW3I3rpse+ZWnC5RzBCR3ClUnYICZAckzk/OrllL/w=
