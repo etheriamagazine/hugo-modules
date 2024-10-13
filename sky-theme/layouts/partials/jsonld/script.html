@@ -1,4 +1,0 @@
-{{ $data := . }}
-<script type="application/ld+json">
-{{ $data | jsonify (dict "indent" "  " ) | safeJS }}    
-</script> 

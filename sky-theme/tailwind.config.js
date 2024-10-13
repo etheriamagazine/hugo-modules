@@ -1,6 +1,10 @@
-module.exports = {
-    content: [
-      "layouts/**/*.html",
-      "assets/js/**/*.js"
-    ]
-}
+
+export default {
+    safelist: [
+        {
+          pattern: /./, // the "." means "everything"
+        },
+      ],    
+    theme: {
+    }
+};

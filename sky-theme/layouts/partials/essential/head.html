@@ -1,0 +1,19 @@
+<meta charset="utf-8" />
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+
+<!-- title -->
+{{ with or .Params.meta_title .Title site.Title -}}
+  <title>
+    {{- if $.IsHome }}
+      {{- . }}
+    {{- else }}
+      {{- printf "%s | %s" . site.Title }}
+    {{- end -}}
+  </title>
+{{ end }}
+
+<!-- json-ld -->
+{{ partial "json-ld.html" . }}

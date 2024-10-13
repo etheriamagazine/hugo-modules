@@ -1,0 +1,6 @@
+[module]
+
+    # mount sample content
+    [[module.mounts]]
+        source = "dev_content"
+        target = "content"

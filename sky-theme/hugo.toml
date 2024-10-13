@@ -1,25 +1,18 @@
+baseURL = 'https://example.org/'
+title = 'Sky Theme'
 
+[outputs]
+  home = ["html", "json"]
 
 [module]
-    
-    [[module.mounts]]
-        source = 'assets'
-        target = 'assets'
-    [[module.mounts]]
-        source = 'layouts'      
-        target = 'layouts'   
-    [[module.mounts]]
-        source = 'static'
-        target = 'static'   
-       
+
     [[module.imports]]
         path = 'github.com/etheriamagazine/hugo-modules/jslibs/preact-bundle'
-
     [[module.imports]]
         path = 'github.com/etheriamagazine/hugo-modules/jslibs/alpinejs'
-
     [[module.imports]]
         path = 'github.com/etheriamagazine/hugo-modules/jslibs/minisearch'
-
     [[module.imports]]
         path = 'github.com/etheriamagazine/hugo-modules/image-optimize'
+    [[module.imports]]
+    path = "github.com/etheriamagazine/hugo-modules/seo/json-ld"
