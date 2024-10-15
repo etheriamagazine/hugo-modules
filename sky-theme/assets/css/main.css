@@ -1,9 +1,9 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-@source './public/**/*.{js, html}';    
+@source './**/*.{js, html}';
 
-@theme {    
+@theme {
   --color-orange-300: #f56642;
   --color-blue-100: #427bf5;
   --color-gray-50: #f8fafc;
@@ -13,19 +13,19 @@
   --color-green-900: #365314;
   --color-green-950: #1a2e05;
 
-  /* colores etheria */ 
-  --color-primary: #009ed0;  
+  /* colores etheria */
+  --color-primary: #009ed0;
   --color-primary-50: #f0fbff;
-  --color-primary-100: #e0f6fe; 
-  --color-primary-200: #baedfd; 
-  --color-primary-300: #7ddafc; 
-  --color-primary-400: #38c8f8; 
-  --color-primary-500: #0eb6e9; 
-  --color-primary-600: #009ed0; 
-  --color-primary-700: #0377a1; 
-  --color-primary-800: #076185; 
-  --color-primary-900: #0c516e; 
-  --color-primary-950: #083449; 
+  --color-primary-100: #e0f6fe;
+  --color-primary-200: #baedfd;
+  --color-primary-300: #7ddafc;
+  --color-primary-400: #38c8f8;
+  --color-primary-500: #0eb6e9;
+  --color-primary-600: #009ed0;
+  --color-primary-700: #0377a1;
+  --color-primary-800: #076185;
+  --color-primary-900: #0c516e;
+  --color-primary-950: #083449;
 
 }
 
@@ -46,7 +46,7 @@ body {
   }
   :root {
     --swiper-navigation-color: #fff;
-    --swiper-pagination-color: #fff;    
+    --swiper-pagination-color: #fff;
   }
 }
 
@@ -63,7 +63,7 @@ body {
 }
 @layer utilities {
 
-  .prose-intro > p:nth-of-type(2)::first-line { 
+  .prose-intro > p:nth-of-type(2)::first-line {
     @apply text-primary-600 uppercase text-justify;
   }
 
@@ -76,5 +76,5 @@ body {
   input[type="search"]::-webkit-search-results-button,
   input[type="search"]::-webkit-search-results-decoration {
     -webkit-appearance:none;
-  }  
+  }
 }

@@ -1,15 +1,29 @@
-{{/*  Returns a responsive srcset as a map  */}}
-{{- $src := . -}}
-{{- $sizes := site.Params.imageOptimize.sizes }}
-{{- $srcset := slice -}}
+{{ $src := . }}
+{{ $srcset := false }}
 
-{{ range $i, $w := $sizes }}
-    {{- $url := partial "image-optimize/imgproxy/request-url" (dict 
-        "src" $src 
-        "process_options" (printf "rs:fit:%s" (string $w)) 
-        "ext" "avif") 
-        -}}
-    {{- $srcset = append (slice (printf "%s %sw" $url (string $w))) $srcset -}}        
+{{ with site.Params.imageOptimize }}
+  {{ if .enabled }}
+    {{ $format := (.format | default "") | strings.TrimLeft "." }}
+
+    {{ range .responsiveSizes }}
+      {{ $url := partial "image-optimize/imgproxy/request-url" (dict
+        "src" $src
+        "process_options" (printf "rs:fit:%s" (string .))
+        "ext" $format)
+      }}
+      {{ $srcset = append (slice (printf "%s %sw" $url (string .))) (or $srcset slice) }}
+    {{ end }}
+
+    {{ with .defaultSize }}
+      {{ $src = partial "image-optimize/imgproxy/request-url" (dict
+        "src" $src
+        "process_options" (printf "rs:fit:%s" (string .))
+        "ext" $format)
+      }}
+    {{ end }}
+
+  {{ end }}
+
 {{ end }}
 
-{{ return $srcset }}
+{{ return (dict "srcset" $srcset "src" $src) }}

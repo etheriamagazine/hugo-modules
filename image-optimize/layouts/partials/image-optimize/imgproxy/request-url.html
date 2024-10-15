@@ -1,20 +1,35 @@
-{{- $conf := site.Params.renderImage.imgproxy}}
-{{- $params := merge (dict "ext" "avif" "process_options" "" ) . -}}
+{{/*  {{ $params := merge (dict "ext" "avif" "process_options" "" ) . }}  */}}
+{{ $params := .}}
+{{ $path := "" }}
+{{ $host := "" }}
+{{ $sourceStyle := ""}}
+{{/*  {{ $host := site.Params.imageOptimize.imgproxy.ho st | strings.TrimRight "/" }}  */}}
 
-{{- $src := $params.src -}}
-{{- $ext := $params.ext | strings.TrimLeft "." -}}
-{{- $process_options :=  trim $params.process_options "/" -}}
-{{- $host := $conf.host | strings.TrimRight "/" -}}    
+{{ with site.Params.imageOptimize.imgproxy }}
+  {{ $host = .host | strings.TrimRight "/" }}
+  {{ $sourceStyle = .sourceStyle }}
+{{ end}}
 
-{{- $path := "" -}}
+{{ with . }}
+  {{ $src := .src }}
+  {{ $ext := .ext | strings.TrimLeft "." }}
+  {{ $process_options :=  .process_options | strings.TrimLeft "/" | strings.TrimRight "/" }}
 
-{{- if eq $conf.sourceStyle "encoded" -}}
-    {{- $encoded_src := partial "image-optimize/imgproxy/base64-encode" $src -}}
-    {{- $path = printf "/%s/%s.%s" $process_options $encoded_src $ext -}}
-{{- else -}}
-    {{- $path = printf "/%s/plain/%s@%s" $process_options $src $ext -}}
-{{- end -}}
-{{- $signature := partial "image-optimize/imgproxy/signature" $path -}}
+  {{ if eq $sourceStyle "encoded" }}
+      {{ $encoded_src := partial "image-optimize/imgproxy/base64-encode" $src }}
+      {{ $path = printf "/%s/%s" $process_options $encoded_src }}
+      {{ if $ext }}
+        {{ $path = printf "%s.%s" $path $ext}}
+      {{ end }}
+  {{ else }}
+      {{ $path = printf "/%s/plain/%s" $process_options $src }}
+      {{ if $ext }}
+        {{ $path = printf "%s@%s" $path $ext}}
+      {{ end }}
 
-{{- return (printf "%s/%s%s" $host $signature $path) -}}
+  {{ end }}
+
+{{ end }}
+{{ $signature := partial "image-optimize/imgproxy/signature" $path }}
+{{ return (printf "%s/%s%s" $host $signature $path) }}
 

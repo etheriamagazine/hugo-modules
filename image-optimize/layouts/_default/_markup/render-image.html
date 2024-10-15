@@ -1,44 +1,58 @@
-
 {{- $src := .Destination -}}
 {{- $srcset := false -}}
+{{- $original := false }}
 
-{{- if site.Params.imageOptimize.enabled }}
-  {{- $srcset = partial "image-optimize/srcset" $src -}}
+{{- with site.Params.imageOptimize -}}
+  {{- if .enabled -}}
+    {{- $original = $src -}}
+
+    {{- with partial "image-optimize/srcset" $src -}}
+      {{- $src = .src -}}
+      {{- $srcset = .srcset -}}
+    {{- end -}}
+  {{- end -}}
 {{- end -}}
 
-{{/* 
-  Standalone image, render figure & figcaption
-  Inside paragraph, render plain <img/> tag.
-  See https://developer.mozilla.org/en-US/docs/Web/HTML/Content_categories#phrasing_content
-*/}}  
+{{/* NOTE: Standalone images in Markdown are rendered inside a <p></p> as per
+  CommanMark spec. Hugo, through the Goldmark parser, supports
+  wrapStandAloneImageWithinParagraph = false so that markdown images are rendered
+  without wrapping. In this context, .IsBlock will return whether the image is
+  inline (inside a paragraph) or standalone.
+
+  See https://tracknut.ca/tech/markdown-image-handling/
+  See also https://developer.mozilla.org/en-US/docs/Web/HTML/Content_categories#phrasing_content
+*/}}
+
 {{ if .IsBlock }}
   <figure>
+    {{ with $original }}{{ printf "<!-- %s -->" . | safeHTML }}{{ end }}
     <img
       src="{{ $src | safeURL }}"
       {{ with $srcset -}}
-        srcset="{{ delimit . ",\n" }}"
+        srcset="{{ delimit . ",\n"  | safeHTMLAttr }}"
       {{- end }}
       {{ with .Text -}}
         alt="{{ . }}"
       {{- end }}
       loading="lazy"
-      decoding="async"
-    />
-    <figcaption>{{ .Title }}</figcaption>
+      decoding="async" />
+    {{ with .Title -}}
+      <figcaption>{{ . }}</figcaption>
+    {{- end }}
   </figure>
 {{ else }}
+  {{ with $original }}{{ printf "<!-- %s -->" . | safeHTML }}{{ end }}
   <img
     src="{{ $src | safeURL }}"
     {{ with $srcset -}}
-      srcset="{{ delimit . ",\n" }}"
-    {{- end }}        
+      srcset="{{ delimit . ",\n" | safeHTMLAttr }}"
+    {{- end }}
     {{ with .Text -}}
       alt="{{ . }}"
     {{- end }}
     {{ with .Title -}}
       title="{{ . }}"
-    {{- end }}           
+    {{- end }}
     loading="lazy"
-    decoding="async"
-  />
+    decoding="async" />
 {{ end }}

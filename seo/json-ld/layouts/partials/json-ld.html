@@ -1,19 +1,19 @@
 {{ if .IsHome }}
-    <script type="application/ld+json">
-        {{
-            partial "json-ld/website" .
-            | jsonify (dict "indent" "  " )
-            | safeJS
-        }}
-    </script>
+  <script type="application/ld+json">
+    {{-
+        partial "json-ld/website" .
+        | jsonify (dict "indent" "  " )
+        | safeJS
+    -}}
+  </script>
 {{ else if .IsPage }}
-    <script type="application/ld+json">
-        {{
-            partial "json-ld/article" .
-            | jsonify (dict "indent" "  " )
-            | safeJS
-        }}
-    </script>
+  <script type="application/ld+json">
+    {{-
+        partial "json-ld/article" .
+        | jsonify (dict "indent" "  " )
+        | safeJS
+    -}}
+  </script>
 {{ end }}
 
 {{ define "partials/json-ld/article.html" }}
@@ -33,7 +33,7 @@
     {{ $s.Set "datePublished" ( . | time) }}
   {{ end }}
 
-  {{ $s.Set "publisher" (partial "json-ld/publisher") }}
+  {{ $s.Set "publisher" (partialCached "json-ld/publisher.html" .) }}
 
   {{ $s.Set "inLanguage" site.Language.Lang }}
 
@@ -44,7 +44,7 @@
   {{ with .GetTerms "authors" }}
     {{ $s.Set "authors" slice }}
     {{ range . }}
-      {{ $s.Add "authors" (partial "json-ld/author" .) }}
+      {{ $s.Add "authors" (partialCached "json-ld/author" .) }}
     {{ end }}
   {{ end }}
 
@@ -57,7 +57,7 @@
   {{ $s.Set "@context" "http://schema.org" }}
   {{ $s.Set "@type" "WebSite" }}
 
-  {{ with or site.Title site.Params.title | plainify }}
+  {{ with or .Params.meta_title site.Title | plainify }}
     {{ $s.Set "name" . }}
   {{ end }}
 
@@ -65,7 +65,7 @@
     {{ $s.Set "url" . }}
   {{ end }}
 
-  {{ with site.Params.description }}
+  {{ with or .Params.meta_description site.Params.metadata.description site.Title }}
     {{ $s.Set "description" . }}
   {{ end }}
 
@@ -80,13 +80,15 @@
 {{ define "partials/json-ld/publisher.html" }}
   {{ $s := newScratch }}
   {{ $s.Set "@type" "Organization" }}
-  {{ $s.Set "name" site.Params.publisher.name }}
+  {{ $s.Set "name" (or site.Params.metadata.author site.Title) }}
   {{ $s.Set "url" site.BaseURL }}
 
   {{ $image := resources.Get "images/logo.svg" }}
   {{ $s.Set "image" $image.Permalink }}
 
-  {{ $s.Set "sameAs" site.Params.publisher.urls }}
+  {{ with or site.Params.metadata.author_urls (slice site.BaseURL) }}
+    {{ $s.Set "sameAs" . }}
+  {{ end}}
   {{ return $s.Values }}
 {{ end }}
 
