@@ -1,4 +1,4 @@
-{{ $src := site.Params.defaultCoverImage | default "" }}
+{{ $src := site.Params.content.defaultCoverImage | default "" }}
 {{ $alt := .LinkTitle | default site.Title }}
 
 {{ with .Params.coverImage }}
