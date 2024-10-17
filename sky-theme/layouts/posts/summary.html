@@ -1,13 +1,7 @@
 <article class="p-4 my-4 bg-white  shadow-md dark:bg-gray-800">
   <a href="{{ .RelPermalink }}">
-    {{ with .Params.coverImage }}
-      <img
-        loading="lazy"
-        class="mb-5 w-full object-cover aspect-[3/2]"
-        src="{{ partial "image_cdn.html" . }}"
-
-        alt="office laptop working"
-      />
+    {{ with partial "essential/cover-image" . }}
+      {{ partial "image-optimize/img" (dict "src" .src "alt" .alt "class" "mb-5 w-full object-cover aspect-[3/2]") }}
     {{ end }}
   </a>
   {{ with .GetTerms "categories"}}
@@ -36,7 +30,7 @@
         {{ $gravatar := printf "https://gravatar.com/avatar/%s" (sha256 $email) }}
 
         <img
-          loading="lazy"    
+          loading="lazy"
           class="w-14 h-14 rounded-full"
           src="{{ $gravatar }}"
           alt="Jese Leos avatar"
@@ -51,6 +45,6 @@
     <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
         {{ .Date | time.Format ":date_long" }} · Tiempo lectura:
         {{ printf "%d min" .ReadingTime }}
-      </div>    
+      </div>
   </div>
 </article>

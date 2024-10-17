@@ -88,7 +88,7 @@
 
   {{ with or site.Params.metadata.author_urls (slice site.BaseURL) }}
     {{ $s.Set "sameAs" . }}
-  {{ end}}
+  {{ end }}
   {{ return $s.Values }}
 {{ end }}
 

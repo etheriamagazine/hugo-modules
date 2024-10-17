@@ -1,7 +1,5 @@
 {{ define "main" }}
   {{ .Content }}
-  {{ getenv "HUGO_IMGPROXY_KEY" }}
-    {{ partial "image-optimize/img" ( dict "alt" "hola" "src" "https://guias-viajar.com/wp-content/uploads/2019/06/granada-alhambra-001.jpg" ) }}
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
 
@@ -10,9 +8,9 @@
       <swiper-slide>
         {{ .Render "hero" }}
       </swiper-slide>
-  {{ end }}
+    {{ end }}
   </swiper-container>
- 
+
   <button class="ring-2 ring-pink-200 ring-inset">Pepe</button>
   {{ partial "subscribe/form" }}
 
@@ -21,10 +19,9 @@
       {{ .Render "summary" }}
     {{ end }}
   </div>
+
   {{ range first 15 (after 7 site.RegularPages) }}
     {{ .Render "summary" }}
   {{ end }}
 
 {{ end }}
-
-

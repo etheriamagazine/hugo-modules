@@ -1,15 +1,12 @@
 <article class="relative">
   <a href="{{ .RelPermalink }}">
-    {{ with .Params.coverImage }}
-      <img
-        class="w-full object-cover aspect-[3/2]"
-        src="{{ partial "image_cdn.html" . }}"
-        alt="office laptop working"
-      />
+    {{ with partial "essential/cover-image" . }}
+      {{ partial "image-optimize/img" (dict "src" .src "alt" .alt "class" "w-full object-cover aspect-[3/2]") }}
     {{ end }}
   </a>
   <div class="absolute inset-0 bg-gray-700 opacity-20 rounded-md"></div>
   <div class="absolute inset-0 flex flex-col items-center justify-center">
+
       <h2 class="my-2 text-2xl font-semibold text-shadow text-white text-center w-3/5 max-w-[30ch]">
         <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
       </h2>

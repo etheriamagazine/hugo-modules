@@ -5,14 +5,15 @@ title = 'Sky Theme'
   home = ["html", "json"]
 
 [module]
-
-    [[module.imports]]
-        path = 'github.com/etheriamagazine/hugo-modules/jslibs/preact-bundle'
-    [[module.imports]]
-        path = 'github.com/etheriamagazine/hugo-modules/jslibs/alpinejs'
-    [[module.imports]]
-        path = 'github.com/etheriamagazine/hugo-modules/jslibs/minisearch'
-    [[module.imports]]
-        path = 'github.com/etheriamagazine/hugo-modules/image-optimize'
-    [[module.imports]]
-    path = "github.com/etheriamagazine/hugo-modules/seo/json-ld"
+  [[module.imports]]
+    path = 'github.com/etheriamagazine/hugo-modules/jslibs/preact-bundle'
+  [[module.imports]]
+    path = 'github.com/etheriamagazine/hugo-modules/jslibs/alpinejs'
+  [[module.imports]]
+    path = 'github.com/etheriamagazine/hugo-modules/jslibs/minisearch'
+  [[module.imports]]
+    path = 'github.com/etheriamagazine/hugo-modules/image-optimize'
+  [[module.imports]]
+    path = "github.com/etheriamagazine/hugo-modules/seo-tools/json-ld"
+  [[module.   imports]]
+    path = "github.com/gethugothemes/hugo-modules/seo-tools/basic-seo"

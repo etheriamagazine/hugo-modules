@@ -1,0 +1,15 @@
+{{ $src := site.Params.defaultCoverImage | default "" }}
+{{ $alt := .LinkTitle | default site.Title }}
+
+{{ with .Params.coverImage }}
+  {{ if eq "string" (printf "%T" .)}}
+    {{ $src = . }}
+  {{ else if reflect.IsMap . }}
+    {{ $src = .src }}
+    {{ if .alt }}
+      {{ $alt = .alt }}
+    {{ end}}
+  {{ end }}
+{{ end }}
+
+{{ return (dict "src" $src "alt" $alt) }}
