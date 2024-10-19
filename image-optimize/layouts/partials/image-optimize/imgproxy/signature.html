@@ -1,9 +1,0 @@
-{{ $path := . }}
-{{ $key := getenv "HUGO_IMGPROXY_KEY" }}
-{{ $salt := getenv "HUGO_IMGPROXY_SALT" }}
-
-{{ $msg := printf "%s%s" $salt $path }}
-{{ $signature := hmac "sha256" $key $msg "binary" }}
-
-{{ return (partial "image-optimize/imgproxy/base64-encode" $signature) }}
-

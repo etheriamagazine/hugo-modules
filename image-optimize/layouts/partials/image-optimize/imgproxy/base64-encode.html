@@ -1,5 +1,0 @@
-{{ $s := base64Encode . }}
-{{ $s := replace $s "+" "-" }}
-{{ $s := replace $s "/" "_" }}
-{{ $s := replace $s "=" "" }}
-{{ return $s }}

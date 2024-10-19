@@ -32,7 +32,18 @@ Sample configuration in `config/_default/params.toml` file.
 
 ```
 
-## Using the module
-This modules provides out of the box an [Image render
+
+## Optimizing a single image
+
+```go
+{{ $imageUrl = ... }}
+{{ $imageUrlOptimized = partial "imgproxy/url" (dict "src" $imageUrl "processingOptions" "rs:fit:900" "format" "webp") }}
+
+<img src={{$imageUrlOptimized}} ... />
+```
+
+## Render Hook for responsive images
+This modules provides an [Image render
 hook](https://gohugo.io/render-hooks/images/) to redirect the images to an
 imgproxy instance. 
+

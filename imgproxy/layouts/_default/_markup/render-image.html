@@ -1,16 +1,16 @@
-{{- $src := .Destination -}}
-{{- $srcset := false -}}
-{{- $original := false }}
+{{ $src := .Destination }}
+{{ $srcset := false }}
+{{ $original := false }}
 
-{{- with (and site.Params.imgproxy.enabled site.Params.imgproxy) -}}
-  {{- $original = $src -}}
+{{ with (and site.Params.imgproxy.enabled site.Params.imgproxy) }}
+  {{ $original = $src }}
 
-  {{- with partial "imgproxy/responsive-urls" $src -}}
-    {{- $src = .src -}}
-    {{- $srcset = .srcset -}}
-  {{- end -}}
+  {{ with partial "imgproxy/responsive-urls" $src }}
+    {{ $src = .src }}
+    {{ $srcset = .srcset }}
+  {{ end }}
 
-{{- end -}}
+{{ end }}
 
 {{/* NOTE: Standalone images in Markdown are rendered inside a <p></p> as per
   CommanMark spec. Hugo, through the Goldmark parser, supports

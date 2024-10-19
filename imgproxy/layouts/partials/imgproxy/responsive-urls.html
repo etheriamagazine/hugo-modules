@@ -1,7 +1,7 @@
 {{ $src := . }}
 {{ $srcset := false }}
 
-{{ with (and site.Params.imgproxy.enabled site.Params.imgproxy) }}
+{{ with (and site.Params.imgproxy.enabled site.Params.imgproxy.responsive) }}
     {{ $format := (.format | default "") | strings.TrimLeft "." }}
     {{ $processingOptions := .processingOptions | default "rs:fit:%s" }}
 

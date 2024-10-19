@@ -1,33 +1,34 @@
-{{/*  Returns the optimized imgproxy url for the passed options  */}}
-{{ $params := .}}
-{{ $path := "" }}
-{{ $host := "" }}
-{{ $sourceStyle := ""}}
+{{/* Returns the optimized imgproxy url for the passed options */}}
+{{ $src := .src }}
+{{ $processingOptions := .processingOptions | strings.TrimLeft "/" | strings.TrimRight "/" }}
+{{ $ext := .format | strings.TrimLeft "." }}
 
-{{ with site.Params.imgproxy }}
-  {{ $host = .host | strings.TrimRight "/" }}
-  {{ $sourceStyle = .sourceStyle }}
-{{ end}}
+{{ $requestUrl := false}}
 
-{{ with . }}
-  {{ $src := .src }}
-  {{ $processingOptions :=  .processingOptions | strings.TrimLeft "/" | strings.TrimRight "/" }}
-  {{ $ext := .format | strings.TrimLeft "." }}
+{{ with (and site.Params.imgproxy.enabled site.Params.imgproxy) }}
+  {{ $host := .host | strings.TrimRight "/" }}
+  {{ $sourceStyle := .sourceStyle | default "plain" }}
+
+  {{ $path := "" }}
 
   {{ if eq $sourceStyle "encoded" }}
-      {{ $encoded_src := partial "imgproxy/base64" $src }}
-      {{ $path = printf "/%s/%s" $processingOptions $encoded_src }}
-      {{ if $ext }}
-        {{ $path = printf "%s.%s" $path $ext}}
-      {{ end }}
-  {{ else }}
-      {{ $path = printf "/%s/plain/%s" $processingOptions $src }}
-      {{ if $ext }}
-        {{ $path = printf "%s@%s" $path $ext}}
-      {{ end }}
+    {{ $path = printf "/%s/%s" $processingOptions (partial "imgproxy/base64" $src) }}
+
+    {{ if $ext }}
+      {{ $path = printf "%s.%s" $path $ext }}
+    {{ end }}
+
+  {{ else if eq $sourceStyle "plain" }}
+    {{ $path = printf "/%s/plain/%s" $processingOptions $src }}
+
+    {{ if $ext }}
+      {{ $path = printf "%s@%s" $path $ext }}
+    {{ end }}
+
   {{ end }}
+
+  {{ $requestUrl = printf "%s/%s%s" $host (partial "imgproxy/signature" $path) $path }}
+
 {{ end }}
 
-{{ $signature := partial "imgproxy/signature" $path }}
-
-{{ return (printf "%s/%s%s" $host $signature $path) }}
+{{ return (or $requestUrl $src) }}
