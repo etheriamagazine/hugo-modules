@@ -1,0 +1,27 @@
+{{ $src := . }}
+{{ $srcset := false }}
+
+{{ with (and site.Params.imgproxy.enabled site.Params.imgproxy) }}
+    {{ $format := (.format | default "") | strings.TrimLeft "." }}
+    {{ $processingOptions := .processingOptions | default "rs:fit:%s" }}
+
+    {{ range .responsiveSizes }}
+      {{ $url := partial "imgproxy/request-url" (dict
+        "src" $src
+        "processingOptions" (printf $processingOptions (string .))
+        "format" $format)
+      }}
+      {{ $srcset = append (slice (printf "%s %sw" $url (string .))) (or $srcset slice) }}
+    {{ end }}
+
+    {{ with .defaultSize }}
+      {{ $src = partial "imgproxy/request-url" (dict
+        "src" $src
+        "processingOptions" (printf $processingOptions (string .))
+        "format" $format)
+      }}
+    {{ end }}
+
+{{ end }}
+
+{{ return (dict "srcset" $srcset "src" $src) }}

@@ -1,0 +1,33 @@
+{{/*  {{ $params := merge (dict "ext" "avif" "process_options" "" ) . }}  */}}
+{{ $params := .}}
+{{ $path := "" }}
+{{ $host := "" }}
+{{ $sourceStyle := ""}}
+
+{{ with site.Params.imgproxy }}
+  {{ $host = .host | strings.TrimRight "/" }}
+  {{ $sourceStyle = .sourceStyle }}
+{{ end}}
+
+{{ with . }}
+  {{ $src := .src }}
+  {{ $processingOptions :=  .processingOptions | strings.TrimLeft "/" | strings.TrimRight "/" }}
+  {{ $ext := .format | strings.TrimLeft "." }}
+
+  {{ if eq $sourceStyle "encoded" }}
+      {{ $encoded_src := partial "imgproxy/base64-encode" $src }}
+      {{ $path = printf "/%s/%s" $processingOptions $encoded_src }}
+      {{ if $ext }}
+        {{ $path = printf "%s.%s" $path $ext}}
+      {{ end }}
+  {{ else }}
+      {{ $path = printf "/%s/plain/%s" $processingOptions $src }}
+      {{ if $ext }}
+        {{ $path = printf "%s@%s" $path $ext}}
+      {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ $signature := partial "imgproxy/signature" $path }}
+
+{{ return (printf "%s/%s%s" $host $signature $path) }}
