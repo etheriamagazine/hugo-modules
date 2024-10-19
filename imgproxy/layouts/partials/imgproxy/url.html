@@ -1,4 +1,4 @@
-{{/*  {{ $params := merge (dict "ext" "avif" "process_options" "" ) . }}  */}}
+{{/*  Returns the optimized imgproxy url for the passed options  */}}
 {{ $params := .}}
 {{ $path := "" }}
 {{ $host := "" }}
@@ -15,7 +15,7 @@
   {{ $ext := .format | strings.TrimLeft "." }}
 
   {{ if eq $sourceStyle "encoded" }}
-      {{ $encoded_src := partial "imgproxy/base64-encode" $src }}
+      {{ $encoded_src := partial "imgproxy/base64" $src }}
       {{ $path = printf "/%s/%s" $processingOptions $encoded_src }}
       {{ if $ext }}
         {{ $path = printf "%s.%s" $path $ext}}

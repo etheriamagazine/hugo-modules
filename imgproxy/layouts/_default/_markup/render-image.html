@@ -5,7 +5,7 @@
 {{- with (and site.Params.imgproxy.enabled site.Params.imgproxy) -}}
   {{- $original = $src -}}
 
-  {{- with partial "imgproxy/srcset" $src -}}
+  {{- with partial "imgproxy/responsive-urls" $src -}}
     {{- $src = .src -}}
     {{- $srcset = .srcset -}}
   {{- end -}}

@@ -13,7 +13,7 @@
 {{- if site.Params.imgproxy.enabled -}}
   {{- $original = $src -}}
 
-  {{- with partial "imgproxy/srcset" $src -}}
+  {{- with partial "imgproxy/responsive-urls" $src -}}
     {{- $src = .src -}}
     {{- $srcset = .srcset -}}
   {{- end -}}

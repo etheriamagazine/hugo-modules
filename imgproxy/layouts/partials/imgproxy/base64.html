@@ -1,3 +1,4 @@
+{{/*  base64 url encoding  */}}
 {{ $s := base64Encode . }}
 {{ $s := replace $s "+" "-" }}
 {{ $s := replace $s "/" "_" }}

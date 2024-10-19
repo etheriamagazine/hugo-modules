@@ -5,5 +5,5 @@
 {{ $msg := printf "%s%s" $salt $path }}
 {{ $signature := hmac "sha256" $key $msg "binary" }}
 
-{{ return (partial "imgproxy/base64-encode" $signature) }}
+{{ return (partial "imgproxy/base64" $signature) }}
 

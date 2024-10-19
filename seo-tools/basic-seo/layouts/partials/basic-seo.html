@@ -78,7 +78,7 @@
 {{ $imageResource := and $image (not $isStatic) (or (.Resources.Get $image) (resources.Get $image)) }}
 
 {{ $imageUrl := or (and $imageResource $imageResource.Permalink) (and $isStatic ($image | absURL)) (and $isAbsUrl $image) }}
-{{ $imageUrlOptimized := and $imageUrl (not $imageResource) (partial "image-optimize/url" (dict "src" $imageUrl "width")) }}
+{{ $imageUrlOptimized := and $imageUrl (not $imageResource) (partial "imgproxy/url" (dict "src" $imageUrl "processingOptions" "rs:fit:900" "format" "webp")) }}
 
 
 <!-- opengraph meta -->
