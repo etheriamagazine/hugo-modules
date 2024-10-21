@@ -16,6 +16,6 @@ title = 'Sky Theme'
   [[module.imports]]
     path = "github.com/etheriamagazine/hugo-modules/seo-tools/basic-seo"
   [[module.imports]]
-    path = "github.com/etheriamagazine/hugo-modules/plausible-analytics"
+    path = "github.com/etheriamagazine/hugo-modules/seo-tools/plausible-analytics"
   [[module.imports]]
     path = "github.com/etheriamagazine/hugo-modules/seo-tools/json-ld"

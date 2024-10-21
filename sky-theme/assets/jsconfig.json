@@ -4,9 +4,9 @@
   "paths": {
    "*": [
     "*",
-    "../../../../../.cache/hugo_cache/modules/filecache/modules/pkg/mod/github.com/etheriamagazine/hugo-modules/jslibs/alpinejs@v0.0.0-20241009150218-b59537d54347/package/dist/*",
-    "../../../../../.cache/hugo_cache/modules/filecache/modules/pkg/mod/github.com/etheriamagazine/hugo-modules/jslibs/minisearch@v0.0.0-20241009150218-b59537d54347/package/dist/es/*",
-    "../../../../../.cache/hugo_cache/modules/filecache/modules/pkg/mod/github.com/etheriamagazine/hugo-modules/jslibs/preact-bundle@v0.0.0-20241009150218-b59537d54347/dist/*"
+    "../../../../../.cache/hugo_cache/modules/filecache/modules/pkg/mod/github.com/etheriamagazine/hugo-modules/jslibs/alpinejs@v0.0.0-20241017082529-e533b07a56b7/package/dist/*",
+    "../../../../../.cache/hugo_cache/modules/filecache/modules/pkg/mod/github.com/etheriamagazine/hugo-modules/jslibs/minisearch@v0.0.0-20241017082529-e533b07a56b7/package/dist/es/*",
+    "../../../../../.cache/hugo_cache/modules/filecache/modules/pkg/mod/github.com/etheriamagazine/hugo-modules/jslibs/preact-bundle@v0.0.0-20241017082529-e533b07a56b7/dist/*"
    ]
   }
  }
