@@ -6,7 +6,7 @@
     {{ $processingOptions := .processingOptions | default "rs:fit:%s" }}
 
     {{ range .responsiveSizes }}
-      {{ $url := partial "imgproxy/request-url" (dict
+      {{ $url := partial "imgproxy/url" (dict
         "src" $src
         "processingOptions" (printf $processingOptions (string .))
         "format" $format)
@@ -15,7 +15,7 @@
     {{ end }}
 
     {{ with .defaultSize }}
-      {{ $src = partial "imgproxy/request-url" (dict
+      {{ $src = partial "imgproxy/url" (dict
         "src" $src
         "processingOptions" (printf $processingOptions (string .))
         "format" $format)

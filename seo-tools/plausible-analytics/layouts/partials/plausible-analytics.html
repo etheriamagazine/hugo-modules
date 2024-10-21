@@ -1,0 +1,13 @@
+{{ with (index site.Params "plausible-analytics") }}
+  {{ if .enable }}
+    {{ $server := .server | default "https://plausible.io" | strings.TrimRight "/" }}
+    {{ $domain := or .domain (warnf "module plausible-analytics: no tracking domain specified in config") }}
+    {{ $features := delimit (.features | default slice) "." }}
+
+
+    <script
+      defer
+      data-domain="{{ $domain }}"
+      src="{{ printf `%s/js/script.%s.js` $server $features }}"></script>
+  {{ end }}
+{{ end }}
