@@ -37,17 +37,16 @@
 
     {{ end }}
 
-    {{ $fileName := printf "%s.js" (delimit $tokens  ".") }}
-
+    {{ $scriptName := printf "%s.js" (delimit $tokens  ".") }}
 
     {{/* main plausible script */}}
     <script
       defer
       data-domain="{{ $domain }}"
       {{ with (and .proxy (.proxyPath | strings.TrimRight "/")) }}
-        data-api="{{ . }}/api/event" src="{{ printf `%s/js/%s` . $fileName }}"
+        data-api="{{ . }}/api/event" src="{{ printf `%s/js/%s` . $scriptName }}"
       {{ else }}
-        src="{{ printf `%s/%s` $server $fileName }}"
+        src="{{ printf `%s/js/  %s` $server $scriptName }}"
       {{ end }}></script>
 
     {{/* custom goals script */}}
@@ -60,7 +59,7 @@
         };
     </script>
 
-    {{/*  track 404 when 404.html template */}}
+    {{/* track 404 when 404.html template */}}
     {{ if and .optional.error404 (eq $.Kind "404") }}
       <script>
         document.addEventListener("DOMContentLoaded", function () {
