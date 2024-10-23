@@ -10,8 +10,7 @@
       {{- else }}
         {{- with . | minify | fingerprint -}}
           <link
-            re
-            l="stylesheet"
+            rel="stylesheet"
             href="{{ .RelPermalink }}"
             integrity="{{ .Data.Integrity }}"
             crossorigin="anonymous" />

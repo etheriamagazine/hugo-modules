@@ -22,20 +22,51 @@ Call it, as a partial in your theme head.
 
 Add some following configuration to your `config/_default/params.toml` file.
 
-Configuration Options:
-  - `server`: base url of the self hosted server. If not set, it will direct the script to plausibles's managed offering.
-  - `domain`: sets the tracking domain
-  - `features`: list of optional features that can be enabled. See: https://plausible.io/docs/script-extensions
+
+## Common Options:
+  - `enable`: Enable or disable the script injection. Default `true`.
+  
+  - `domain`: sets the tracking domain/site.
+  
+  - `selfHostedServer`: Use when you self host a plausible server. By default the script uses `plausible.io`.
+
+## Optional features
+Optional features are enabled using the appropriate option and, depending on the
+measurement, adding some css classes to the elements to track or some custom
+javascript to push the event to plausible.
+
+See config example for enabling values.
+
+## Proxying the script to bypass Adblockers
+
+Please set these two configuration options:
+
+  - `proxy`: when true, the script is mounted as part of a route in your server. Use caddy, nginx, express or other
+  backend software to setup a reverse proxy that rewrites this route appropiately to `plausible.io`. See [this plausible blogpost](https://plausible.io/docs/proxy/introduction) for more information.
+
+  - `proxyPath`: the root path where the script will be mounted in your app. Make sure it doesn't conflict with
+  and existing hugo path.
+
 
 ```toml
 # Plausible Analytics
-[plausible-analytics]
+[plausible]
   enable = true
-  server   = "https://plausible.etheriamagazine.com"
+
+  selfHostedServer = "https://plausible.etheriamagazine.com"
   domain = "etheriamagazine.com"
-  features = [
-    "local",
-    "file-downloads",
-    "outbound-links"
-  ]
+
+  proxy = true  
+  proxyPath = "/eu-compliance" # dont' use common words like `stats` or `analytics`
+
+  [plausible.optional]
+    local = true
+    fileDownloads = true 
+    outboundLinks = true
+    error404 = false
+    hashedPaths = true
+    customEvents = true
+    customProps = true
+    revenue  = true
+
 ```
