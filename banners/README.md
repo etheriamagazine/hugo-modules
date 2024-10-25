@@ -1,30 +1,25 @@
-# Basic SEO with Opengraph and Twitter Card
-
-Taken and modified from: https://github.com/gethugothemes/hugo-modules/tree/master/seo-tools/basic-seo 
-
-Changes to original module:
-  - For a regular page, standard hugo `.Summary` will be rendered in meta description.
-  - Added `titleFormat` to adjust the format in pages.
+# Banners
+Add banners effortlesly to you hugo site
+rmat in pages.
 
 
-## Basic Seo Module
+## Import module
 
 Add the following code to your module list in the `config/_default/module.toml` file.
 
 ```toml
 [[imports]]
-path = "github.com/gethugothemes/hugo-modules/seo-tools/basic-seo"
+path = "github.com/etheriamagazine/hugo-modules/banners"
 ```
 
 <hr>
 
 ## Basic Seo Implementation
 
-Call it, as a partial in your theme head.
+Call it, as a partial to get the active banners.
 
 ```html
-<!-- opengraph -->
-{{ partial "basic-seo.html" . }}
+{{ $ads := partial "banners.html" . }}
 ```
 
 Add some following configuration to your `config/_default/params.toml` file.
