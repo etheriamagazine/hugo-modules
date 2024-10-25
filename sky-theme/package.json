@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "css": "tailwindcss --input ./assets/css/main.css --output -",
-    "dev": "hugo server --config hugo.toml,hugo.dev.toml --cleanDestinationDir"
+    "dev": "bun scripts/dev.sh"
   },
   "author": "",
   "license": "ISC",

@@ -9,7 +9,7 @@
       {{ $dateHuman := .Date | time.Format ":date_long" }}
       <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
     </div>
-    <div class="ring-yellow-300 ring-yellow-400">
+    <div class="ring ring-yellow-400">
       {{ with .GetTerms "categories" }}
         {{ range . }}
           <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
@@ -20,10 +20,10 @@
       {{ $ads := . }}
       {{ $parts := split $.Content "<!--split-->" }}
       {{ $chunks := partial "partials/chunk_every" $parts }}
+      <div class="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
       {{ range $index, $p := $parts }}
         {{ $ai := mod $index (len $ads) }}
         {{ $currAd := index $ads $ai }}
-        <div class="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
           <div
             class="prose lg:prose-lg prose-img:w-full prose-img:aspect-[16/10] prose-img:object-cover prose-img:bo max-w-none
             {{- if eq $index 0 }}prose-intro{{ end -}}
@@ -34,7 +34,6 @@
           </div>
           <div class="flex flex-col hidden lg:block">
             <div
-              id="{{ now.UnixNano }}"
               class="sticky top-0 p-4 border rounded-sm border-gray-300 "
             >
               {{ with $.GetPage $currAd }}
@@ -43,8 +42,8 @@
 
             </div>
           </div>
-        </div>
       {{ end }}
+    </div>
     {{ else }}
         <div class="prose lg:prose-lg">
           {{ $.Content }}

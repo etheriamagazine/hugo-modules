@@ -1,0 +1,7 @@
+[module]
+  [[module.mounts]]
+    source = "package/swiper-bundle.js"
+    target = "assets/jslibs/swiper-bundle.js"
+  [[module.mounts]]
+    source = "package/swiper-element-bundle.js"
+    target = "assets/jslibs/swiper-element-bundle.js"

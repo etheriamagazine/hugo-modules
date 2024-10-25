@@ -1,2 +1,14 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# npm packages
 node_modules
+
+# hugo build
 public
+resources/_gen
+
+# dev secrets
+.env
+.env.local

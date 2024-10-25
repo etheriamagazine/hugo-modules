@@ -4,3 +4,40 @@
     [[module.mounts]]
         source = "dev_content"
         target = "content"
+
+    [[module.mounts]]
+        source = "assets"
+        target = "assets"
+
+    [[module.mounts]]
+        source = "layouts"
+        target = "layouts"
+
+
+[params]
+
+  [params.imgproxy]
+    enabled = true
+    host = "https://imgp.etheriamagazine.com/"
+    sourceStyle = "plain"
+
+    [params.imgproxy.responsive]
+      defaultSize = 900
+      responsiveSizes = [600, 900, 1200]
+      processingOptions = "rs:fit:%s"
+      format = "avif"
+
+
+  [params.plausible]
+    enable = true
+    domain = "etheriamagazine-com.fly.dev"
+
+    proxy = true
+    proxyPath = "/eu-compliance"
+
+    [params.plausible.optional]
+      local = true
+      fileDownloads = true
+      outboundLinks = true
+      error404 = true
+      customEvents = true
