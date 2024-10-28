@@ -1,10 +1,12 @@
 {{ define "main" }}
+  {{ $posts := where site.RegularPages "Type" "posts" }}
+
   {{ .Content }}
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
 
   <swiper-container navigation="true" pagination="true">
-    {{ range first 5 site.RegularPages }}
+    {{ range first 5 $posts }}
       <swiper-slide>
         {{ .Render "hero" }}
       </swiper-slide>
@@ -15,12 +17,12 @@
   {{ partial "subscribe/form" }}
 
   <div class="columns-2 gap-8">
-    {{ range first 2 (after 5 site.RegularPages) }}
+    {{ range first 2 (after 5 $posts) }}
       {{ .Render "summary" }}
     {{ end }}
   </div>
 
-  {{ range first 15 (after 7 site.RegularPages) }}
+  {{ range first 15 (after 7 $posts) }}
     {{ .Render "summary" }}
   {{ end }}
 

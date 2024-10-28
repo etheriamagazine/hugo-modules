@@ -1,0 +1,62 @@
+---
+title: Megabanner Civitatis 2024
+publishDate: 2023-11-04
+expiryDate: 2024-12-27
+ads:
+  group: civitatis
+---
+
+
+{{< hugoads/image "Logo_de_Civitatis.png" type="sidebar" >}}
+
+
+
+<img src="./Logo_de_Civitatis.png" alt="el logo de civitatis" />
+
+<div style="text-align:center;">
+  <script>
+    function loadScript(url, callback) {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      if (script.readyState) {
+        script.onreadystatechange = function () {
+          if (
+            script.readyState == "loaded" ||
+            script.readyState == "complete"
+          ) {
+            script.onreadystatechange = null;
+            callback();
+          }
+        };
+      } else {
+        script.onload = function () {
+          callback();
+        };
+      }
+      script.src = url;
+      document.getElementsByTagName("head")[0].appendChild(script);
+    }
+    loadScript(
+      "https://www.civitatis.com/f/js/vendor/iframeResizer.min.js",
+      function () {
+        iFrameResize({
+          checkOrigin: false,
+          initCallback: function (iframe) {
+            setTimeout(function () {
+              var resizeEvent = window.document.createEvent("UIEvents");
+              resizeEvent.initUIEvent("resize", true, false, window, 0);
+              iframe.dispatchEvent(resizeEvent);
+            });
+          },
+        });
+      },
+    );
+  </script>
+  <iframe
+    class="civitatis-iframe"
+    src="https://www.civitatis.com/widget-activities/?affiliated=10211&display=related&cant=2&lang=es&currency=EUR&destination=2&activities=113015,132786&transfer=0&cmp=Widget_Madrid_ES&width=100%&hideButton=0&centerContent=1&typeSelection=manual&color=009ed0&typography=Montserrat&removeBackground=1&showShadow=1&roundedButtons=1"
+    width="100%"
+    frameborder="0"
+    data-maxwidth="100%"
+    style="max-width: 100%"></iframe>
+</div>

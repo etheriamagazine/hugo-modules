@@ -21,7 +21,7 @@
       {{ $banners := partial "banners" }}
 
       {{ range $banners }}
-        .Content
+        {{ .Render "sidebar"  }}
       {{ end }}
 
       {{ block "main" . }}{{ end }}

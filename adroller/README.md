@@ -9,7 +9,7 @@ Add the following code to your module list in the `config/_default/module.toml` 
 
 ```toml
 [[imports]]
-path = "github.com/etheriamagazine/hugo-modules/banners"
+path = "github.com/etheriamagazine/hugo-modules/adroller"
 ```
 
 <hr>
