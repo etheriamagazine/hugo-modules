@@ -17,13 +17,6 @@
       {{ partial "header.html" . }}
     </header>
     <main class="container mx-auto px-8">
-
-      {{ $banners := partial "banners" }}
-
-      {{ range $banners }}
-        {{ .Render "sidebar"  }}
-      {{ end }}
-
       {{ block "main" . }}{{ end }}
     </main>
     <div id="react"></div>

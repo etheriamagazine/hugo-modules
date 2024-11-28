@@ -1,4 +1,4 @@
-{{ $params :=  site.Params.hugoEtheria.subscribeForm }}
+{{ $params :=  site.Params.hugoEtheria.subscribeForm | default dict }}
 
 
 <section x-data ="subscribeForm({{ $params | jsonify     }})" class="overflow-hidden">
@@ -80,37 +80,37 @@
             </form>
           </div>
         </div>
-      </div>    
-    </div> 
+      </div>
+    </div>
     <!-- result panel -->
     <div class="flex-none basis-full">
       <div class="bg-white rounded-lg p-10 flex items-center justify-center">
         <div>
           <div x-show="formState === 'success'">
             <svg class="mb-4 h-20 w-20 text-green-500 mx-auto" viewBox="0 0 20 20" fill="currentColor">  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-        
+
             <h2 class="text-2xl mb-4 text-gray-800 text-center font-bold">Registration Success</h2>
-        
+
             <div class="text-gray-600 mb-8">
               Thank you. We have sent you an email to demo@demo.test. Please click the link in the message to activate your account.
             </div>
           </div>
           <div x-show="formState === 'error'">
             <svg class="mb-4 h-20 w-20 text-red-500 mx-auto" viewBox="0 0 20 20" fill="currentColor">  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-        
+
             <h2 class="text-2xl mb-4 text-gray-800 text-center font-bold">Error</h2>
-        
+
             <div class="text-gray-600 mb-8">
               No hemos podido darte de alta en el Newsletter.
             </div>
-          </div>          
+          </div>
           <button
             @click="reset"
-            class="w-40 block mx-auto focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border" 
+            class="w-40 block mx-auto focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border"
           >Back to home2</button>
         </div>
       </div>
-    </div>  
+    </div>
   </div>
 </section>
 
@@ -133,14 +133,14 @@
       }
 
       return await response.json();
-    } 
+    }
 
     return {
       formState: "",
       data: {},
       buttonText: "",
-      loading: false,    
-      response: null,  
+      loading: false,
+      response: null,
 
       init() {
         this.reset();
@@ -155,7 +155,7 @@
         this.buttonText = "Suscribirme",
         this.response = null;
         this.loading = false;
-      },      
+      },
 
       get page() {
         switch(this.formState) {
@@ -180,7 +180,7 @@
 
         try
         {
-          
+
           const [response] = await Promise.all([postForm(this.data), minDelay]);
           this.response = response;
           this.formState = "success";
@@ -189,7 +189,7 @@
           console.log('hola')
 
           this.formState = "error";
-          
+
         } finally {
         }
       },

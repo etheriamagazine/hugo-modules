@@ -133,7 +133,7 @@ export function Search(props) {
                 class="
                 border-0
                 outline-0
-                &::-webkit-search-cancel-button]:hidden 
+                &::-webkit-search-cancel-button]:hidden
                 flex-auto appearance-none focus:outline-none
                 "
                 autocomplete="off"
@@ -148,7 +148,7 @@ export function Search(props) {
               <button
                 class="
                 bg-white rounded-md w-7 h-6 bg-center p-2  shadowS
-              
+
                 "
                 onClick=${execute}
               >
@@ -161,7 +161,7 @@ export function Search(props) {
               (item) => html` <p dangerouslySetInnerHTML=${{ __html: item.hints['title'] }}></p> `,
             )}
           </div>
-          <footer class="p-8">footer2</footer>
+          <footer class="p-8 text-pink-300">footer2</footer>
         </div>
       </div>
     </div>`;

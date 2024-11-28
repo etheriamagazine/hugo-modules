@@ -1,7 +1,8 @@
 {{ with (templates.Defer (dict "key" "global")) }}
+  {{ $t := debug.Timer "tailwindcssTMR" }}
   {{ with resources.Get "css/main.css" }}
     {{ $opts := dict
-      "inlineImports" "true"
+      "inlineImports" true
       "optimize" (not hugo.IsDevelopment)
     }}
     {{ with . | css.TailwindCSS $opts }}
@@ -13,9 +14,10 @@
             rel="stylesheet"
             href="{{ .RelPermalink }}"
             integrity="{{ .Data.Integrity }}"
-            crossorigin="anonymous" data-hola="hola" />
+            crossorigin="anonymous" />
         {{ end }}
       {{ end }}
     {{ end }}
   {{ end }}
+  {{ $t.Stop }}
 {{ end }}

@@ -41,3 +41,6 @@
       outboundLinks = true
       error404 = true
       customEvents = true
+
+  [params.ads]
+    adsSection = "publi"

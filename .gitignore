@@ -5,9 +5,10 @@ Thumbs.db
 # npm packages
 node_modules
 
-# hugo build
+# hugo build output & temp files
 public
 resources/_gen
+.hugo_build.lock
 
 # dev secrets
 .env

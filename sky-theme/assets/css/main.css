@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-@source './**/*.{js, html}';
 
 @theme {
   --color-orange-300: #f56642;

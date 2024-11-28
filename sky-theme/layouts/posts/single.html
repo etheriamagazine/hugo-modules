@@ -16,7 +16,10 @@
         {{ end }}
       {{ end }}
     </div>
-    {{ with .Site.Params.publi.items }}
+
+
+    {{ with partial "ads" "sidebar" }}
+
       {{ $ads := . }}
       {{ $parts := split $.Content "<!--split-->" }}
       {{ $chunks := partial "partials/chunk_every" $parts }}
@@ -32,11 +35,11 @@
             {{ $p | safeHTML }}
             <p class="hidden"></p>
           </div>
-          <div class="flex flex-col hidden lg:block">
+          <div class="flex flex-col ">
             <div
               class="sticky top-0 p-4 border rounded-sm border-gray-300 "
             >
-            {{ with $.GetPage $currAd }}
+            {{ with $currAd }}
               {{ .Content }}
             {{ end }}
 

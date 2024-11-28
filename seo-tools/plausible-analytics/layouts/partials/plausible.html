@@ -1,4 +1,4 @@
-{{ with (index site.Params "plausible") }}
+{{ with and (hugo.IsProduction) (index site.Params "plausible") }}
   {{ if or .enable (not (isset . "enable")) }}
     {{ $domain := or .domain (errorf "module plausible-analytics: no tracking domain specified in config") }}
 
