@@ -19,8 +19,8 @@ ignoreFiles = ['^banners/']
     target = "css"
 
   [[build.cachebusters]]
-      source = "assets/notwatching/hugo_stats\\.json"
-      target = "css"
+    source = "assets/notwatching/hugo_stats\\.json"
+    target = "css"
 
 
 [module]
@@ -68,6 +68,6 @@ ignoreFiles = ['^banners/']
     target = "static"
 
   [[module.mounts]]
-      source  = "hugo_stats.json"
-      target = "assets/notwatching/hugo_stats.json"
-      disableWatch = true
+    source = "hugo_stats.json"
+    target = "assets/notwatching/hugo_stats.json"
+    disableWatch = true
