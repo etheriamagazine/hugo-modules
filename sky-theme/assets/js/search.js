@@ -161,7 +161,7 @@ export function Search(props) {
               (item) => html` <p dangerouslySetInnerHTML=${{ __html: item.hints['title'] }}></p> `,
             )}
           </div>
-          <footer class="p-8 text-blue-300">footer2</footer>
+          <footer class="p-8 text-red-300">footer6</footer>
         </div>
       </div>
     </div>`;
