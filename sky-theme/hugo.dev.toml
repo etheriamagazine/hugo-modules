@@ -1,17 +1,30 @@
 [module]
 
-    # mount sample content
-    [[module.mounts]]
-        source = "dev_content"
-        target = "content"
+  [[module.mounts]]
+    source = "archetypes"
+    target = "archetypes"
 
-    [[module.mounts]]
-        source = "assets"
-        target = "assets"
+  [[module.mounts]]
+    source = "assets"
+    target = "assets"
 
-    [[module.mounts]]
-        source = "layouts"
-        target = "layouts"
+  [[module.mounts]]
+    source = "layouts"
+    target = "layouts"
+
+  [[module.mounts]]
+    source = "static"
+    target = "static"
+
+  # sample content
+  [[module.mounts]]
+      source = "dev_content"
+      target = "content"
+
+  [[module.mounts]]
+    source = "hugo_stats.json"
+    target = "assets/notwatching/hugo_stats.json"
+    disableWatch = true
 
 
 [params]

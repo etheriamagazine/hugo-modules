@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+@source "./hugo_stats.json";
+@source "./public/js/main.js";
 
 @theme {
   --color-orange-300: #f56642;
@@ -33,11 +35,8 @@ body {
 }
 
 
-@import './fonts.css';
+@import "./fonts.css";
 
-@theme {
-
-}
 
 @layer base {
   html {
@@ -60,6 +59,7 @@ body {
     font-weight: 400;
   }
 }
+
 @layer utilities {
 
   .prose-intro > p:nth-of-type(2)::first-line {
