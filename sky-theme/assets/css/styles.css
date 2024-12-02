@@ -1,8 +1,9 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* extract classes from hugo build output */
 @source "./hugo_stats.json";
-@source "./public/js/main.js";
+@source "./public/js";
 
 @theme {
   --color-orange-300: #f56642;
