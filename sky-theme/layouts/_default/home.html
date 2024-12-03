@@ -13,8 +13,17 @@
     {{ end }}
   </swiper-container>
 
-  <button class="ring-2 ring-fuchsia-300 ring-inset">Esto es lo mejor 117</button>
+  <button class="ring-2 ring-fuchsia-300 ring-inset">Esto es lo mejor 119</button>
   {{ partial "subscribe/form" }}
+
+  <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+  <script src="/pagefind/pagefind-ui.js"></script>
+  <div id="search3"></div>
+  <script>
+      window.addEventListener('DOMContentLoaded', (event) => {
+          new PagefindUI({ element: "#search3", showSubResults: true });
+      });
+  </script>
 
   <div class="columns-2 gap-8">
     {{ range first 2 (after 5 $posts) }}
