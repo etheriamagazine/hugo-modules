@@ -11,6 +11,9 @@ resources/_gen
 .hugo_build.lock
 hugo_stats.json
 
+# pagefind
+**/static/pagefind
+
 # dev secrets
 .env
 .env.local
