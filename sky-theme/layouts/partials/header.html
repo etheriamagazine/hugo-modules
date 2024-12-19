@@ -1,6 +1,4 @@
-  <nav
-  class="mx-auto flex h-20 max-w-7xl items-center "
->
+<nav class="mx-auto flex h-20 items-center">
   <!-- Main navbar for large screens -->
   <div class="flex w-full items-center justify-between">
     <!-- Logo-->
@@ -15,17 +13,14 @@
 
     <!-- Navigation for large screens -->
     <div
-      class="ml-6 hidden items-center justify-between text-xl md:flex md:space-x-0.5 md:text-base lg:space-x-2"
-    >
-
-      <!-- Template pages dropdown container -->
+      class="ml-6 hidden items-center justify-between text-xl md:flex md:space-x-0.5 md:text-base lg:space-x-2">
+      <!-- Menu 1: travelInterests -->
       <div class="relative" x-data="{ open: false }">
-        <!-- Pages dropdown button -->
+        <!-- Dropdown arrow -->
         <button
           type="button"
           class="group flex items-center px-3 py-1 text-sm uppercase font-semibold text-primary-600 transition duration-300 ease-in-out hover:text-primary-700"
-          @click="open = true"
-        >
+          @click="open = true">
           <span :class="{'text-primary-700': open}">Viaja como eres</span>
 
           <!-- Heroicon name: solid/chevron-down -->
@@ -34,158 +29,157 @@
             class="ml-2 h-5 w-5 transform text-gray-600 duration-300 group-hover:text-primary-700"
             :class="{'rotate-180 text-primary-700': open}"
             viewBox="0 0 20 20"
-            fill="currentColor"
-          >
+            fill="currentColor">
             <path
               fill-rule="evenodd"
               d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-              clip-rule="evenodd"
-            />
+              clip-rule="evenodd" />
           </svg>
         </button>
 
-        <!-- Pages dropdown -->
+        <!-- Dropdown Menu-->
         <div
           style="display: none"
           class="absolute right-0 z-20 mt-3 w-52 space-y-1 rounded-xl bg-white p-2.5 outline-none drop-shadow filter focus:outline-none"
           x-show.transition="open"
-          @click.away="open = false"
-        >
-          <a
-            href="index.html"
-            class="block rounded-lg px-5 py-3.5 font-semibold text-primary-600 transition duration-300 ease-in-out hover:bg-gray-50 hover:text-primary-700"
-          >
-            Home
-          </a>
-          <a
-            href="category.html"
-            class="block rounded-lg px-5 py-3.5 font-semibold text-primary-600 transition duration-300 ease-in-out hover:bg-gray-50 hover:text-primary-700"
-          >
-            Category page
-          </a>
-          <a
-            href="post.html"
-            class="block rounded-lg px-5 py-3.5 font-semibold text-primary-600 transition duration-300 ease-in-out hover:bg-gray-50 hover:text-primary-700"
-          >
-            Post
-          </a>
-          <a
-            href="author.html"
-            class="block rounded-lg px-5 py-3.5 font-semibold text-primary-600 transition duration-300 ease-in-out hover:bg-gray-50 hover:text-primary-700"
-          >
-            Author page
-          </a>
-          <a
-            href="tag.html"
-            class="block rounded-lg px-5 py-3.5 font-semibold text-primary-600 transition duration-300 ease-in-out hover:bg-gray-50 hover:text-primary-700"
-          >
-            Tag page
-          </a>
-          <a
-            href="about.html"
-            class="block rounded-lg px-5 py-3.5 font-semibold text-primary-600 transition duration-300 ease-in-out hover:bg-gray-50 hover:text-primary-700"
-          >
-            About us
-          </a>
-          <a
-            href="contact.html"
-            class="block rounded-lg px-5 py-3.5 font-semibold text-primary-600 transition duration-300 ease-in-out hover:bg-gray-50 hover:text-primary-700"
-          >
-            Contact us
-          </a>
-          <a
-            href="privacy-policy.html"
-            class="block rounded-lg px-5 py-3.5 font-semibold text-primary-600 transition duration-300 ease-in-out hover:bg-gray-50 hover:text-primary-700"
-          >
-            Privacy policy
-          </a>
-          <a
-            href="404.html"
-            class="block rounded-lg px-5 py-3.5 font-semibold text-primary-600 transition duration-300 ease-in-out hover:bg-gray-50 hover:text-primary-700"
-          >
-            404 page
-          </a>
+          @click.away="open = false">
+          {{ range $.Site.Params.navigation.travelInterests }}
+            {{ with index $.Site.Taxonomies.categories . }}
+              <a
+                href="{{ .Page.Permalink }}"
+                class="block rounded-lg px-5 py-3.5 font-semibold uppercase text-primary-600 transition duration-300 ease-in-out hover:bg-gray-50 hover:text-primary-700">
+                {{ .Page.Title }}
+              </a>
+            {{ end }}
+          {{ end }}
+
         </div>
       </div>
 
+      <!-- Menu 2: travelPlanning -->
+      <div class="relative" x-data="{ open: false }">
+        <!-- Dropdown arrow -->
+        <button
+          type="button"
+          class="group flex items-center px-3 py-1 text-sm uppercase font-semibold text-primary-600 transition duration-300 ease-in-out hover:text-primary-700"
+          @click="open = true">
+          <span :class="{'text-primary-700': open}">Organiza tu viaje</span>
 
-      <a
-        href="category.html"
-        class="px-3 py-1 text-sm uppercase font-semibold text-primary-600 transition duration-300 ease-in-out hover:text-primary-700"
-      >
-        Dolce far niente
-      </a>
-      <a
-        href="category.html"
-        class="px-3 py-1 text-sm uppercase font-semibold text-primary-600 transition duration-300 ease-in-out hover:text-primary-700"
-      >
-        Planes y cultura
-      </a>
-      <a
-        href="category.html"
-        class="px-3 py-1 text-sm uppercase font-semibold text-primary-600 transition duration-300 ease-in-out hover:text-primary-700"
-      >
-        Bienestar
-      </a>
-
-    </div>
-
-    <!-- Search -->
-    <div class="relative ml-6 h-10 w-64 rounded-3xl">
-      <form class="group rounded-3xl transition duration-300 ease-in-out">
-        <div class="absolute inset-y-0 left-3 flex items-center">
-          <!-- Heroicon name: solid/search -->
+          <!-- Heroicon name: solid/chevron-down -->
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5 text-gray-400"
+            class="ml-2 h-5 w-5 transform text-gray-600 duration-300 group-hover:text-primary-700"
+            :class="{'rotate-180 text-primary-700': open}"
             viewBox="0 0 20 20"
-            fill="currentColor"
-          >
+            fill="currentColor">
             <path
               fill-rule="evenodd"
-              d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-              clip-rule="evenodd"
-            />
+              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+              clip-rule="evenodd" />
           </svg>
-        </div>
+        </button>
 
-        <input
-          type="text"
-          class="h-10 w-full rounded-3xl border border-gray-200 bg-white px-10 py-3 text-sm leading-5 text-primary-600 transition duration-300 ease-in-out hover:bg-gray-50 focus:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-red-100"
-          required
-          placeholder="Search..."
-        />
-      </form>
+        <!-- Dropdown Menu-->
+        <div
+          style="display: none"
+          class="absolute right-0 z-20 mt-3 w-52 space-y-1 rounded-xl bg-white p-2.5 outline-none drop-shadow filter focus:outline-none"
+          x-show.transition="open"
+          @click.away="open = false">
+          {{ range $.Site.Params.navigation.travelPlanning }}
+            {{ with index $.Site.Taxonomies.categories . }}
+              <a
+                href="{{ .Page.Permalink }}"
+                class="block rounded-lg px-5 py-3.5 font-semibold uppercase text-primary-600 transition duration-300 ease-in-out hover:bg-gray-50 hover:text-primary-700">
+                {{ .Page.Title }}
+              </a>
+            {{ end }}
+          {{ end }}
+
+        </div>
+      </div>
+
+      <!-- Menu 3: plansAndCulture -->
+      <div class="relative" x-data="{ open: false }">
+        <!-- Dropdown arrow -->
+        <button
+          type="button"
+          class="group flex items-center px-3 py-1 text-sm uppercase font-semibold text-primary-600 transition duration-300 ease-in-out hover:text-primary-700"
+          @click="open = true">
+          <span :class="{'text-primary-700': open}">Planes y cultura</span>
+
+          <!-- Heroicon name: solid/chevron-down -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="ml-2 h-5 w-5 transform text-gray-600 duration-300 group-hover:text-primary-700"
+            :class="{'rotate-180 text-primary-700': open}"
+            viewBox="0 0 20 20"
+            fill="currentColor">
+            <path
+              fill-rule="evenodd"
+              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+              clip-rule="evenodd" />
+          </svg>
+        </button>
+
+        <!-- Dropdown Menu-->
+        <div
+          style="display: none"
+          class="absolute right-0 z-20 mt-3 w-52 space-y-1 rounded-xl bg-white p-2.5 outline-none drop-shadow filter focus:outline-none"
+          x-show.transition="open"
+          @click.away="open = false">
+          {{ range $.Site.Params.navigation.plansAndCulture }}
+            {{ with index $.Site.Taxonomies.categories . }}
+              <a
+                href="{{ .Page.Permalink }}"
+                class="block rounded-lg px-5 py-3.5 font-semibold uppercase text-primary-600 transition duration-300 ease-in-out hover:bg-gray-50 hover:text-primary-700">
+                {{ .Page.Title }}
+              </a>
+            {{ end }}
+          {{ end }}
+
+        </div>
+      </div>
+
+      <a
+        href="category.html"
+        class="px-3 py-1 text-sm uppercase font-semibold text-primary-600 transition duration-300 ease-in-out hover:text-primary-700">
+        Bienestar
+      </a>
     </div>
 
-    <!-- Hamburger menu button -->
-    <button
-      class="group relative ml-6 flex cursor-pointer items-center justify-center rounded-xl bg-gray-50 p-3 transition duration-300 ease-in-out hover:bg-gray-100 focus:outline-none md:hidden"
-      aria-label="Toggle Navigation"
-      @click="mobileMenuOpen = !mobileMenuOpen"
-    >
-      <span
-        class="relative h-3.5 w-4 transform transition duration-500 ease-in-out"
+    <div class="ml-auto flex items-center justify-between lg:border-l lg:border-slate-900/15">
+      <!-- search desktop -->
+      <button id="search-lens" type="button" class="cursor-pointer -my-1 ml-auto flex size-8 items-center justify-center rounded-lg lg:ml-6"><span class="sr-only">Search components</span><svg fill="none" xmlns="http://www.w3.org/2000/svg" class="size-6 fill-gray-900 hover:fill-gray-900"><path d="M20.47 21.53a.75.75 0 1 0 1.06-1.06l-1.06 1.06Zm-9.97-4.28a6.75 6.75 0 0 1-6.75-6.75h-1.5a8.25 8.25 0 0 0 8.25 8.25v-1.5ZM3.75 10.5a6.75 6.75 0 0 1 6.75-6.75v-1.5a8.25 8.25 0 0 0-8.25 8.25h1.5Zm6.75-6.75a6.75 6.75 0 0 1 6.75 6.75h1.5a8.25 8.25 0 0 0-8.25-8.25v1.5Zm11.03 16.72-5.196-5.197-1.061 1.06 5.197 5.197 1.06-1.06Zm-4.28-9.97c0 1.864-.755 3.55-1.977 4.773l1.06 1.06A8.226 8.226 0 0 0 18.75 10.5h-1.5Zm-1.977 4.773A6.727 6.727 0 0 1 10.5 17.25v1.5a8.226 8.226 0 0 0 5.834-2.416l-1.061-1.061Z"></path></svg></button>
+
+      <!-- button -->
+      <a
+        class="ml-6 inline-flex justify-center rounded-lg text-sm font-semibold py-2.5 px-4 bg-primary-600 text-white hover:bg-primary-700 -my-2.5 "
+        href="/all-access"
+        ><span>Suscríbete <span class="hidden lg:inline">gratis</span><span aria-hidden="true">→</span></span></a
       >
-        <span
-          class="absolute block h-0.5 rotate-0 transform rounded-full bg-gray-600 opacity-100 transition-all duration-300 ease-in-out group-hover:bg-gray-900"
-          :class="mobileMenuOpen ? 'w-0 top-1.5 left-1/2': 'top-0 left-0 w-full'"
-        ></span>
-        <span
-          class="absolute left-0 top-1.5 block h-0.5 w-full transform rounded-full bg-gray-600 opacity-100 transition-all duration-300 ease-in-out group-hover:bg-gray-900"
-          :class="mobileMenuOpen ? 'rotate-45': 'rotate-0'"
-        ></span>
-        <span
-          class="absolute left-0 top-1.5 block h-0.5 w-full transform rounded-full bg-gray-600 opacity-100 transition-all duration-300 ease-in-out group-hover:bg-gray-900"
-          :class="mobileMenuOpen ? '-rotate-45': 'rotate-0'"
-        ></span>
-        <span
-          class="absolute block h-0.5 rotate-0 transform rounded-full bg-gray-600 opacity-100 transition-all duration-300 ease-in-out group-hover:bg-gray-900"
-          :class="mobileMenuOpen ? 'top-1.5 left-1/2 w-0': 'left-0 top-3 w-full'"
-        ></span>
-      </span>
-    </button>
+
+
+      <!-- three dots button -->
+      <div class="ml-2 -my-1 lg:hidden">
+        <button
+          type="button"
+          class="text-slate-500 w-8 h-8 flex items-center justify-center hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300">
+          <span class="sr-only">Navigation</span
+          ><svg width="24" height="24" fill="none" aria-hidden="true">
+            <path
+              d="M12 6v.01M12 12v.01M12 18v.01M12 7a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm0 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm0 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+        </button>
+        <div
+          hidden=""
+          style="position:fixed;top:1px;left:1px;width:1px;height:0;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border-width:0;display:none"></div>
+      </div>
+    </div>
   </div>
 </nav>
-  
+
 {{ partial "menu.html" (dict "menuID" "main" "page" .) }}

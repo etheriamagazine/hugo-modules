@@ -47,6 +47,11 @@ body {
     --swiper-navigation-color: #fff;
     --swiper-pagination-color: #fff;
   }
+
+  mark
+  {
+    @apply inline font-bold bg-transparent border-b-primary-600 border-b-3 text-primary-600 px-0;
+  }
 }
 
 @layer utilities {

@@ -7,9 +7,9 @@
       </h1>
       {{ $dateMachine := .Date | time.Format "2006-01-02" }}
       {{ $dateHuman := .Date | time.Format ":date_long" }}
-      <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
+      <time datetime="{{ $dateMachine }}" data-pagefind-ignore>{{ $dateHuman }}</time>
     </div>
-    <div class="ring ring-yellow-400">
+    <div class="ring ring-yellow-400" data-pagefind-ignore>
       {{ with .GetTerms "categories" }}
         {{ range . }}
           <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>

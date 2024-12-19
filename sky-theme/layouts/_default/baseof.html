@@ -13,11 +13,15 @@
   </head>
 
     <body>
-    <header class="container mx-auto px-8">
+    <header class="mx-auto px-4 md:px-8 lg:px-16 border-b-2 border-gray-100">
       {{ partial "header.html" . }}
     </header>
-    <main class="container mx-auto px-8">
+    <main class="mx-auto px-4 md:px-8 lg:px-16 mt-8" data-pagefind-body>
       {{ block "main" . }}{{ end }}
+
+
+      <pre>{{ debug.Dump $.Site.Taxonomies.categories }}</pre>
+
     </main>
     <div id="react"></div>
 

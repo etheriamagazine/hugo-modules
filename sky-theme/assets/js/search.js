@@ -5,75 +5,42 @@ import {
   signal,
   useSignal,
   useEffect,
+  useRef,
   useComputed,
 } from "jslibs/preact-bundle.js";
-import MiniSearch from "jslibs/minisearch.js";
 
-async function fetchIndex() {
-  const response = await fetch("/index.json");
-  const index = await response.json();
-  return index;
-}
-var docs = await fetchIndex();
-let miniSearch = new MiniSearch({
-  fields: ["title"], // fields to index for full-text search
-  storeFields: ["title"], // fields to return with search results
-});
-miniSearch.addAll(docs);
-console.log("done");
-
-function markHints(result) {
-  const hints = {};
-
-  result.terms.forEach((term) => {
-    const regexp = new RegExp(`(${term})`, "gi");
-
-    result.match[term].forEach((field) => {
-      const value = result[field];
-
-      if (typeof value === "string") {
-        hints[field] = value.replace(regexp, "<mark>$1</mark>");
-      } else if (field === "headings") {
-        const markedValue = value.reduce((items, h) => {
-          if (h.title.toLowerCase().includes(term)) {
-            items.push({
-              id: h.id,
-              title: h.title.replace(regexp, "<mark>$1</mark>"),
-            });
-          }
-          return items;
-        }, []);
-        hints[field] = markedValue.length ? markedValue : null;
-      }
-    });
-  });
-
-  return hints;
-}
+const path = "/pagefind/pagefind.js";
+const pagefind = await import(path);
+pagefind.init();
 
 export function Search(props) {
-  const onInput = (event) => (searchText.value = event.currentTarget.value);
-  const searchText = useSignal("");
+  const input = useRef();
   const isOpen = useSignal(false);
-  //   const results = useSignal([{id: '2024/04/lo-mejor.html', text: 'Lo mejor es lo mejor'}]);
+  const searchText = useSignal("");
+  const results = useSignal([]);
+  const resultSize = useSignal(5);
+  const onInput = (event) => (searchText.value = event.currentTarget.value);
 
-  const results = useComputed(() => {
-    if (!searchText.value) {
-      return [];
+  // note second parameter to useEffect
+  useEffect(async () => {
+    const search = await pagefind.debouncedSearch(searchText.value);
+
+    if (search) {
+      const fiveResults = await Promise.all(
+        search.results.slice(0, resultSize.value).map((r) => r.data()),
+      );
+      results.value = fiveResults;
+    } else {
+      results.value = [];
     }
-    let res = miniSearch
-      .search(searchText.value, { prefix: true, fuzzy: 0.2 })
-      .map((result) => {
-        result.hints = markHints(result);
-        return result;
-      });
-    // console.log(res);
-    return res;
-  });
+  }, [searchText.value, resultSize.value]);
 
   useEffect(() => {
-    console.log(results.value);
-  });
+    if (isOpen.value) {
+      console.log("focus");
+      input.current.focus();
+    }
+  }, [isOpen.value]);
 
   useEffect(() => {
     function onKeyDown(event) {
@@ -84,6 +51,12 @@ export function Search(props) {
       ) {
         event.preventDefault();
 
+        // isOpen.value = !isOpen.value;
+        // if(isOpen.value) {
+        //   input.focus();
+        //   console.log(input);
+        // }
+
         if (isOpen.value) {
           isOpen.value = false;
         } else {
@@ -91,11 +64,17 @@ export function Search(props) {
         }
       }
     }
+    const button = document.getElementById("search-lens");
+
+    function onSearchLensClick(event) {
+      isOpen.value = true;
+    }
 
     window.addEventListener("keydown", onKeyDown);
-
+    button.addEventListener("click", onSearchLensClick)
     return () => {
       window.removeEventListener("keydown", onKeyDown);
+      button.removeEventListener("click", onSearchLensClick)
     };
   }, []);
 
@@ -103,20 +82,24 @@ export function Search(props) {
     alert(searchText.value);
   }
 
+  function loadMoreResults() {
+    resultSize.value += 5;
+  }
+
   if (isOpen.value) {
     return html` <div
-      class="fixed z-30 top-0 left-0 h-screen w-screen backdrop-blur-sm flex flex-col
-      p-8 mb-8 bg-[#0003]"
+      class="fixed z-30 top-0 left-0 right-0 bottom-0 backdrop-blur-sm flex flex-col
+      p-4 sm:p-8 md:p-16 lg:px-64 bg-[#0003]"
     >
-      <div class="bg-white shadow-lg grow w-full  rounded-lg ring-amber-300">
-        <div class="flex flex-col">
-          <header class="flex border-b border-b-slate-100">
-            <form class="flex-auto flex">
+      <div class="bg-white shadow-lg grow w-full rounded-lg ring-amber-300">
+        <div class="flex flex-col h-full">
+          <header class="flex-initial flex border-b border-b-slate-100 px-6">
+            <form class="flex-auto flex items-center">
               <label>
                 <svg
                   width="20"
                   height="20"
-                  class="DocSearch-Search-Icon"
+                  class="stroke-2 text-slate-600 mr-8"
                   viewBox="0 0 20 20"
                 >
                   <path
@@ -130,7 +113,9 @@ export function Search(props) {
                 </svg>
               </label>
               <input
+                ref=${input}
                 class="
+                h-16
                 border-0
                 outline-0
                 &::-webkit-search-cancel-button]:hidden
@@ -142,31 +127,98 @@ export function Search(props) {
                 type="search"
                 value=${searchText}
                 onInput=${onInput}
-                placeholder="What do you want?"
+                placeholder="Busca tu viaje..."
               />
 
               <button
+                type="reset"
                 class="
-                bg-white rounded-md w-7 h-6 bg-center p-2  shadowS
+                bg-white rounded-sm border border-slate-800/15 bg-center p-1 shadow uppercase text-xs
+                text-slate-800/60
+                font-bold
 
                 "
-                onClick=${execute}
               >
-                a
+                <small> Esc </small>
               </button>
             </form>
           </header>
-          <div class="p-8">
-            ${results.value.map(
-              (item) => html` <p dangerouslySetInnerHTML=${{ __html: item.hints['title'] }}></p> `,
-            )}
+          <div class="flex-auto max-h-[600px] overflow-y-auto">
+            <ol class="p-8">
+
+              ${results.value?.map((r) => SearchResultWithSubs(r))}
+            </ol>
+            <!-- <button onClick=${loadMoreResults}>Load more results</button> -->
           </div>
-          <footer class="p-8 text-red-300">footer6</footer>
+          <!-- <footer>SearchEngine 1.0</footer>  -->
         </div>
       </div>
     </div>`;
   } else {
-    return html`<div>hola preact</div>`
+    return html`<div></div>`;
     // return null;
   }
+}
+
+function SearchResultWithSubs(r) {
+  // const image = useComputed(() => data.value?.meta.image);
+  // const image_alt = useComputed(() => data.value?.meta.image_alt);
+  // const title = useComputed(() => data.value?.meta.title);
+  // const url = useComputed(() => data.value?.url);
+  // const excerpt = useComputed(() => data.value?.excerpt);
+
+  const nonRootSubresults = computeSubResults(r);
+
+  function computeSubResults(r) {
+
+    if (Array.isArray(r.sub_results)) {
+      const hasRootSubresult =
+        r.sub_results?.[0]?.url === (r.meta?.url || r.url);
+
+      return hasRootSubresult
+        ? thinSubResults(r.sub_results.slice(1), 3)
+        : thinSubResults(r.sub_results, 3);
+    }
+
+    return [];
+  };
+
+
+  function thinSubResults(results, limit) {
+    if (results.length <= limit) {
+      return results;
+    }
+
+    const top_results = [...results]
+      .sort((a, b) => b.locations.length - a.locations.length)
+      .slice(0, 3)
+      .map((r) => r.url);
+
+    return results.filter((r) => top_results.includes(r.url));
+  }
+
+
+    return html`
+      <li class="py-8 flex gap-4">
+        <img class="mt-1 object-cover w-32"  src=${r.meta.image} alt=${r.meta.image_alt} />
+        <div>
+          <p class="font-bold text-slate-800">
+            <a href=${r.url}>${r.meta.title}</a>
+          </p>
+          <p dangerouslySetInnerHTML=${{ __html: r.excerpt }}></p>
+
+          ${nonRootSubresults.map(
+            (sr) => html`
+              <div class="pt-2 pl-2 text-sm text-slate-500">
+                <p class="font-bold before:content-['⤷_']">
+                  <a href=${sr.url}>${sr.title}</a>
+                </p>
+                <p dangerouslySetInnerHTML=${{ __html: sr.excerpt }}></p>
+              </div>
+            `,
+          )}
+        </div>
+      </li>
+    `;
+
 }

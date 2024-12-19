@@ -18,8 +18,8 @@
 
   # sample content
   [[module.mounts]]
-      source = "dev_content"
-      target = "content"
+    source = "dev_content"
+    target = "content"
 
   [[module.mounts]]
     source = "hugo_stats.json"
@@ -28,6 +28,41 @@
 
 
 [params]
+
+  [params.navigation]
+    travelInterests = [
+      "viajar-sola",
+      "viajes-con-amigas",
+      "viajes-romanticos",
+      "viaje-en-familia",
+      "viajes-urbanos",
+      "viajes-cine",
+      "viajes-ecoturismo",
+      "viajes-gastronomicos"
+    ]
+
+    travelPlanning = [
+      "mejores-restaurantes-gastronomia",
+      "hoteles",
+      "bienestar-belleza",
+      "experiencias-viajeras",
+      "regalos-compras-viajeras",
+      "que-llevar-en-la-maleta",
+      "mi-peor-viaje",
+    ]
+
+    plansAndCulture = [
+      "planes-originales-para-mujeres",
+      "exposiciones",
+      "festivales",
+      "libros-de-viajes",
+      "parques-ocio",
+      "visitas-guiadas",
+      "de-un-vistazo",
+      "viajes-48-horas",
+
+    ]
+
 
   [params.imgproxy]
     enabled = true
@@ -41,19 +76,19 @@
       format = "avif"
 
 
-  [params.plausible]
-    enable = true
-    domain = "etheriamagazine-com.fly.dev"
+[params.plausible]
+  enable = true
+  domain = "etheriamagazine-com.fly.dev"
 
-    proxy = true
-    proxyPath = "/eu-compliance"
+  proxy = true
+  proxyPath = "/eu-compliance"
 
-    [params.plausible.optional]
-      local = true
-      fileDownloads = true
-      outboundLinks = true
-      error404 = true
-      customEvents = true
+  [params.plausible.optional]
+    local = true
+    fileDownloads = true
+    outboundLinks = true
+    error404 = true
+    customEvents = true
 
-  [params.ads]
-    adsSection = "publi"
+[params.ads]
+  adsSection = "publi"
