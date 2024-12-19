@@ -1,7 +1,7 @@
 ---
 title: "Turismo de Getxo"
-publishDate: 2023-11-04
-expiryDate: 2024-11-27
+publishDate: 2023-11-14
+expiryDate: 2024-12-27
 ads:
   placement:
     - sidebar

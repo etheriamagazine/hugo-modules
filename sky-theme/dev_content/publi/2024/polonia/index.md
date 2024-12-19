@@ -1,8 +1,8 @@
 ---
 title: "Turismo de Polonia"
 active: true
-dateStart: 2024-10-01
-dateEnd: 2024-11-01
+publishDate: 2023-11-04
+expiryDate: 2024-12-27
 ads:
   placement:
     - sidebar

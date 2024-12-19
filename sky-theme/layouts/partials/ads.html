@@ -10,6 +10,7 @@
 
   {{ $ads = where site.RegularPages "Section" "eq" . }}
   {{ $ads = where $ads "Params.ads.placement" "intersect" (slice $placement) }}
+  {{ $ads = sort $ads "PublishDate" "desc" }}
 {{ end }}
 
 {{ return $ads }}
