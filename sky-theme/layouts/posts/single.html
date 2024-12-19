@@ -5,16 +5,16 @@
       <h1 class="font-playfair my-6 text-4xl font-bold text-primary-600">
         {{ .Title }}
       </h1>
-      {{ $dateMachine := .Date | time.Format "2006-01-02" }}
-      {{ $dateHuman := .Date | time.Format ":date_long" }}
-      <time datetime="{{ $dateMachine }}" data-pagefind-ignore>{{ $dateHuman }}</time>
     </div>
-    <div class="ring ring-yellow-400" data-pagefind-ignore>
+    <div class="" data-pagefind-ignore>
       {{ with .GetTerms "categories" }}
         {{ range . }}
-          <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+          <a class="mr-2 text-primary-600 uppercase text-sm" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
         {{ end }}
       {{ end }}
+      {{ $dateMachine := .Date | time.Format "2006-01-02" }}
+      {{ $dateHuman := .Date | time.Format ":date_long" }}
+      <time class="text-slate-500" datetime="{{ $dateMachine }}" data-pagefind-ignore>{{ $dateHuman }}</time>
     </div>
 
 
@@ -23,13 +23,12 @@
       {{ $ads := . }}
       {{ $parts := split $.Content "<!--split-->" }}
       {{ $chunks := partial "partials/chunk_every" $parts }}
-      <div class="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
+      <div class="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 lg:gap-12">
       {{ range $index, $p := $parts }}
         {{ $ai := mod $index (len $ads) }}
         {{ $currAd := index $ads $ai }}
           <div
             class="prose lg:prose-lg prose-img:w-full prose-img:aspect-[16/10] prose-img:object-cover prose-img:bo max-w-none
-            {{- if eq $index 0 }}prose-intro{{ end -}}
             "
             >
             {{ $p | safeHTML }}
@@ -46,7 +45,7 @@
             </div>
           </div>
       {{ end }}
-    </div>
+      </div>
     {{ else }}
         <div class="prose lg:prose-lg">
           {{ $.Content }}
