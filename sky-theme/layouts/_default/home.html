@@ -1,17 +1,39 @@
 {{ define "main" }}
   {{ $posts := where site.RegularPages "Type" "posts" }}
 
-  {{ .Content }}
 
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+{{/*  render hero story   */}}
+<div class="m-4 md:m-24 md:mt-4">
+{{ range first 1 $posts }}
+  {{ .Render "hero"}}
+{{ end}}
+</div>
 
-  <swiper-container navigation="true" pagination="true">
-    {{ range first 5 $posts }}
-      <swiper-slide>
-        {{ .Render "hero" }}
-      </swiper-slide>
+
+{{ $categories := site.Taxonomies.categories }}
+
+{{ range slice "viajar-sola" "viajar-con-amigas" "viajar-en-pareja" "viajar-en-familia" "inspiración" "cultura" "ocio" "gourmet" "bienestar" "compras"}}
+
+  <section class="mt-12">
+    {{ with site.GetPage (printf "/categories/%s" (. | urlize)) }}
+      <h2 class="text-2xl">{{ .Title }}</h2>
+      {{ .Description }}
+    {{ else}}
+      {{ . }}
     {{ end }}
-  </swiper-container>
+
+    <div class="grid grid-cols-3 gap-8">
+
+    {{ range first 3 ($categories.Get .) }}
+      {{ .Render "summary" }}
+    {{ end}}
+    </div>
+  </section>
+{{ end}}
+
+
+
+
 
   {{ partial "subscribe/form" }}
 

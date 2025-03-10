@@ -1,0 +1,20 @@
+<!-- main.js -->
+{{- with resources.Get "js/main.js" }}
+{{- if eq hugo.Environment "development" }}
+  {{- $opts := dict "minify" true "format" "esm" }}
+  {{- with . | js.Build $opts }}
+    <script src="{{ .RelPermalink }}" type="module"></script>
+  {{- end }}
+{{- else }}
+  {{- $opts := dict "minify" true "format" "esm" }}
+  {{- with . | js.Build $opts | fingerprint }}
+    <script src="{{ .RelPermalink }}" type="module" integrity="{{- .Data.Integrity }}" crossorigin="anonymous"></script>
+  {{- end }}
+{{- end }}
+{{- end }}
+
+<!-- pagefind highlight script https://pagefind.app/docs/highlighting/ -->
+<script type="module">
+  await import('/pagefind/pagefind-highlight.js');
+  new PagefindHighlight({ highlightParam: "highlight", markOptions: {className: ""} });
+</script>

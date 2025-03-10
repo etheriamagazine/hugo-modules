@@ -1,56 +1,67 @@
 {{ define "main" }}
   <article>
-    <div class="grid">
-
-      <h1 class="font-playfair my-6 text-4xl font-bold text-primary-600">
-        {{ .Title }}
-      </h1>
-    </div>
-    <div class="" data-pagefind-ignore>
-      {{ with .GetTerms "categories" }}
-        {{ range . }}
-          <a class="mr-2 text-primary-600 uppercase text-sm" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
-        {{ end }}
+    <div>
+      {{ with partial "page/get-cover" . }}
+        {{ partial "imgproxy/img" (dict "src" .src "alt" .alt "class" "max-h-96 w-full object-cover") }}
       {{ end }}
-      {{ $dateMachine := .Date | time.Format "2006-01-02" }}
-      {{ $dateHuman := .Date | time.Format ":date_long" }}
-      <time class="text-slate-500" datetime="{{ $dateMachine }}" data-pagefind-ignore>{{ $dateHuman }}</time>
     </div>
-
-
-    {{ with partial "ads" "sidebar" }}
-
-      {{ $ads := . }}
-      {{ $parts := split $.Content "<!--split-->" }}
-      {{ $chunks := partial "partials/chunk_every" $parts }}
-      <div class="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 lg:gap-12">
-      {{ range $index, $p := $parts }}
-        {{ $ai := mod $index (len $ads) }}
-        {{ $currAd := index $ads $ai }}
-          <div
-            class="prose lg:prose-lg prose-img:w-full prose-img:aspect-[16/10] prose-img:object-cover prose-img:bo max-w-none
-            "
-            >
-            {{ $p | safeHTML }}
-            <p class="hidden"></p>
-          </div>
-          <div class="flex flex-col ">
-            <div
-              class="sticky top-0 p-4 border rounded-sm border-gray-300 "
-            >
-            {{ with $currAd }}
-              {{ .Content }}
-            {{ end }}
-
-            </div>
-          </div>
-      {{ end }}
+    <div class="mx-auto px-4 md:px-8 lg:px-16 mt-8">
+      <div class="grid">
+        <h1 class="my-6 text-4xl font-semibold text-primary-600">
+          {{ .Title }}
+        </h1>
       </div>
-    {{ else }}
+      <div class="" data-pagefind-ignore>
+        {{ with .GetTerms "categories" }}
+          {{ range . }}
+            <a
+              class="mr-2 text-primary-600 uppercase text-sm"
+              href="{{ .RelPermalink }}"
+              >{{ .LinkTitle }}</a
+            >
+          {{ end }}
+        {{ end }}
+        {{ $dateMachine := .Date | time.Format "2006-01-02" }}
+        {{ $dateHuman := .Date | time.Format ":date_long" }}
+        <time
+          class="text-slate-500"
+          datetime="{{ $dateMachine }}"
+          data-pagefind-ignore
+          >{{ $dateHuman }}</time
+        >
+      </div>
+
+      {{ with partial "ads" "sidebar" }}
+
+        {{ $ads := . }}
+        {{ $parts := split $.Content "<!--split-->" }}
+        {{ $chunks := partial "partials/chunk_every" $parts }}
+        <div class="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-y-2 gap-x-6 lg:gap-x-12">
+          {{ range $index, $p := $parts }}
+            {{ $ai := mod $index (len $ads) }}
+            {{ $currAd := index $ads $ai }}
+            <div
+              class="prose lg:prose-lg prose-img:w-full prose-img:aspect-[16/10] prose-img:object-cover prose-img:bo max-w-none
+            ">
+              {{ $p | safeHTML }}
+              <p class="hidden"></p>
+            </div>
+            <div class="flex flex-col ">
+              <div class="sticky top-0 p-4 border rounded-sm border-gray-300 ">
+                {{ with $currAd }}
+                  {{ .Content }}
+                {{ end }}
+
+              </div>
+            </div>
+          {{ end }}
+        </div>
+      {{ else }}
         <div class="prose lg:prose-lg">
           {{ $.Content }}
         </div>
-    {{ end }}
-    {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+      {{ end }}
+      {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+    </div>
   </article>
 {{ end }}

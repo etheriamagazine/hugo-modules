@@ -11,6 +11,9 @@ import {
 
 const path = "/pagefind/pagefind.js";
 const pagefind = await import(path);
+await pagefind.options({
+  highlightParam: "highlight"
+});
 pagefind.init();
 
 export function Search(props) {

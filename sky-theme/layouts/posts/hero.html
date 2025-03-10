@@ -1,6 +1,6 @@
 <article class="relative">
   <a href="{{ .RelPermalink }}">
-    {{ with partial "essential/cover-image" . }}
+    {{ with partial "page/get-cover" . }}
       {{ partial "imgproxy/img" (dict "src" .src "alt" .alt "class" "w-full object-cover aspect-[3/2]") }}
     {{ end }}
   </a>

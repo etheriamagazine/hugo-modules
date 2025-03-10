@@ -1,10 +1,19 @@
 baseURL = 'https://example.org/'
 title = 'Sky Theme'
-summaryLength = 20
+defaultContentLanguage = "es"
+
+removePathAccents = true
+summaryLength = 3
 
 ignoreFiles = ['^banners/']
+
 [outputs]
   home = ["html", "json"]
+
+[taxonomies]
+  category = "categories"
+  author = "authors"
+  destino = "destino"
 
 [build]
   [build.buildStats]

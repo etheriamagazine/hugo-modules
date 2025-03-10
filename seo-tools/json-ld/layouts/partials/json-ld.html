@@ -97,7 +97,7 @@
   {{ $s.Set "@type" "Person" }}
   {{ $s.Set "name" .Title }}
   {{ $s.Set "description" .Params.bio }}
-  {{ $s.Set "image" (partial "gravatar/url" .Params.email) }}
+  {{ $s.Set "image" (printf "https://gravatar.com/avatar/%s" (sha256 .Params.email)) }}
 
   {{ with .Params.jobTitle }}
     {{ $s.Set "jobTitle" . }}

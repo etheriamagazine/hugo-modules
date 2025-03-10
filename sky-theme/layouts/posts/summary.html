@@ -1,10 +1,10 @@
 <article class="p-4 my-4 bg-white  shadow-md dark:bg-gray-800">
   <a href="{{ .RelPermalink }}">
-    {{ with partial "essential/cover-image" . }}
+    {{ with partial "page/get-cover" . }}
       {{ partial "imgproxy/img" (dict "src" .src "alt" .alt "class" "mb-5 w-full object-cover aspect-[3/2]") }}
     {{ end }}
   </a>
-  {{ with .GetTerms "categories"}}
+  {{ with .GetTerms "destino"}}
     {{ range . }}
       <a
         href="{{ .RelPermalink }}"

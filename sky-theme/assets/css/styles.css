@@ -28,46 +28,33 @@
   --color-primary-800: #076185;
   --color-primary-900: #0c516e;
   --color-primary-950: #083449;
-
 }
 
 body {
   @apply antialiased;
 }
 
-
 @import "./fonts.css";
-
 
 @layer base {
   html {
-    font-family: "Lato", system-ui, sans-serif;
+    font-family: "Mona Sans", system-ui, sans-serif;
   }
   :root {
     --swiper-navigation-color: #fff;
     --swiper-pagination-color: #fff;
   }
 
-  mark
-  {
+  mark {
     @apply inline font-bold bg-transparent border-b-primary-600 border-b-3 text-primary-600 px-0;
   }
 }
 
 @layer utilities {
-  .font-inter {
-    font-family: "Inter";
-    font-weight: 200;
-  }
 
-  .font-playfair {
-    font-family: 'Playfair';
-    font-weight: 400;
-  }
 }
 
 @layer utilities {
-
   .prose-intro > p:nth-of-type(2)::first-line {
     @apply text-primary-600 uppercase text-justify;
   }
@@ -80,6 +67,6 @@ body {
   input[type="search"]::-webkit-search-cancel-button,
   input[type="search"]::-webkit-search-results-button,
   input[type="search"]::-webkit-search-results-decoration {
-    -webkit-appearance:none;
+    -webkit-appearance: none;
   }
 }
