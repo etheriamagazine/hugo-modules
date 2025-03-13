@@ -10,11 +10,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@tailwindcss/cli": "^4.0.0-beta.3",
+    "@tailwindcss/cli": "^4.0.12",
     "pagefind": "^1.2.0",
-    "tailwindcss": "^4.0.0-beta.3"
+    "tailwindcss": "^4.0.12"
   },
   "dependencies": {
-    "@tailwindcss/typography": "^0.5.15"
+    "@tailwindcss/typography": "^0.5.16"
   }
 }

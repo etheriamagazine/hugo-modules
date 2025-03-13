@@ -1,9 +1,10 @@
-<article class="p-4 my-4 bg-white  shadow-md dark:bg-gray-800">
+<article class="max-w-64 flex flex-col">
   <a href="{{ .RelPermalink }}">
     {{ with partial "page/get-cover" . }}
       {{ partial "imgproxy/img" (dict "src" .src "alt" .alt "class" "mb-5 w-full object-cover aspect-[3/2]") }}
     {{ end }}
   </a>
+
   {{ with .GetTerms "destino"}}
     {{ range . }}
       <a
@@ -20,9 +21,7 @@
   >
     <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
   </h2>
-  <p class="mb-4 font-light text-gray-500 dark:text-gray-400">
-    {{ .Summary | plainify }}
-  </p>
+
   <div class="flex items-center space-x-4">
     {{ range .GetTerms "authors" }}
         {{ $author := .Params.name }}
@@ -43,7 +42,7 @@
         </div>
     {{ end }}
     <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
-        {{ .Date | time.Format ":date_short" }} · Tiempo lectura:
+        {{ .Date | time.Format ":date_medium" }} · Tiempo lectura:
         {{ printf "%d min" .ReadingTime }}
       </div>
   </div>

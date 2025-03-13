@@ -15,7 +15,27 @@ ignoreFiles = ['^banners/']
   author = "authors"
   destino = "destino"
 
+
+[permalinks]
+  [permalinks.page]
+    posts = "/articulos/:filename"
+    publi = "/publi/:filename"
+
+[related]
+  includeNewer = true
+  threshold = 80
+  toLower = true
+
+  [[related.indices]]
+    name = 'authors'
+    weight = 2
+  [[related.indices]]
+    name = 'categories'
+    weight = 1
+
+
 [build]
+  noJSConfigInAssets = false
   [build.buildStats]
     enable = true
 
@@ -30,6 +50,15 @@ ignoreFiles = ['^banners/']
   [[build.cachebusters]]
     source = "assets/notwatching/hugo_stats\\.json"
     target = "css"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+    [markup.goldmark.parser]
+      autoHeadingID = true
+      autoHeadingIDType = "github-ascii"
+      wrapStandAloneImageWithinParagraph = false
 
 
 [module]

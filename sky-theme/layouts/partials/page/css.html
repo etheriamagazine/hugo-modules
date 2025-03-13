@@ -1,6 +1,6 @@
 {{ with (templates.Defer (dict "key" "global")) }}
   {{ $t := debug.Timer "tailwindcssTMR" }}
-  {{ with resources.Get "css/styles.css" }}
+  {{ with resources.Get "css/main.css" }}
     {{ $opts := dict
       "inlineImports" true
       "optimize" (not hugo.IsDevelopment)

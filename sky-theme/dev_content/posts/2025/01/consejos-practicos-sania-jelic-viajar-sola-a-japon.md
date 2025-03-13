@@ -123,16 +123,16 @@ activa.
 
 ## Consejos prácticos
 
-• No olvides llevar varios paquetes de pañuelos de papel, allí sólo venden unos tan 
+- No olvides llevar varios paquetes de pañuelos de papel, allí sólo venden unos tan 
 finos que se rompen incluso al sacar del envoltorio. La costumbre es llevar toallas o 
 pañuelos de tela, los venden con diferentes diseños y el precio está entre 4 y 10 €. No 
 me resultaron prácticos, ya que hay que lavarlos y secarlos durante todo el viaje. 
 
-• Exceptuando las bicis, que circulan a gran velocidad por todos sitios y hay que tener 
+- Exceptuando las bicis, que circulan a gran velocidad por todos sitios y hay que tener 
 cuidado de esquivarlas, es un país muy seguro, pero al haber tanto extranjero, conviene 
 seguir prestando atención y cuidar de las pertenencias. 
 
-• Hay pequeños cementerios esparcidos por toda la ciudad, entre edificios y casas. La 
+- Hay pequeños cementerios esparcidos por toda la ciudad, entre edificios y casas. La 
 muerte parece ser asumida de una forma muy natural y es parte de la vida. 
 
 ![Cementerio en Tokio.](https://fotos.etheriamagazine.com/2025/01/sania-japon-cementerio.jpg "Cementerio en Tokio. © Sania Jelic")
