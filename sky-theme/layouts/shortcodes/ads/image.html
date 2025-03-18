@@ -1,8 +1,7 @@
-{{ $img := $.Page.Resources.GetMatch (.Get "src")}}
+{{ $img := .Page.Resources.GetMatch (.Get "src")}}
 {{ $href := .Get "href" }}
 {{ $alt := .Get "alt" }}
 
-<div>
 {{ if and $img $href }}
 <a
   {{ with $href }}
@@ -25,4 +24,3 @@
 {{ else }}
   {{ errorf "No resource found for %s" (.Get "src") }}
 {{ end }}
-</div>

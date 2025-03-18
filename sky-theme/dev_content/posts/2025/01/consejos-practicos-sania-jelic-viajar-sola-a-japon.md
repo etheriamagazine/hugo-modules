@@ -123,6 +123,12 @@ activa.
 
 ## Consejos prácticos
 
+
+> [!TIP]
+> Ten en cuenta que estos
+
+
+
 - No olvides llevar varios paquetes de pañuelos de papel, allí sólo venden unos tan 
 finos que se rompen incluso al sacar del envoltorio. La costumbre es llevar toallas o 
 pañuelos de tela, los venden con diferentes diseños y el precio está entre 4 y 10 €. No 

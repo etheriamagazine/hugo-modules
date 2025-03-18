@@ -1,14 +1,12 @@
-/*
-  Tailwind v4 based CSS!!
-  https://tailwindcss.com/docs
-*/
 @import "tailwindcss";
 
-/* specify files to pick classes from hugo build */
+/* pick classes from hugo build */
 @source "./hugo_stats.json";
 @source "./public/js";
 
 @import "./fonts.css";
+/* @import "./prose.css"; */
+@plugin "@tailwindcss/typography";
 
 @theme {
   --font-sans: "Mona Sans", system-ui, sans-serif; /* referenced by --default-font-family */
@@ -37,43 +35,85 @@
   --color-primary-950: #083449;
 }
 
+@utility story-big {
+  --story-big-grid-cols: 1fr repeat(10, minmax(0, 1fr)) 1.6fr 240px 1fr;
+
+  @apply grid grid-cols-(--story-big-grid-cols) ;
 
 
-@utility sky-grid {
-  --tuna-grid-cols: 1fr repeat(10, minmax(0, 1fr)) 1fr 240px 1fr;
-  --tuna-grid-rows: 400px repeat(100, 10px) 300px [end];
-
-  @apply grid grid-cols-(--tuna-grid-cols);
-
-
-  &>* {
+  :where(& > *) {
     grid-column: 2 / 12;
     margin-top: 0;
   }
 
-  &> aside {
+  :where(& > header) {
+    grid-column: 2/14;
+  }
+
+  :where(& > [class*="sidespace"]) {
+    grid-column: 13;
+    grid-row: span 20;
+  }
+
+
+  :where(& > h2) {
+    grid-column: 2/14;
+  }
+
+  & > .author-bio {
+    grid-column: 13;
+    grid-row: 2 / span 20;
+  }
+
+  & > .adspace {
     grid-column: 13;
     grid-row: span 4;
+  }
+
+  & > .ad-space {
+    grid-column: 13;
+    grid-row: 6 / 16;
   }
 }
 
 
-@utility tuna-aside-* {
-  grid-column: 13 !important;
-  grid-row: calc(--value(integer)*3) / calc(--value(integer)*3 + 3) !important;
-}
-
-/* Typography plugin */
-@plugin "@tailwindcss/typography";
-
-
 /* Customize prose settings */
- @utility prose {
+@utility prose {
   /* --tw-prose-body: var(--color-green-800); */
 
-  /* First line of first paragraph in post UPPERCASE */
-  &:first-child > p:first-child::first-line {
+  p:first-of-type::first-line {
     @apply uppercase text-justify;
+  }
+
+  p {
+    margin-top: 0em
+  }
+
+
+  :not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+
+
+    &:where(p:first-of-type::first-line) {
+      @apply uppercase text-justify;
+    }
+    &:where(p) {
+      margin-top: 0em;
+    }
+
+    &:where(aside) {
+      + * {
+        margin-top: 0;
+      }
+    }
+
+  }
+}
+
+@utility prose-lg {
+  &:where(aside) {
+    + * {
+      margin-top: 0;
+    }
   }
 }
 
@@ -87,7 +127,7 @@
   /* .prose:first-child > p:first-child::first-line {
     @apply uppercase text-justify;
   } */
-/*
+  /*
   .prose-intro > p:first-child::first-letter {
     @apply uppercase text-[5em] leading-[0.7] float-left ml-0 mr-4;
   } */

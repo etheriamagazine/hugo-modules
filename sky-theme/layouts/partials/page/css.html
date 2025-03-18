@@ -1,5 +1,4 @@
 {{ with (templates.Defer (dict "key" "global")) }}
-  {{ $t := debug.Timer "tailwindcssTMR" }}
   {{ with resources.Get "css/main.css" }}
     {{ $opts := dict
       "inlineImports" true
@@ -19,5 +18,4 @@
       {{ end }}
     {{ end }}
   {{ end }}
-  {{ $t.Stop }}
 {{ end }}

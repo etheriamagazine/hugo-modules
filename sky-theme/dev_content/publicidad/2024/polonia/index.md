@@ -1,11 +1,9 @@
 ---
 title: "Turismo de Polonia"
-active: true
 publishDate: 2023-11-04
 expiryDate: 2025-12-27
-ads:
-  placement:
-    - sidebar
+adGroups:
+  - lateral_2
 ---
 
 

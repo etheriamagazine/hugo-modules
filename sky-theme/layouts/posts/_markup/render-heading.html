@@ -1,8 +1,7 @@
-
 <h{{ .Level }} id="{{ .Anchor }}">
   {{- .Text | safeHTML -}}
 </h{{ .Level }}>
 
-{{ if eq .Level 2 }}
-  {{ .Page.Render "next-ad" }}
+{{ if (in (slice 2) .Level) }}
+  {{ .Page.Render "aside" }}
 {{ end }}

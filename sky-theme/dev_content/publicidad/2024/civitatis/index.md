@@ -2,13 +2,12 @@
 title: Megabanner Civitatis 2024
 publishDate: 2023-11-04
 expiryDate: 2025-12-27
-ads:
-  placement:
-    - sidebar
+adGroups:
+  - lateral_2
 ---
 
 {{< ads/image
-  src="images/Logo_de_Civitatis.png"
+  src="civitatis.png"
   href="https://www.civitatis.com"
   alt="Descubre Civitatis"
 >}}

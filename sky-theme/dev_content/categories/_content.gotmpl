@@ -1,0 +1,36 @@
+{{/*
+
+  This content adapter creates virtual variant pages for
+  - Europa
+  - España
+  - Mundo
+  only for some categories. Enjoy!
+*/}}
+{{ $categories := (slice "viajar-sola" "viajar-en-pareja" "viajar-en-familia" "viajar-con-amigas") }}
+{{ $variants := (slice "España" "Europa" "Mundo") }}
+
+{{ range $categories }}
+
+  {{ $c := . }}
+  {{ range $variants }}
+    {{ $v := . }}
+
+    {{ $params := dict
+      "category" $c
+      "destino" $v
+    }}
+    {{ $content := dict
+      "mediaType" "text/markdown"
+      "value" ""
+    }}
+    {{ $page := dict
+      "params" $params
+      "content" $content
+      "kind" "term"
+      "path" (printf "%s/%s" $c ( lower $v ))
+      "title" (printf "%s - %s" $c $v )
+      "slug" (printf "%s/%s" $c ( lower $v ))
+    }}
+    {{ $.AddPage $page }}
+  {{ end }}
+{{ end }}

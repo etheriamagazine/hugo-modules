@@ -4,11 +4,17 @@ defaultContentLanguage = "es"
 
 removePathAccents = true
 summaryLength = 3
+enableEmoji = true
 
 ignoreFiles = ['^banners/']
 
 [outputs]
-  home = ["html", "json"]
+  home = ['html']
+  page = ['html']
+  rss = ['rss']
+  section = ['html']
+  taxonomy = ['html']
+  term = ['html' ]
 
 [taxonomies]
   category = "categories"
@@ -18,8 +24,19 @@ ignoreFiles = ['^banners/']
 
 [permalinks]
   [permalinks.page]
-    posts = "/articulos/:filename"
-    publi = "/publi/:filename"
+    posts = "/articulos/:slug"
+    publicidad = "/publicidad/:slug"
+
+
+  [permalinks.taxonomy]
+    categories = "/categorias"
+    authors = "/autoras"
+
+  [permalinks.term]
+    categories = "/:slug"
+    authors = "/autoras/:slug"
+
+
 
 [related]
   includeNewer = true
@@ -35,7 +52,7 @@ ignoreFiles = ['^banners/']
 
 
 [build]
-  noJSConfigInAssets = false
+  noJSConfigInAssets = true
   [build.buildStats]
     enable = true
 
@@ -46,6 +63,10 @@ ignoreFiles = ['^banners/']
   [[build.cachebusters]]
     source = "assets/js/.*"
     target = "css"
+
+  [[build.cachebusters]]
+    source = "layouts/categories/term.html"
+    target = "categories"
 
   [[build.cachebusters]]
     source = "assets/notwatching/hugo_stats\\.json"
@@ -86,3 +107,32 @@ ignoreFiles = ['^banners/']
 
   [[module.imports]]
     path = "github.com/etheriamagazine/hugo-modules/seo-tools/json-ld"
+
+
+[menu]
+  [[menu.main]]
+    name = 'Viajar sola'
+    pageRef = ''
+    weight = 1
+  [[menu.main]]
+    name = 'España'
+    pageRef = '/viajar-sola/espana'
+    weight = 1
+    parent = 'Viajar sola'
+  [[menu.main]]
+    name = 'Europa'
+    pageRef = '/viajar-sola/europa'
+    weight = 1
+    parent = 'Viajar sola'
+
+  [[menu.main]]
+    name = 'Mundo'
+    pageRef = '/viajar-sola/mundo'
+    weight = 1
+    parent = 'Viajar sola'
+
+
+  [[menu.main]]
+    name = 'Viajar en pareja'
+    pageRef = '/viajar-en-parejaa'
+    weight = 2

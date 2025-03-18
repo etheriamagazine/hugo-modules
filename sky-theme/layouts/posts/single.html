@@ -1,35 +1,72 @@
 {{ define "main" }}
-  <article>
 
-    <div class="mx-auto px-4 md:px-8 lg:sky-grid prose md:prose-lg max-w-none">
-      <header class="!col-end-14 not-prose prose-base mb-8">
-        <h1 class="my-6 text-3xl md:text-4xl font-semibold text-primary-600">
+{{ .Page.Store.Set "aside_counter" 0 }}
+
+  <article>
+    <div class="mx-auto pt-24 px-4 md:px-8 md:story-big prose md:prose-lg max-w-none">
+      <header class="not-prose prose-base mb-8">
+        <ul class="flex not-prose" data-pagefind-ignore>
+          <li class="after:content-['/'] after:mx-2">
+            {{ with .GetTerms "authors" }}
+              {{ range . }}
+                <a class="hover:underline" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+              {{ end }}
+            {{ end }}
+          </li>
+          <li>
+            <time
+              class="text-slate-400"
+              datetime="{{ .Date | time.Format "2006-01-02" }}"
+              data-pagefind-ignore
+              >{{ .Date | time.Format ":date_medium" }}</time
+            >
+          </li>
+        </ul>
+        <h1 class="mb-6 text-3xl md:text-4xl font-semibold text-primary-600">
           {{ .Title }}
         </h1>
-        <ul class="flex" data-pagefind-ignore>
-          <li>
+        <ul class="flex *:mr-4" data-pagefind-ignore>
+          <li class="flex gap-1">
+            <svg class="w-4" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+              <path d="M23.531 15.47l-10.501-10.5c-0.136-0.136-0.323-0.22-0.53-0.22-0 0-0 0-0 0h-10.5c-0.414 0-0.75 0.336-0.75 0.75v0 10.5c0 0 0 0 0 0 0 0.207 0.084 0.395 0.22 0.53l10.5 10.501c0.136 0.135 0.323 0.219 0.53 0.219s0.394-0.084 0.53-0.219l10.501-10.501c0.135-0.136 0.218-0.323 0.218-0.53s-0.083-0.394-0.218-0.53l0 0zM12.5 25.439l-9.75-9.75v-9.439h9.439l9.75 9.75zM7.25 8.25c-1.381 0-2.5 1.119-2.5 2.5s1.119 2.5 2.5 2.5c1.381 0 2.5-1.119 2.5-2.5v0c-0.001-1.38-1.12-2.499-2.5-2.5h-0zM7.25 11.75c-0.552 0-1-0.448-1-1s0.448-1 1-1c0.552 0 1 0.448 1 1v0c-0 0.552-0.448 1-1 1h-0zM30.531 15.47l-12-12c-0.136-0.135-0.323-0.218-0.529-0.218-0.414 0-0.75 0.336-0.75 0.75 0 0.206 0.083 0.393 0.218 0.529l11.47 11.47-11.47 11.469c-0.136 0.136-0.22 0.324-0.22 0.531 0 0.415 0.336 0.751 0.751 0.751 0.207 0 0.395-0.084 0.531-0.22v0l12-12.001c0.135-0.136 0.218-0.323 0.218-0.53s-0.083-0.394-0.218-0.53l0 0z"></path>
+              </svg>
             {{ with .GetTerms "categories" }}
               {{ range . }}
                 <a
-                  class="mr-2 text-primary-600 uppercase"
+                  class="text-primary-600 hover:underline"
                   href="{{ .RelPermalink }}"
                   >{{ .LinkTitle }}</a
                 >
               {{ end }}
             {{ end }}
           </li>
-          <li>
-            <time
-            class="text-slate-500"
-            datetime="{{ .Date | time.Format "2006-01-02" }}"
-            data-pagefind-ignore
-            >{{ .Date | time.Format ":date_medium" }}</time>
+          <li class="flex gap-1">
+            <svg class="w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M11.25 7.5L12.75 7.5L12.75 11.6893L15.5303 14.4697L14.4697 15.5303L11.25 12.3107L11.25 7.5Z" fill="#080341"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 19.5C16.1421 19.5 19.5 16.1421 19.5 12C19.5 7.85786 16.1421 4.5 12 4.5C7.85786 4.5 4.5 7.85786 4.5 12C4.5 16.1421 7.85786 19.5 12 19.5ZM12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" fill="#080341"/>
+            </svg>
+            Se lee en {{ printf "%d minutos" .ReadingTime }}
           </li>
         </ul>
       </header>
-      {{ .Render "next-ad" }}
+      <aside class="author-bio not-prose">
+        {{ range .GetTerms "authors" }}
+          {{ $authorPage := . }}
+          <div class="w-40 h-40 rounded-3xl shadow-xl border-primary-600 border-4 not-prose overflow-clip origin-bottom-left transition ease-out duration-200 -rotate-12 hover:rotate-0">
+            {{ with .Resources.Get .Params.bioImage }}
+              <a href="{{ $authorPage.RelPermalink }}">
+                <picture>
+                  <img class="w-full aspect-square scale-120 transition ease-out duration-200 rotate-12 hover:rotate-0 " loading="lazy" src="{{ .Permalink }}" />
+                </picture>
+              </a>
+            {{ end}}
+          </div>
+          <h4 class="mt-4">Acerca de la autora</h4>
+          <p class="prose">{{ .Params.bio }}</p>
+
+        {{ end }}
+      </aside>
       {{ .Content }}
     </div>
-
   </article>
 {{ end }}
