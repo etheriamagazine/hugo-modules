@@ -5,11 +5,12 @@
   {{ $pages := .Pages }}
 
   {{ if (and $category $destino) }}
+    {{ $pages = site.RegularPages }}
     {{ $pages = where site.RegularPages ".Params.categories" "intersect" (slice $category)}}
     {{ $pages = where $pages "Params.destino" "intersect" (slice $destino (lower $destino))}}
   {{ end }}
 
-  <h1 class="text-2xl bg-red-400">{{ .Title }}</h1>
+  <h1 class="text-2xl bg-red-600">{{ .Title }}</h1>
   <pre>{{ $category }} - {{ $destino }}!!</pre>
 
 

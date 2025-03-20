@@ -1,4 +1,9 @@
-{{ with (templates.Defer (dict "key" "global")) }}
+
+{{/*
+  Temporal: moving defer call to baseof.html
+  https://github.com/gohugoio/hugo/issues/13492
+  */}}
+{{/*  {{ with (templates.Defer (dict "key" "global")) }}  */}}
   {{ with resources.Get "css/main.css" }}
     {{ $opts := dict
       "inlineImports" true
@@ -18,4 +23,4 @@
       {{ end }}
     {{ end }}
   {{ end }}
-{{ end }}
+{{/*  {{ end }}  */}}
