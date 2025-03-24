@@ -16,9 +16,12 @@ await pagefind.options({
 });
 pagefind.init();
 
+
+export const isOpen = signal(false);
+
 export function Search(props) {
   const input = useRef();
-  const isOpen = useSignal(false);
+  // const isOpen = useSignal(false);
   const searchText = useSignal("");
   const results = useSignal([]);
   const resultSize = useSignal(5);
@@ -67,17 +70,17 @@ export function Search(props) {
         }
       }
     }
-    const button = document.getElementById("search-lens");
+    // const button = document.getElementById("search-lens");
 
     function onSearchLensClick(event) {
       isOpen.value = true;
     }
 
     window.addEventListener("keydown", onKeyDown);
-    button.addEventListener("click", onSearchLensClick)
+    // button.addEventListener("click", onSearchLensClick)
     return () => {
       window.removeEventListener("keydown", onKeyDown);
-      button.removeEventListener("click", onSearchLensClick)
+      // button.removeEventListener("click", onSearchLensClick)
     };
   }, []);
 

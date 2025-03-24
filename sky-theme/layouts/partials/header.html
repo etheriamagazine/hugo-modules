@@ -1,107 +1,109 @@
-<div class="flex flex-col gap-0 bg-white text-primary-600">
-  <div class="flex items-center justify-between md:justify-around">
-    <a href="/">
+
+<div
+  class="flex flex-col gap-0 bg-white text-primary-600 mx-24 transition-all ">
+  <div class="grid grid-cols-[1fr_10fr_1fr] items-center">
+    <div></div>
+    <a
+      class="justify-self-center col-2 small-header:col-1 small-header:justify-self-start small-header:row-1"
+      href="/">
       <svg
         viewBox="0 0 100 26.95"
-        class="h-14 md:h-18 w-auto fill-current m-4 "
+        class="h-14
+        small-header:h-10 md:h-18 w-auto fill-current m-4"
         xmlns="http://www.w3.org/2000/svg">
-        <use xlink:href="#logo"></use>
+        <path
+          d="M14.367 0v.383h4.643V13.63h.424V.383h4.642V0h-9.709zm15.951.002v13.629h.424V6.78h9.172v6.85h.426V.002h-.426v6.396h-9.172V.002h-.424zm32.995 0v13.629h1.91V7.559h2.039l3.467 6.072h2.308L69.23 7.375c.977-.17 1.77-.553 2.392-1.176.61-.609.92-1.415.92-2.42 0-.694-.129-1.287-.383-1.77A3.19 3.19 0 0 0 71.111.85 4.788 4.788 0 0 0 69.553.2a8.825 8.825 0 0 0-1.867-.197h-4.374zm15.681 0v13.629h1.912L80.904.002h-1.91zm13.418 0-5.916 13.629h2.123l1.373-3.354h6.469l1.387 3.354H100L94.14.002h-1.728zM.057.043v2.83l1.84.002V1.742h6.935V.043H.057zm47.841 0v2.973h1.84V1.6h6.936V.043h-8.776zM65.195 1.6h2.334a6.265 6.265 0 0 1 1.176.1 2.846 2.846 0 0 1 .977.353 1.994 1.994 0 0 1 .666.666c.169.283.254.623.254 1.033 0 .411-.084.75-.254 1.031a1.837 1.837 0 0 1-.68.682c-.282.184-.623.31-1.006.38a6.75 6.75 0 0 1-1.244.114h-2.195l-.028.002V1.6zm28.026.607 2.547 6.398h-5.11l2.563-6.398zM.057 4.572v9.06h9.056v-1.7H1.896v-4.53h6.51V5.703h-6.51v-1.13H.056zm47.841 0v9.06h9.059v-1.7l-7.219.002V7.402h6.51V5.705h-6.51V4.572h-1.84zM.057 15.26v1.654h9.045V15.26H.057z" />
+        <path
+          d="M32.229 20.75a3.236 3.236 0 0 0-1.245.229 2.995 2.995 0 0 0-.963.634c-.27.27-.466.596-.623.977a3.226 3.226 0 0 0-.226 1.232 3.526 3.526 0 0 0 .226 1.233 2.871 2.871 0 0 0 .623.99 2.783 2.783 0 0 0 .977.666c.382.155.806.238 1.273.238a4.58 4.58 0 0 0 1.233-.154c.354-.113.65-.227.89-.367v-2.563h-1.712v.155h1.53v2.308a4.75 4.75 0 0 1-.85.31 4.043 4.043 0 0 1-1.063.13 3.1 3.1 0 0 1-1.23-.229 2.664 2.664 0 0 1-.92-.637 2.532 2.532 0 0 1-.58-.933 3.456 3.456 0 0 1-.2-1.147 3.033 3.033 0 0 1 .2-1.133 2.876 2.876 0 0 1 .58-.933 2.72 2.72 0 0 1 .906-.623 2.902 2.902 0 0 1 1.175-.227 3.052 3.052 0 0 1 .99.17 2.302 2.302 0 0 1 .468.197 2.64 2.64 0 0 1 .38.286l.127-.127a3.088 3.088 0 0 0-.877-.496 2.97 2.97 0 0 0-1.09-.186zM0 20.904v5.877h.184V21.12h.029l2.59 5.662h.154l2.592-5.662h.027v5.662l.17-.002v-5.875h-.324L2.873 26.51.326 20.904H0zm81.586 0v5.877h.184v-5.635h.029l4.203 5.635.27-.002v-5.875h-.186v5.635h-.027l-4.22-5.635h-.253zm14.72 0v5.877l3.553-.002v-.168h-3.37v-2.79h3.044v-.17h-3.045v-2.577h3.242v-.17h-3.423zm-78.685.002-2.547 5.875h.197l.723-1.683h3.412l.694 1.683h.199l-2.451-5.875h-.227zm28.535 0-2.547 5.875h.2l.72-1.683h3.412l.694 1.683h.197l-2.45-5.875h-.226zm11.664 0v.17h3.75l-3.863 5.479v.226h4.133v-.17h-3.95l3.837-5.465v-.24H57.82zm13.532 0v5.875h.183v-5.875h-.183zm-53.631.13 1.613 3.905h-3.283l1.67-3.906zm28.535 0 1.613 3.905h-3.283l1.67-3.906z" />
+
+        {{/* <use xlink:href="#logo"></use> */}}
       </svg>
     </a>
-    <button title="Toggle mobile menu" class="md:hidden">
-      <svg
-        class="m-4 transition-colors duration-300 h-10 z-10 relative text-white"
-        viewBox="0 0 48 36"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M15 14.4297H33"
-          stroke="currentColor"
-          stroke-linecap="square"
-          stroke-linejoin="round"
-          style="transform-origin: 24px 14.4297px; transform: none;"
-          transform-origin="24px 14.429699897766113px"></path>
-        <path
-          d="M15 18.4297H33"
-          stroke="currentColor"
-          stroke-linecap="square"
-          stroke-linejoin="round"
-          style="transform-origin: 24px 18.4297px; transform: none;"
-          transform-origin="24px 18.42970085144043px"></path>
-        <path
-          d="M15 22.4297H33"
-          stroke="currentColor"
-          stroke-linecap="square"
-          stroke-linejoin="round"
-          style="transform-origin: 24px 22.4297px; transform: none;"
-          transform-origin="24px 22.42970085144043px"></path>
-        <rect
-          x="0.5"
-          y="0.929688"
-          width="47"
-          height="34"
-          rx="17"
-          stroke="currentColor"></rect>
-      </svg>
-    </button>
+    <div
+      class="flex uppercase font-semibold m-4 self-start justify-self-end col-3 gap-6
+      small-header:row-1
+      ">
+      <button
+        x-data
+        @click="$store.search.show()"
+        type="button"
+        class="inline-flex items-center gap-1 rounded-full bg-gray-950/2 px-2 py-1 inset-ring inset-ring-gray-950/8 dark:bg-white/5 dark:inset-ring-white/2">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 16 16"
+          class="-ml-0.5 size-4 fill-gray-600 dark:fill-gray-500">
+          <path
+            fill-rule="evenodd"
+            d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+            clip-rule="evenodd"></path></svg
+        ><kbd
+          class="hidden font-sans text-xs/4 text-gray-500 dark:text-gray-400 [.os-macos_&amp;]:block"
+          >⌘K</kbd
+        >
+        <kbd
+          class="hidden font-sans text-xs/4 text-gray-500 not-[.os-macos_&amp;]:block dark:text-gray-400"
+          >Ctrl&nbsp;K</kbd
+        >
+      </button>
+      <a class="text-gray-400 font-stretch-85%">Suscríbete</a>
+    </div>
+
+    {{ $menu := .Site.Menus.main }}
+
+
+    <nav
+      class="flex justify-center font-stretch-85% tracking-wide uppercase text-md font-medium
+      row-2 col-2
+      small-header:row-1 small-header:col-2">
+      <ul class="flex flex-wrap items-center text-md">
+        {{ range $menu }}
+
+          <li
+            {{ if .HasChildren }}
+              x-data="{ open: false }" @mouseenter="open = true"
+              @mouseleave="open = false" :aria-expanded="open" class="p-2
+              lg:px-3 relative flex items-center space-x-1"
+            {{ else }}
+              class="p-2 lg:px-3"
+            {{ end }}
+            {{ if $.IsMenuCurrent .Menu . }}
+              aria-current="page"
+            {{ end }}>
+            <a class="text-primary hover:text-slate-700" href="{{ .URL }}"
+              >{{ .Name }}</a
+            >
+            {{ if .HasChildren }}
+              <button class="shrink-0 p-0">
+                <span class="sr-only">Mostrar submenu</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-3 w-3 transition-[rotate] duration-300"
+                  :class="{'rotate-180': open}"
+                  viewBox="0 0 20 20"
+                  fill="currentColor">
+                  <use href="#arrow-down" />
+                </svg>
+              </button>
+              <ul
+                class="origin-top-right absolute top-full left-1/2 -translate-x-1/2 min-w-[240px] bg-white border border-slate-200 p-2 rounded-lg shadow-xl"
+                x-show.transition="open">
+                {{ range .Children }}
+                  <li
+                    {{ if $.IsMenuCurrent .Menu . }}
+                      aria-current="page"
+                    {{ end }}>
+                    <a
+                      class="text-primary hover:bg-slate-50 flex items-center p-2"
+                      href="{{ .URL }}"
+                      >{{ .Name }}</a
+                    >
+                  </li>
+                {{ end }}
+              </ul>
+            {{ end }}
+          </li>
+        {{ end }}
+      </ul>
+    </nav>
   </div>
-
-  {{ $menu := .Site.Menus.main }}
-
-
-  <nav class="flex justify-center">
-    <ul class="flex flex-wrap items-center text-md">
-      {{ range $menu }}
-
-        <li
-          {{ if .HasChildren }}
-            x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open
-            = false" :aria-expanded="open" class="p-2 lg:px-4 relative flex
-            items-center space-x-1"
-          {{ else }}
-            class="p-2 lg:px-4"
-          {{ end }}
-          {{ if $.IsMenuCurrent .Menu . }}
-            aria-current="page"
-          {{ end }}
-          >
-          <a
-            class="text-primary font-medium hover:text-slate-700"
-            href="{{ .URL }}"
-            >{{ .Name }}</a
-          >
-          {{ if .HasChildren }}
-            <button class="shrink-0 p-1">
-              <span class="sr-only">Mostrar submenu</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-3 w-3 transition-[rotate] duration-300"
-                :class="{'rotate-180': open}"
-                viewBox="0 0 20 20"
-                fill="currentColor">
-                <use href="#arrow-down" />
-              </svg>
-            </button>
-            <ul
-              class="origin-top-right absolute top-full left-1/2 -translate-x-1/2 min-w-[240px] bg-white border border-slate-200 p-2 rounded-lg shadow-xl"
-              x-show.transition="open">
-              {{ range .Children }}
-                <li
-                  {{ if $.IsMenuCurrent .Menu . }}
-                    aria-current="page"
-                  {{ end }}>
-                  <a
-                    class="text-primary hover:bg-slate-50 flex items-center p-2"
-                    href="{{ .URL }}"
-                    >{{ .Name }}</a
-                  >
-                </li>
-              {{ end }}
-            </ul>
-          {{ end }}
-        </li>
-      {{ end }}
-    </ul>
-  </nav>
-
 </div>

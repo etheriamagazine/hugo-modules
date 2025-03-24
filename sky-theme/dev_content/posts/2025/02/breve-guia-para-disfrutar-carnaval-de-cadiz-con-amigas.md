@@ -112,6 +112,7 @@ importancia. Cada vez son más las chirigotas femeninas o con componentes femeni
 se presentan al concurso oficial del COAC. Aunque, de momento, ninguna ha llegado a las 
 fases eliminatorias, todo se andará. 
 
+
 En cuanto a los coros, son ya muchas las mujeres que unen sus voces a las masculinas, 
 por no contar con las habituales instrumentistas (de guitarras y bandurrias). Algo 
 parecido ocurre con las comparsas, donde las voces agudas son un elemento fundamental. 
