@@ -6,12 +6,14 @@
   - Mundo
   only for some categories. Enjoy!
 */}}
-{{ $categories := (slice "viajar-sola" "viajar-en-pareja" "viajar-en-familia" "viajar-con-amigas") }}
+{{ $selected_categories := (slice "viajar-sola" "viajar-en-pareja" "viajar-en-familia" "viajar-con-amigas") }}
 {{ $variants := (slice "España" "Europa" "Mundo") }}
 
-{{ range $categories }}
+
+{{ range $selected_categories }}
 
   {{ $c := . }}
+
   {{ range $variants }}
     {{ $v := . }}
 

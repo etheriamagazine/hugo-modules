@@ -52,6 +52,7 @@
       <aside class="author-bio not-prose">
         {{ range .GetTerms "authors" }}
           {{ $authorPage := . }}
+          <pre>{{ .Name | debug.Dump }}</pre>
           <div class="w-40 h-40 rounded-3xl shadow-xl border-primary-600 border-4 not-prose overflow-clip origin-bottom-left transition ease-out duration-200 -rotate-12 hover:rotate-0">
             {{ with .Resources.Get .Params.bioImage }}
               <a href="{{ $authorPage.RelPermalink }}">

@@ -4,7 +4,7 @@ export function setupScrollObserver() {
   const source = document.querySelector("[data-scroll-marker]");
   const target = document.querySelector('header');
 
-  const className = "small-header";
+  const className = "header-sm";
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {

@@ -1,40 +1,52 @@
-{{- $src := .src -}}
-{{- $srcset := false -}}
-{{- $original := false -}}
+{{ $src := .src }}
+{{ $srcset := false }}
+{{ $original := false }}
+
+{{ $loading := .loading | default "lazy" }}
+{{ $decoding := .decoding | default "async" }}
+{{ $fetchpriority := .fetchpriority | default false }}
 
 {{ with urls.Parse $src }}
-  {{- if not .IsAbs -}}
-    {{- with or ($.Page.Resources.Get .Path) (resources.Get .Path) -}}
-      {{- $src = .Permalink -}}
-    {{- end -}}
-  {{- end -}}
+  {{ if not .IsAbs }}
+    {{ with or ($.Page.Resources.Get .Path) (resources.Get .Path) }}
+      {{ $src = .Permalink }}
+    {{ end }}
+  {{ end }}
 {{ end }}
 
-{{- if site.Params.imgproxy.enabled -}}
-  {{- $original = $src -}}
+{{ if site.Params.imgproxy.enabled }}
+  {{ $original = $src }}
 
-  {{- with partial "imgproxy/responsive-urls" $src -}}
-    {{- $src = .src -}}
-    {{- $srcset = .srcset -}}
-  {{- end -}}
-{{- end }}
+  {{ with partial "imgproxy/responsive-urls" $src }}
+    {{ $src = .src }}
+    {{ $srcset = .srcset }}
+  {{ end }}
+{{ end }}
 
-{{ with $original -}}
+{{ with $original }}
   {{ printf "<!-- %s -->" . | safeHTML }}
-{{- end }}
+{{ end }}
 <img
-  {{ with .class -}}
+  {{ with .class }}
     class="{{ . }}"
-  {{- end }}
+  {{ end }}
   src="{{ $src | safeURL }}"
-  {{ with $srcset -}}
+  {{ with $srcset }}
     srcset="{{ delimit . ",\n" | safeHTMLAttr }}"
-  {{- end }}
-  {{ with .alt -}}
+  {{ end }}
+  {{ with .alt }}
     alt="{{ . }}"
-  {{- end }}
-  {{ with .title -}}
+  {{ end }}
+  {{ with .title }}
     title="{{ . }}"
-  {{- end -}}
-  loading="lazy"
-  decoding="async" />
+  {{ end }}
+  {{ with $loading }}
+    loading="{{ . }}"
+  {{ end}}
+  {{ with $decoding }}
+    decoding="{{ . }}"
+  {{ end}}
+  {{ with $fetchpriority }}
+    fetchpriority="{{ . }}"
+  {{ end}}
+  />

@@ -21,6 +21,11 @@
     source = "dev_content"
     target = "content"
 
+  # mount content adapter
+  [[module.mounts]]
+    source = "content/categories/_content.gotmpl"
+    target = "content/categories/_content.gotmpl"
+
   [[module.mounts]]
     source = "hugo_stats.json"
     target = "assets/notwatching/hugo_stats.json"

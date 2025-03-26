@@ -9,7 +9,18 @@
 @plugin "@tailwindcss/typography";
 
 @custom-variant aria-current (&:where([aria-current]));
-@custom-variant small-header (&:where(.small-header, .small-header *));
+/* @custom-variant header-sm (&:where(.header-sm, .header-sm *)); */
+
+
+@custom-variant header-sm {
+  @media (width >= 40em) {
+    &:where(.header-sm, .header-sm *) {
+      @slot;
+    }
+  }
+}
+
+
 
 @theme {
   --font-sans: "Mona Sans", system-ui, sans-serif; /* referenced by --default-font-family */
@@ -36,6 +47,10 @@
   --color-primary-800: #076185;
   --color-primary-900: #0c516e;
   --color-primary-950: #083449;
+}
+
+@utility h-unset {
+  height: unset;
 }
 
 @utility story-big {
