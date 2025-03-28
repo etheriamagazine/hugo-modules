@@ -1,147 +1,108 @@
 {{ define "main" }}
-{{/*
-  <div class="">La revista de las mujeres viajeras</div>  */}}
   {{ $posts := where site.RegularPages "Type" "posts" }}
+  {{ if hugo.IsDevelopment }}
+    {{ $posts = shuffle $posts}}
+  {{ end}}
+
+
+    {{/* 1. Hero story */}}
+    <div class="md:[&_article_img]:aspect-[16/8]">
+    {{ with index $posts 0 }}
+      {{ .Render "hero2" }}
+    {{ end }}
+    </div>
 
 
 
-  <div class="grid grid-cols-1 [--gutter-width:5.5rem] md:grid-cols-[var(--gutter-width)_minmax(0,var(--breakpoint-2xl))_var(--gutter-width)]">
-    <div class="hidden md:block col-start-1 row-span-full row-start-1  border-x border-x-(--pattern-fg) bg-[image:repeating-linear-gradient(315deg,_var(--pattern-fg)_0,_var(--pattern-fg)_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-black)]/5  dark:[--pattern-fg:var(--color-white)]/10"></div>
-    <div class="main-content">
 
-    {{/* render hero story */}}
-    <div class="px-4">
-      {{ with index $posts 0 }}
-
-        <article class="relative">
-          <a href="{{ .RelPermalink }}">
-            {{ with partial "page/get-cover" . }}
-              {{ partial "imgproxy/img" (dict
-                "src" .src
-                "alt" .alt
-                "class" "w-full aspect-[4/3] md:aspect-[16/8] object-cover "
-                "loading" "eager"
-                "fetchpriority" "high") }}
-            {{ end }}
-          </a>
-          <div class="flex flex-col items-center absolute justify-end inset-0 drop-shadow-[0_2px_10px_rgba(0,0,0,.85)]">
-            <span class="text-white font-medium uppercase mb-4">
-            {{ with index (.GetTerms "categories") 0}}
-              <a
-                href="{{ .RelPermalink }}"
-                class=" underline "
-                >{{ or .Params.name .Title }}</a
-              >
-            {{ end }}
-            /
-
-            {{ with index (.GetTerms "destino") 0}}
-              <a
-                href="{{ .RelPermalink }}"
-                class=" underline "
-                >{{ or .Params.name .Title }}</a
-              >
-            {{ end }}
-            </span>
-            <h3 class="max-w-3/5 text-xl md:text-3xl lg:text-5xl text-center text-white font-medium font-stretch-85%">
-              <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
-            </h3>
-            <span class="flex-none text-white font-medium my-8">
-              <time
-              datetime="{{ .Date | time.Format "2006-01-02" }}"
-              data-pagefind-ignore>{{ .Date | time.Format "02.01.06" }}</time> por
-              {{ with index (.GetTerms "authors") 0 }}
-                {{ .Title }}
-              {{ end }}
-            </span>
-          </div>
-        </article>
-
-      {{ end }}
-
-      {{/*  render 4 featured stories  */}}
-      <div class="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-y-8 md:gap-x-12 my-8">
-      {{ range first 4 $posts }}
+      {{/*  2. Featured stories  */}}
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-4 md:gap-y-8 md:gap-x-12 my-8">
+      {{ range first 4 (after 1 $posts) }}
           {{ .Render "summary" }}
       {{ end }}
       </div>
-    </div>
 
-    </div>
-    <div class="hidden md:block col-start-3 row-span-full row-start-1  border-x border-x-(--pattern-fg) bg-[image:repeating-linear-gradient(315deg,_var(--pattern-fg)_0,_var(--pattern-fg)_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-black)]/5  dark:[--pattern-fg:var(--color-white)]/10"></div>
+      {{/*  3. Publicidad horizontal  */}}
+      <div class="h-40 my-8 flex items-center rounded-2xl justify-center border-4 border-dashed border-slate-200 text-slate-400 bg-slate-100">Publicidad</div>
 
+      {{/*  4. Aquí vienen las categorías */}}
+      {{ $selectedCategories := slice
+        "viajar-sola" "viajar-con-amigas" "viajar-en-pareja" "viajar-en-familia" "inspiración"
+        "cultura" "ocio" "gourmet" "bienestar" "compras"
+      }}
 
+      {{ range $selectedCategories }}
 
-  </div>
+        {{ $weightedPages := index site.Taxonomies.categories . }}
 
-
-  <div class="mx-24 h-40 my-8 flex items-center rounded-2xl justify-center border-4 border-dashed border-slate-200 text-slate-400 bg-slate-100">Publicidad</div>
-
-  {{ $selectedCategories := slice
-    "viajar-sola" "viajar-con-amigas" "viajar-en-pareja" "viajar-en-familia" "inspiración"
-    "cultura" "ocio" "gourmet" "bienestar" "compras"
-  }}
-
-  {{ range $selectedCategories }}
-
-    {{ $weightedPages := index site.Taxonomies.categories . }}
-
-    {{/* Use weighted pages for the TERM to check the category actually has pages to show */}}
-    {{ with and (gt $weightedPages.Count 0) $weightedPages }}
-
-      <section class="m-20 md:mx-24 grid grid-flow-row-dense grid-rows-[repeat(4,_minmax(10px, 1fr)] gap-y-8 gap-x-12 grid-cols-[repeat(3,_1fr)_300px]">
-        {{ with .Page }}
-        <header class="row-start-1 col-span-full mb-4">
-          <h2 class="text-primary text-3xl font-light uppercase font-stretch-85% md:text-4xl">{{ .Title }}</h2>
-          {{ .Description }}
-        </header>
-        {{ end }}
-
-
-        {{ $featured := first 4 . }}
-
-        {{ with index $featured 0}}
-        <article class="relative col-span-3">
-          <a
-          {{/*  style="visibility: hidden"  */}}
-          href="{{ .RelPermalink }}">
-          {{ with partial "page/get-cover" . }}
-            {{ partial "imgproxy/img" (dict "src" .src "alt" .alt "class" "w-full object-cover aspect-[16/9]") }}
-          {{ end }}
-          </a>
-          <div class="flex flex-col items-center absolute bottom-20 right-0 left-0 drop-shadow-[0_2px_10px_rgba(0,0,0,.85)]">
-            {{ with index (.GetTerms "destino") 0}}
-              <a
-                href="{{ .RelPermalink }}"
-                class="text-white font-medium  underline uppercase"
-                >{{ or .Params.name .Title }}</a
-              >
-            {{ end }}
-            <h3 class="max-w-3/5 md:text-3xl lg:text-4xl text-center text-white font-medium font-stretch-85%">
-              <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
-            </h3>
-            <span class="flex-none text-white font-medium">
-              <time
-              datetime="{{ .Date | time.Format "2006-01-02" }}"
-              data-pagefind-ignore>{{ .Date | time.Format "02.01.06" }}</time> por
-              {{ with index (.GetTerms "authors") 0 }}
-                {{ .Title }}
-              {{ end }}
-            </span>
-          </div>
-        </article>
+        {{ if hugo.IsDevelopment }}
+          {{ $weightedPages = shuffle $weightedPages}}
         {{ end}}
 
-        {{ range after 1 $featured }}
 
-          {{ .Render "featured_home" }}
+        {{/* Use weighted pages for the TERM to check the category actually has pages to show */}}
+        {{ with and (gt $weightedPages.Count 0) $weightedPages }}
+
+          <section class="mt-20 grid grid-flow-row-dense grid-rows-[repeat(4,_minmax(10px, 1fr)] gap-y-8 gap-x-12 grid-cols-[repeat(3,_1fr)_300px]">
+            {{ with .Page }}
+            <header class="row-start-1 col-span-full">
+              <h2 class="text-primary text-3xl  uppercase font-stretch-85% md:text-4xl my-4">{{ .Title }}</h2>
+              {{ .Description }}
+            </header>
+            {{ end }}
+
+
+            {{ $featured := first 4 . }}
+
+            {{ with index $featured 0}}
+
+            {{ .Render "hero"}}
+
+            {{/*  <article class="relative col-span-3">
+              <a
+              href="{{ .RelPermalink }}">
+              {{ with partial "page/get-cover" . }}
+                {{ partial "imgproxy/img" (dict "src" .src "alt" .alt "class" "w-full object-cover aspect-[16/9]") }}
+              {{ end }}
+              </a>
+              <div class="flex flex-col items-center absolute bottom-0 my-10 justify-end drop-shadow-[0_2px_10px_rgba(0,0,0,.85)]">
+                {{ with index (.GetTerms "destino") 0}}
+                  <a
+                    href="{{ .RelPermalink }}"
+                    class="text-white font-medium  underline uppercase"
+                    >{{ or .Params.name .Title }}</a
+                  >
+                {{ end }}
+                <h3 class="max-w-3/5 md:text-3xl lg:text-4xl text-center text-white font-medium font-stretch-85%">
+                  <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+                </h3>
+                <span class="flex-none text-white font-medium">
+                  <time
+                  datetime="{{ .Date | time.Format "2006-01-02" }}"
+                  data-pagefind-ignore>{{ .Date | time.Format "02.01.06" }}</time> por
+                  {{ with index (.GetTerms "authors") 0 }}
+                    {{ .Title }}
+                  {{ end }}
+                </span>
+              </div>
+            </article>  */}}
+            {{ end}}
+
+            {{ range after 1 $featured }}
+
+              {{ .Render "summary" }}
+            {{ end }}
+            <aside class="bg-slate-50 rounded-2xl col-4 row-start-2 row-span-3 flex items-center justify-center border-3 border-dashed border-slate-300 text-lg text-slate-300">Publicidad</aside>
+
+          </section>
         {{ end }}
-        <aside class="bg-slate-50 rounded-2xl col-4 row-start-2 row-span-3 flex items-center justify-center border-3 border-dashed border-slate-300 text-lg text-slate-300">Publicidad</aside>
 
-      </section>
-    {{ end }}
+      {{ end }}
 
-  {{ end }}
+
+
+
+
 
   {{ partial "subscribe/form" }}
 

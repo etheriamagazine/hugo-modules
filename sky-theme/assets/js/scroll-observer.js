@@ -1,23 +1,26 @@
-
 export function setupScrollObserver() {
 
-  const source = document.querySelector("[data-scroll-marker]");
-  const target = document.querySelector('header');
+  const marker = document.createElement("div");
+  marker.setAttribute("data-scroll-observer", "");
+  document.querySelector("main").prepend(marker);
 
-  const className = "header-sm";
+  const target = document.querySelector("body");
+  const className = "viewport-scroll";
+
+  const options = {
+    threshold: 0.0,
+  };
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
+      console.log(entry);
       if (entry.isIntersecting) {
         target.classList.remove(className);
-        // delete target.dataset.scroll;
-
       } else {
         target.classList.add(className);
-        // target.dataset.scroll = 'yes';
       }
     });
-  });
+  }, options);
 
-  observer.observe(source);
+  observer.observe(marker);
 }

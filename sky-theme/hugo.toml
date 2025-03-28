@@ -8,6 +8,9 @@ enableEmoji = true
 
 ignoreFiles = ['^banners/']
 
+[minify]
+  minifyOutput = true
+
 [outputs]
   home = ['html']
   page = ['html']

@@ -12,10 +12,9 @@
 
   <body>
     {{ partial "header.html" . }}
-    {{/*  <pre>{{ .Site.GetPage "categories/viajar-sola/europa" | debug.Dump }} </pre>  */}}
-    {{/*  <pre>{{ index .Site.Menus "main" | debug.Dump }} </pre>  */}}
-    <main class="pt-12 md:pt-36" data-pagefind-body>
-      <div data-scroll-marker></div>
+
+    {{/*  <div data-scroll-observer></div>  */}}
+    <main class="pt-4" data-pagefind-body>
       {{ block "main" . }}{{ end }}
     </main>
 

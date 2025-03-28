@@ -1,127 +1,109 @@
 <header
-  class="
-  bg-white fixed z-10 top-0 left-0 right-0  mx-auto
-  shadow-lg
-  md:shadow-none
-  header-sm:shadow-lg
-  ">
+  class="sticky top-0 z-100 bg-white px-4 lg:px-24 md:viewport-scroll:shadow-lg grid items-center gap-4 grid-cols-[auto_1fr_auto] md:grid-cols-[1fr_auto_1fr] viewport-scroll:grid-cols-[auto_1fr_auto]">
+  {{ $wrapperTag := cond .IsHome "h1" "div" }}
 
+  {{ printf "<%s class=\"col-2 md:viewport-scroll:col-1\">" $wrapperTag | safeHTML }}
+  <a href="/">
+    <picture>
+      <img
+        class="h-10 text-primary md:h-18 my-4 md:my-4 md:viewport-scroll:h-10"
+        src="/images/logo.svg"
+        loading="eager"
+        decoding="async"
+        alt="Etheria Magazine" />
+    </picture>
+  </a>
+  {{ printf "</%s>" $wrapperTag | safeHTML }}
 
-  <div
-    class="px-4 h-16 md:h-unset grid items-center gap-4
-    grid-cols-[auto_1fr_auto]
-    lg:mx-24
-    md:px-0
-    md:grid-cols-[1fr_auto_1fr]
-    header-sm:grid-cols-[auto_1fr_auto] ">
+  {{/* Links de categorias */}}
+  <nav
+    class="
+  col-span-full row-2 max-md:hidden md:viewport-scroll:col-2 md:viewport-scroll:row-1
+      flex justify-center justify-self-center font-stretch-85% tracking-wide uppercase text-md font-medium">
+    <ul class="flex flex-wrap items-center text-md">
+      {{ range .Site.Menus.main }}
 
-    <svg class="h-6 w-6 md:hidden text-slate-600">
-      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-menu" href="#icon-menu"></use>
-    </svg>
+        <li
+          {{ if .HasChildren }}
+            x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open
+            = false" :aria-expanded="open" class="p-2 lg:px-3 relative flex
+            items-center space-x-1"
+          {{ else }}
+            class="p-2 lg:px-3"
+          {{ end }}
+          {{ if $.IsMenuCurrent .Menu . }}
+            aria-current="page"
+          {{ end }}>
+          <a class="text-primary hover:text-slate-700" href="{{ .URL }}"
+            >{{ .Name }}</a
+          >
+          {{ if .HasChildren }}
+            <button class="shrink-0 p-0">
+              <span class="sr-only">Mostrar submenu</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-3 w-3 transition-[rotate] duration-300"
+                :class="{'rotate-180': open}"
+                viewBox="0 0 20 20"
+                fill="currentColor">
+                <use href="#arrow-down" />
+              </svg>
+            </button>
+            <ul
+              class="origin-top-right absolute top-full left-1/2 -translate-x-1/2 min-w-[240px] bg-white border border-slate-200 p-2 rounded-lg shadow-xl"
+              x-show.transition="open">
+              {{ range .Children }}
+                <li
+                  {{ if $.IsMenuCurrent .Menu . }}
+                    aria-current="page"
+                  {{ end }}>
+                  <a
+                    class="text-primary hover:bg-slate-50 flex items-center p-2"
+                    href="{{ .URL }}"
+                    >{{ .Name }}</a
+                  >
+                </li>
+              {{ end }}
+            </ul>
+          {{ end }}
+        </li>
+      {{ end }}
+    </ul>
+  </nav>
 
-    <a
-      class="col-2
-      header-sm:col-1
-      "
-      href="/">
+  <div class="col-3 row-1 justify-self-end flex items-center gap-2">
+    <button
+      x-data
+      @click="$store.search.show()"
+      type="button"
+      class="inline-flex items-center gap-1 rounded-full bg-gray-950/2 px-2 py-1 inset-ring inset-ring-gray-950/8 dark:bg-white/5 dark:inset-ring-white/2">
       <svg
-        class="h-10 text-primary
-        md:h-18 md:my-4
-        header-sm:h-10
-        "
-        viewBox="0 0 100 26.95"
-        >
-        <use xlink:href="#logo"></use>
-      </svg>
-    </a>
-
-    <div class="col-3 justify-self-end flex items-center gap-2">
-
-      <button
-        x-data
-        @click="$store.search.show()"
-        type="button"
-        class="inline-flex items-center gap-1 rounded-full bg-gray-950/2 px-2 py-1 inset-ring inset-ring-gray-950/8 dark:bg-white/5 dark:inset-ring-white/2">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 16 16"
-          class="-ml-0.5 size-4 fill-gray-600 dark:fill-gray-500">
-          <path
-            fill-rule="evenodd"
-            d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-            clip-rule="evenodd"></path></svg
-        ><kbd
-          class="hidden font-sans text-xs/4 text-gray-500 dark:text-gray-400 [.os-macos_&amp;]:block"
-          >⌘K</kbd
-        >
-        <kbd
-          class="hidden font-sans text-xs/4 text-gray-500 not-[.os-macos_&amp;]:block dark:text-gray-400"
-          >Ctrl&nbsp;K</kbd
-        >
-      </button>
-      <a class="text-slate-600 font-medium font-stretch-85% uppercase">Suscríbete</a>
-    </div>
-
-
-    {{/* Links de categorias  */}}
-    <nav
-      class="flex justify-center font-stretch-85% tracking-wide uppercase text-md font-medium
-col-span-full row-2 justify-self-center
-      hidden
-      md:block
-      header-sm:col-2
-      header-sm:row-1">
-      <ul class="flex flex-wrap items-center text-md">
-        {{ range .Site.Menus.main }}
-
-          <li
-            {{ if .HasChildren }}
-              x-data="{ open: false }" @mouseenter="open = true"
-              @mouseleave="open = false" :aria-expanded="open" class="p-2
-              lg:px-3 relative flex items-center space-x-1"
-            {{ else }}
-              class="p-2 lg:px-3"
-            {{ end }}
-            {{ if $.IsMenuCurrent .Menu . }}
-              aria-current="page"
-            {{ end }}>
-            <a class="text-primary hover:text-slate-700" href="{{ .URL }}"
-              >{{ .Name }}</a
-            >
-            {{ if .HasChildren }}
-              <button class="shrink-0 p-0">
-                <span class="sr-only">Mostrar submenu</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-3 w-3 transition-[rotate] duration-300"
-                  :class="{'rotate-180': open}"
-                  viewBox="0 0 20 20"
-                  fill="currentColor">
-                  <use href="#arrow-down" />
-                </svg>
-              </button>
-              <ul
-                class="origin-top-right absolute top-full left-1/2 -translate-x-1/2 min-w-[240px] bg-white border border-slate-200 p-2 rounded-lg shadow-xl"
-                x-show.transition="open">
-                {{ range .Children }}
-                  <li
-                    {{ if $.IsMenuCurrent .Menu . }}
-                      aria-current="page"
-                    {{ end }}>
-                    <a
-                      class="text-primary hover:bg-slate-50 flex items-center p-2"
-                      href="{{ .URL }}"
-                      >{{ .Name }}</a
-                    >
-                  </li>
-                {{ end }}
-              </ul>
-            {{ end }}
-          </li>
-        {{ end }}
-      </ul>
-    </nav>
-
-
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 16 16"
+        class="-ml-0.5 size-4 fill-gray-600 dark:fill-gray-500">
+        <path
+          fill-rule="evenodd"
+          d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+          clip-rule="evenodd"></path></svg
+      ><kbd
+        class="hidden font-sans text-xs/4 text-gray-500 dark:text-gray-400 [.os-macos_&amp;]:block"
+        >⌘K</kbd
+      >
+      <kbd
+        class="hidden font-sans text-xs/4 text-gray-500 not-[.os-macos_&amp;]:block dark:text-gray-400"
+        >Ctrl&nbsp;K</kbd
+      >
+    </button>
+    <a class="text-slate-600 font-medium font-stretch-85% uppercase"
+      >Suscríbete</a
+    >
   </div>
+
+  {{/* Hamburger menu (atención va en col-1) */}}
+  <svg class="col-1 row-1 h-6 w-6 md:hidden text-slate-600">
+    <use
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#icon-menu"
+      href="#icon-menu"></use>
+  </svg>
 </header>

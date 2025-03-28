@@ -83,8 +83,14 @@
   {{ $s.Set "name" (or site.Params.metadata.author site.Title) }}
   {{ $s.Set "url" site.BaseURL }}
 
-  {{ $image := resources.Get "images/logo.svg" }}
-  {{ $s.Set "image" $image.Permalink }}
+
+  {{ $paths := slice "static/images/logo.png" "static/images/logo.svg" }}
+
+  {{ range $paths }}
+    {{ with and (fileExists . ) . }}
+      {{ $s.Set "image" (printf "%s/%s" (strings.TrimSuffix "/" site.BaseURL)  (strings.TrimPrefix "static/" . )) }}
+    {{ end}}
+  {{ end }}
 
   {{ with or site.Params.metadata.author_urls (slice site.BaseURL) }}
     {{ $s.Set "sameAs" . }}

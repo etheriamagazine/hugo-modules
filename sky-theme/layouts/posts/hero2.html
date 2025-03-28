@@ -25,27 +25,18 @@
 
     </div>
 */}}
-<article class="
-  @container grid grid-cols-1 grid-rows-1  *:col-1 *:row-1
-  after:col-1 after:row-1  after:pointer-events-none
-  after:bg-linear-to-b
-  after:from-black/15 after:from-0% after:via-transparent after:via-50%  after:to-black/15 after:to-100%
-  after:opacity-20
-  hover:after:opacity-100 after:transition-opacity
-  ">
-  <a href="{{ .RelPermalink }}">
+<article class="grid  md:grid-rows-[3fr_auto_auto_auto_1fr] *:col-1 md:text-white md:text-center">
+  <a class="md:row-span-full" href="{{ .RelPermalink }}">
     {{ with partial "page/get-cover" . }}
       {{ partial "imgproxy/img" (dict
         "src" .src
         "alt" .alt
-        "class" "place-self-stretch h-full object-cover aspect-[8/2]"
+        "class" "w-full object-cover aspect-[3/2]"
         "loading" "eager"
         "fetchpriority" "high") }}
     {{ end }}
   </a>
-
-  <div class="z-5 place-self-center flex flex-col items-center max-w-5/6 @md:max-w-3/5 drop-shadow-[0_2px_10px_rgba(0,0,0,.85)]">
-    <span class="text-sm @md:text-sm @xl:text-base font-medium text-white uppercase">
+  <span class="row-1 md:row-2">
     {{ with index (.GetTerms "categories") 0}}
       <a
         href="{{ .RelPermalink }}"
@@ -61,10 +52,11 @@
       >
     {{ end }}
     </span>
-    <h3 class="@xs:my-2 @md:my-4 @xl:my-6 text-2xl @md:text-2xl @lg:text-3xl @3xl:text-5xl text-center text-white font-medium font-stretch-85%">
+    <h2 class="md:row-3 text-lg md:font-overlay md:text-2xl lg:text-3xl ">
       <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
-    </h3>
-    <span class="text-sm @md:text-sm @xl:text-base font-medium text-white">
+    </h2>
+    <p class="hidden md:visible line-clamp-3 break-words">{{ .Summary | plainify }}</p>
+    <span class="md:row-4">
       <time
       datetime="{{ .Date | time.Format "2006-01-02" }}"
       data-pagefind-ignore>{{ .Date | time.Format "02.01.06" }}</time> por
@@ -72,7 +64,7 @@
         {{ .Title }}
       {{ end }}
     </span>
-  </div>
+
 
 </article>
 
