@@ -13,16 +13,16 @@
   <body>
     {{ partial "header.html" . }}
 
-    {{/*  <div data-scroll-observer></div>  */}}
     <main class="pt-4" data-pagefind-body>
       {{ block "main" . }}{{ end }}
     </main>
 
-    <div id="search"></div>
+    {{ partialCached "footer.html" . }}
 
-    <footer>
-      {{ partialCached "footer.html" . }}
-    </footer>
+    <div id="search"></div>
+    <dialog open>
+      <h3>MI DIALOG</h3>
+    </dialog>
 
     <svg style="display: none;" xmlns="http://www.w3.org/2000/svg">
       <defs>

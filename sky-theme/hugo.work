@@ -2,7 +2,6 @@ go 1.23.1
 
 use .
 
-use ../adroller
 use ../imgproxy
 use ../seo-tools/basic-seo
 use ../seo-tools/json-ld

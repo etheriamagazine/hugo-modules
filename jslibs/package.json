@@ -6,12 +6,24 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "npm-run-all --parallel build:*",
-        "build:preact-bundle": "microbundle build --raw -f modern --cwd preact-bundle"
+        "build:preact-bundle": "microbundle build --raw -f modern --cwd preact-bundle",
+        "build:alpinejs": "rm -rf ./alpinejs/package && cp -r ./node_modules/alpinejs ./alpinejs/package",
+        "build:minisearch": "rm -rf ./minisearch/package && cp -r ./node_modules/minisearch ./minisearch/package",
+        "build:swiper": "rm -rf ./swiper/package && cp -r ./node_modules/swiper ./swiper/package",
+        "build:a11y-dialog": "rm -rf ./a11y-dialog/package && cp -r ./node_modules/a11y-dialog ./a11y-dialog/package"
+
     },
     "author": "",
     "license": "ISC",
     "devDependencies": {
         "microbundle": "^0.15.1",
         "npm-run-all": "^4.1.5"
+    },
+    "dependencies": {
+        "a11y-dialog": "^8.1.2",
+        "alpinejs": "^3.14.9",
+        "caniuse-lite": "^1.0.30001707",
+        "minisearch": "^7.1.2",
+        "swiper": "^11.2.6"
     }
 }

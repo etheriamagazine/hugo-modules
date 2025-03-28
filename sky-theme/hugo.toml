@@ -94,12 +94,6 @@ ignoreFiles = ['^banners/']
     path = 'github.com/etheriamagazine/hugo-modules/jslibs/alpinejs'
 
   [[module.imports]]
-    path = 'github.com/etheriamagazine/hugo-modules/jslibs/minisearch'
-
-  [[module.imports]]
-    path = 'github.com/etheriamagazine/hugo-modules/adroller'
-
-  [[module.imports]]
     path = 'github.com/etheriamagazine/hugo-modules/imgproxy'
 
   [[module.imports]]

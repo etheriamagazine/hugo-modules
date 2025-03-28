@@ -1,0 +1,4 @@
+[module]
+  [[module.mounts]]
+    source = "package/dist/a11y-dialog.esm.js"
+    target = "assets/jslibs/a11y-dialog.js"
