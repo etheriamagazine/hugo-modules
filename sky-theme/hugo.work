@@ -1,9 +1,11 @@
-go 1.23.1
+go 1.24.1
 
 use .
 
 use ../imgproxy
-use ../seo-tools/basic-seo
-use ../seo-tools/json-ld
-use ../seo-tools/plausible-analytics
 
+use ../seo-tools/basic-seo
+
+use ../seo-tools/json-ld
+
+use ../seo-tools/plausible-analytics

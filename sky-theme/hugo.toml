@@ -86,12 +86,14 @@ ignoreFiles = ['^banners/']
 
 
 [module]
-  # imports
   [[module.imports]]
     path = 'github.com/etheriamagazine/hugo-modules/jslibs/preact-bundle'
 
   [[module.imports]]
     path = 'github.com/etheriamagazine/hugo-modules/jslibs/alpinejs'
+
+  [[module.imports]]
+    path = 'github.com/etheriamagazine/hugo-modules/jslibs/a11y-dialog'
 
   [[module.imports]]
     path = 'github.com/etheriamagazine/hugo-modules/imgproxy'
