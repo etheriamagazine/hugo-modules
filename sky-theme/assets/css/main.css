@@ -21,6 +21,12 @@
   }
 }
 
+:focus {
+  outline: 4px dotted var(--color-primary,#d33a2c)!important;
+  outline-offset: 2px
+}
+
+
 @custom-variant hero (&:where(.hero, .hero *));
 
 
@@ -120,6 +126,10 @@
 }
 
 @utility font-overlay {
+  @apply font-medium tracking-tight font-stretch-85%;
+}
+
+@utility font-title-overlay {
   @apply font-medium tracking-tight font-stretch-85%;
 }
 

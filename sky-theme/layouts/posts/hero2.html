@@ -25,18 +25,18 @@
 
     </div>
 */}}
-<article class="grid  md:grid-rows-[3fr_auto_auto_auto_1fr] *:col-1 md:text-white md:text-center">
-  <a class="md:row-span-full" href="{{ .RelPermalink }}">
+<article class="grid m-4 grid-rows-[3fr_auto_auto_auto_1fr] *:col-1 text-white text-center">
+  <a class="row-span-full" href="{{ .RelPermalink }}">
     {{ with partial "page/get-cover" . }}
       {{ partial "imgproxy/img" (dict
         "src" .src
         "alt" .alt
-        "class" "w-full object-cover aspect-[3/2]"
+        "class" "w-full object-cover aspect-[16/8] max-sm:aspect-square"
         "loading" "eager"
         "fetchpriority" "high") }}
     {{ end }}
   </a>
-  <span class="row-1 md:row-2">
+  <span class="row-2">
     {{ with index (.GetTerms "categories") 0}}
       <a
         href="{{ .RelPermalink }}"
@@ -51,19 +51,19 @@
         >{{ or .Params.name .Title }}</a
       >
     {{ end }}
-    </span>
-    <h2 class="md:row-3 text-lg md:font-overlay md:text-2xl lg:text-3xl ">
-      <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
-    </h2>
-    <p class="hidden md:visible line-clamp-3 break-words">{{ .Summary | plainify }}</p>
-    <span class="md:row-4">
-      <time
-      datetime="{{ .Date | time.Format "2006-01-02" }}"
-      data-pagefind-ignore>{{ .Date | time.Format "02.01.06" }}</time> por
-      {{ with index (.GetTerms "authors") 0 }}
-        {{ .Title }}
-      {{ end }}
-    </span>
+  </span>
+  <h2 class="row-3 text-2xl font-overlay md:text-3xl lg:text-4xl ">
+    <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+  </h2>
+  <p class="hidden md:visible line-clamp-3 break-words">{{ .Summary | plainify }}</p>
+  <span class="row-4">
+    <time
+    datetime="{{ .Date | time.Format "2006-01-02" }}"
+    data-pagefind-ignore>{{ .Date | time.Format "02.01.06" }}</time> por
+    {{ with index (.GetTerms "authors") 0 }}
+      {{ .Title }}
+    {{ end }}
+  </span>
 
 
 </article>

@@ -3,7 +3,7 @@
 {{ .Page.Store.Set "aside_counter" 0 }}
 
   <article>
-    <div class="mx-auto pt-24 px-4 md:px-8 md:story-big prose md:prose-lg max-w-none">
+    <div class="mx-auto pt-8 md:pt-16 px-4 md:px-8 md:story-big prose md:prose-lg max-w-none max-sm:prose-img:aspect-square max-sm:prose-img:w-full max-sm:prose-img:object-cover">
       <header class="not-prose prose-base mb-8">
         <ul class="flex not-prose" data-pagefind-ignore>
           <li class="after:content-['/'] after:mx-2">
@@ -49,10 +49,9 @@
           </li>
         </ul>
       </header>
-      <aside class="author-bio not-prose">
+      <aside class="author-bio not-prose max-sm:hidden">
         {{ range .GetTerms "authors" }}
           {{ $authorPage := . }}
-          <pre>{{ .Name | debug.Dump }}</pre>
           <div class="w-40 h-40 rounded-3xl shadow-xl border-primary-600 border-4 not-prose overflow-clip origin-bottom-left transition ease-out duration-200 -rotate-12 hover:rotate-0">
             {{ with .Resources.Get .Params.bioImage }}
               <a href="{{ $authorPage.RelPermalink }}">

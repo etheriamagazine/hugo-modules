@@ -1,17 +1,27 @@
 <header
-  class="sticky top-0 z-100 bg-white px-4 lg:px-24 md:viewport-scroll:shadow-lg grid items-center gap-4 grid-cols-[auto_1fr_auto] md:grid-cols-[1fr_auto_1fr] viewport-scroll:grid-cols-[auto_1fr_auto]">
-  {{ $wrapperTag := cond .IsHome "h1" "div" }}
+  class="sticky top-0 z-100 bg-white px-4 lg:px-24 viewport-scroll:shadow-lg max-sm:shadow-xs
+  grid items-center gap-4
+  grid-cols-[auto_auto_1fr] md:grid-cols-[1fr_auto_1fr] viewport-scroll:grid-cols-[auto_1fr_auto]">
 
+  {{/*  Etheria logo */}}
+  {{/*  Make either h1 or div the wrapper tag of the log based on whether page is home or no  */}}
+  {{ $wrapperTag := cond .IsHome "h1" "div" }}
   {{ printf "<%s class=\"col-2 md:viewport-scroll:col-1\">" $wrapperTag | safeHTML }}
-  <a href="/">
-    <picture>
-      <img
-        class="h-10 text-primary md:h-18 my-4 md:my-4 md:viewport-scroll:h-10"
-        src="/images/logo.svg"
-        loading="eager"
-        decoding="async"
-        alt="Etheria Magazine" />
-    </picture>
+  <a tabIndex="-1" href="/">
+    <svg
+      role="img"
+      class="h-10 md:h-18 my-4 md:my-4 md:viewport-scroll:h-10 text-primary [--magazine-stroke-width:0.6]  md:not-viewport-scroll:[--magazine-stroke-width:0]"
+      fill="currentColor"
+      viewBox="0 0 100.259 26.95">
+      <title>{{ site.Title }}</title>
+      <path
+        d="M 14.567,0 V 0.383 H 19.21 V 13.63 h 0.424 V 0.383 h 4.642 V 0 Z m 15.951,0.002 v 13.629 h 0.424 V 6.78 h 9.172 v 6.85 H 40.54 V 0.002 H 40.114 V 6.398 H 30.942 V 0.002 Z m 32.995,0 v 13.629 h 1.91 V 7.559 h 2.039 l 3.467,6.072 h 2.308 L 69.43,7.375 c 0.977,-0.17 1.77,-0.553 2.392,-1.176 0.61,-0.609 0.92,-1.415 0.92,-2.42 0,-0.694 -0.129,-1.287 -0.383,-1.77 A 3.19,3.19 0 0 0 71.311,0.85 4.788,4.788 0 0 0 69.753,0.2 8.825,8.825 0 0 0 67.886,0.003 h -4.374 z m 15.681,0 v 13.629 h 1.912 L 81.104,0.002 Z m 13.418,0 -5.916,13.629 h 2.123 l 1.373,-3.354 h 6.469 l 1.387,3.354 H 100.2 L 94.34,0.002 Z M 0.257,0.043 v 2.83 l 1.84,0.002 V 1.742 H 9.032 V 0.043 Z m 47.841,0 v 2.973 h 1.84 V 1.6 h 6.936 V 0.043 Z M 65.395,1.6 h 2.334 a 6.265,6.265 0 0 1 1.176,0.1 2.846,2.846 0 0 1 0.977,0.353 1.994,1.994 0 0 1 0.666,0.666 c 0.169,0.283 0.254,0.623 0.254,1.033 0,0.411 -0.084,0.75 -0.254,1.031 a 1.837,1.837 0 0 1 -0.68,0.682 c -0.282,0.184 -0.623,0.31 -1.006,0.38 a 6.75,6.75 0 0 1 -1.244,0.114 h -2.195 l -0.028,0.002 z m 28.026,0.607 2.547,6.398 h -5.11 z M 0.257,4.572 v 9.06 h 9.056 v -1.7 H 2.096 v -4.53 h 6.51 V 5.703 h -6.51 v -1.13 h -1.84 z m 47.841,0 v 9.06 h 9.059 v -1.7 l -7.219,0.002 V 7.402 h 6.51 V 5.705 h -6.51 V 4.572 Z M 0.257,15.26 v 1.654 H 9.302 V 15.26 Z"
+        id="path1" />
+      <path
+        d="m 32.429,20.75 a 3.236,3.236 0 0 0 -1.245,0.229 2.995,2.995 0 0 0 -0.963,0.634 c -0.27,0.27 -0.466,0.596 -0.623,0.977 a 3.226,3.226 0 0 0 -0.226,1.232 3.526,3.526 0 0 0 0.226,1.233 2.871,2.871 0 0 0 0.623,0.99 2.783,2.783 0 0 0 0.977,0.666 c 0.382,0.155 0.806,0.238 1.273,0.238 a 4.58,4.58 0 0 0 1.233,-0.154 c 0.354,-0.113 0.65,-0.227 0.89,-0.367 v -2.563 h -1.712 v 0.155 h 1.53 v 2.308 a 4.75,4.75 0 0 1 -0.85,0.31 4.043,4.043 0 0 1 -1.063,0.13 3.1,3.1 0 0 1 -1.23,-0.229 2.664,2.664 0 0 1 -0.92,-0.637 2.532,2.532 0 0 1 -0.58,-0.933 3.456,3.456 0 0 1 -0.2,-1.147 3.033,3.033 0 0 1 0.2,-1.133 2.876,2.876 0 0 1 0.58,-0.933 2.72,2.72 0 0 1 0.906,-0.623 2.902,2.902 0 0 1 1.175,-0.227 3.052,3.052 0 0 1 0.99,0.17 2.302,2.302 0 0 1 0.468,0.197 2.64,2.64 0 0 1 0.38,0.286 l 0.127,-0.127 A 3.088,3.088 0 0 0 33.518,20.936 2.97,2.97 0 0 0 32.428,20.75 Z M 0.2,20.904 v 5.877 H 0.384 V 21.12 h 0.029 l 2.59,5.662 H 3.157 L 5.749,21.12 h 0.027 v 5.662 L 5.946,26.78 V 20.905 H 5.622 L 3.073,26.51 0.526,20.904 Z m 81.586,0 v 5.877 h 0.184 v -5.635 h 0.029 l 4.203,5.635 0.27,-0.002 v -5.875 h -0.186 v 5.635 h -0.027 l -4.22,-5.635 z m 14.72,0 v 5.877 l 3.553,-0.002 v -0.168 h -3.37 v -2.79 h 3.044 v -0.17 h -3.045 v -2.577 h 3.242 v -0.17 h -3.423 z m -78.685,0.002 -2.547,5.875 h 0.197 l 0.723,-1.683 h 3.412 l 0.694,1.683 h 0.199 l -2.451,-5.875 z m 28.535,0 -2.547,5.875 h 0.2 l 0.72,-1.683 h 3.412 l 0.694,1.683 h 0.197 l -2.45,-5.875 z m 11.664,0 v 0.17 h 3.75 l -3.863,5.479 v 0.226 h 4.133 v -0.17 h -3.95 l 3.837,-5.465 v -0.24 z m 13.532,0 v 5.875 h 0.183 v -5.875 z m -53.631,0.13 1.613,3.905 h -3.283 l 1.67,-3.906 z m 28.535,0 1.613,3.905 h -3.283 l 1.67,-3.906 z"
+        id="path2"
+        style="stroke:currentColor;stroke-width:var(--magazine-stroke-width)" />
+    </svg>
   </a>
   {{ printf "</%s>" $wrapperTag | safeHTML }}
 
@@ -34,24 +44,25 @@
           {{ if $.IsMenuCurrent .Menu . }}
             aria-current="page"
           {{ end }}>
-          <a class="text-primary hover:text-slate-700" href="{{ .URL }}"
+          <a
+            class="text-primary hover:text-slate-700" href="{{ .URL }}"
+            @focus="$dispatch('navitemselected')"
+            @navitemselected.window="open = ($event.srcElement !== $event.target)"
             >{{ .Name }}</a
           >
           {{ if .HasChildren }}
-            <button class="shrink-0 p-0">
+            <button class="shrink-0 p-0" @click="open = true">
               <span class="sr-only">Mostrar submenu</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-3 w-3 transition-[rotate] duration-300"
-                :class="{'rotate-180': open}"
-                viewBox="0 0 20 20"
-                fill="currentColor">
-                <use href="#arrow-down" />
+              <svg class="h-3 w-3">
+                <use href="/img/icons.svg#chevron-down" />
               </svg>
             </button>
             <ul
               class="origin-top-right absolute top-full left-1/2 -translate-x-1/2 min-w-[240px] bg-white border border-slate-200 p-2 rounded-lg shadow-xl"
-              x-show.transition="open">
+              style="display: none"
+              x-show.transition="open"
+
+              >
               {{ range .Children }}
                 <li
                   {{ if $.IsMenuCurrent .Menu . }}
@@ -76,7 +87,7 @@
       x-data
       @click="$store.search.show()"
       type="button"
-      class="inline-flex items-center gap-1 rounded-full bg-gray-950/2 px-2 py-1 inset-ring inset-ring-gray-950/8 dark:bg-white/5 dark:inset-ring-white/2">
+      class="max-sm:hidden inline-flex items-center gap-1 rounded-full bg-gray-950/2 px-2 py-1 inset-ring inset-ring-gray-950/8 dark:bg-white/5 dark:inset-ring-white/2">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 16 16"
@@ -101,9 +112,6 @@
 
   {{/* Hamburger menu (atención va en col-1) */}}
   <svg class="col-1 row-1 h-6 w-6 md:hidden text-slate-600">
-    <use
-      xmlns:xlink="http://www.w3.org/1999/xlink"
-      xlink:href="#icon-menu"
-      href="#icon-menu"></use>
+    <use href="/img/icons.svg#bars" />
   </svg>
 </header>

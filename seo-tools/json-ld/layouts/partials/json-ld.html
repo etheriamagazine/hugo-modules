@@ -84,7 +84,7 @@
   {{ $s.Set "url" site.BaseURL }}
 
 
-  {{ $paths := slice "static/images/logo.png" "static/images/logo.svg" }}
+  {{ $paths := slice "static/images/logo.png" "static/images/logo.svg" "static/img/logo.png" "static/img/logo.svg" }}
 
   {{ range $paths }}
     {{ with and (fileExists . ) . }}
