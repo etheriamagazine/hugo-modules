@@ -3,7 +3,7 @@
 {{ .Page.Store.Set "aside_counter" 0 }}
 
   <article>
-    <div class="mx-auto pt-8 md:pt-16 px-4 md:px-8 md:story-big prose md:prose-lg max-w-none max-sm:prose-img:aspect-square max-sm:prose-img:w-full max-sm:prose-img:object-cover">
+    <div class="mx-auto pt-8 md:pt-16 px-4 md:px-8 md:story-big prose md:prose-lg max-w-none max-sm:prose-img:aspect-square md:prose-img:aspect-[4/3] max-sm:prose-img:w-full max-sm:prose-img:object-cover">
       <header class="not-prose prose-base mb-8">
         <ul class="flex not-prose" data-pagefind-ignore>
           <li class="after:content-['/'] after:mx-2">
@@ -53,7 +53,8 @@
         {{ range .GetTerms "authors" }}
           {{ $authorPage := . }}
           <div class="w-40 h-40 rounded-3xl shadow-xl border-primary-600 border-4 not-prose overflow-clip origin-bottom-left transition ease-out duration-200 -rotate-12 hover:rotate-0">
-            {{ with .Resources.Get .Params.bioImage }}
+
+            {{ with resources.GetMatch (printf "images/authors/%s.*" .Name) }}
               <a href="{{ $authorPage.RelPermalink }}">
                 <picture>
                   <img class="w-full aspect-square scale-120 transition ease-out duration-200 rotate-12 hover:rotate-0 " loading="lazy" src="{{ .Permalink }}" />
