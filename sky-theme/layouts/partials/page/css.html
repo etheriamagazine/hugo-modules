@@ -1,26 +1,24 @@
-
-{{/*
-  Temporal: moving defer call to baseof.html
+{{/* Temporal: moving defer call to baseof.html
   https://github.com/gohugoio/hugo/issues/13492
-  */}}
-{{/*  {{ with (templates.Defer (dict "key" "global")) }}  */}}
-  {{ with resources.Get "css/main.css" }}
-    {{ $opts := dict
-      "inlineImports" true
-      "optimize" (not hugo.IsDevelopment)
-    }}
-    {{ with . | css.TailwindCSS $opts }}
-      {{ if hugo.IsDevelopment }}
-        <link rel="stylesheet" href="{{ .RelPermalink }}" />
-      {{ else }}
-        {{ with . | minify | fingerprint }}
-          <link
-            rel="stylesheet"
-            href="{{ .RelPermalink }}"
-            integrity="{{ .Data.Integrity }}"
-            crossorigin="anonymous" />
-        {{ end }}
+*/}}
+{{/* {{ with (templates.Defer (dict "key" "global")) }} */}}
+{{ with resources.Get "css/main.css" }}
+  {{ $opts := dict
+    "inlineImports" true
+    "optimize" (not hugo.IsDevelopment)
+  }}
+  {{ with . | css.TailwindCSS $opts }}
+    {{ if hugo.IsDevelopment }}
+      <link rel="stylesheet" href="{{ .RelPermalink }}" />
+    {{ else }}
+      {{ with . | minify | fingerprint }}
+        <link
+          rel="stylesheet"
+          href="{{ .RelPermalink }}"
+          integrity="{{ .Data.Integrity }}"
+          crossorigin="anonymous" />
       {{ end }}
     {{ end }}
   {{ end }}
-{{/*  {{ end }}  */}}
+{{ end }}
+{{/* {{ end }} */}}

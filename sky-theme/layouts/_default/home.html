@@ -1,29 +1,31 @@
 {{ define "main" }}
   {{ $posts := where site.RegularPages "Type" "posts" }}
   {{ if hugo.IsDevelopment }}
-    {{ $posts = shuffle $posts}}
-  {{ end}}
+    {{ $posts = shuffle $posts }}
+  {{ end }}
 
   {{/* 1. Hero story */}}
   <div class="">
-  {{ with index $posts 0 }}
-    {{ .Render "hero" }}
-  {{ end }}
+    {{ with index $posts 0 }}
+      {{ .Render "hero" }}
+    {{ end }}
   </div>
 
-
-  {{/*  2. Featured stories  */}}
-  <div class="my-8 mx-4 md:mx-12 grid grid-cols-1 gap-4 gap-y-12 md:grid-cols-4">
-  {{ range first 4 (after 1 $posts) }}
+  {{/* 2. Featured stories */}}
+  <div
+    class="mx-4 my-8 grid grid-cols-1 gap-4 gap-y-12 md:mx-12 md:grid-cols-4">
+    {{ range first 4 (after 1 $posts) }}
       {{ .Render "summary" }}
-  {{ end }}
+    {{ end }}
   </div>
 
-  {{/*  3. Publicidad horizontal  */}}
-  <div class="mx-4 md:mx-12 h-40 my-8 flex items-center rounded-2xl justify-center border-4 border-dashed border-slate-200 text-slate-400 bg-slate-100">Publicidad</div>
+  {{/* 3. Publicidad horizontal */}}
+  <div
+    class="mx-4 my-8 flex h-40 items-center justify-center rounded-2xl border-4 border-dashed border-slate-200 bg-slate-100 text-slate-400 md:mx-12">
+    Publicidad
+  </div>
 
-
-  {{/*  4. Aquí vienen las categorías */}}
+  {{/* 4. Aquí vienen las categorías */}}
   {{ $selectedCategories := slice
     "viajar-sola" "viajar-con-amigas" "viajar-en-pareja" "viajar-en-familia" "inspiración"
     "cultura" "ocio" "gourmet" "bienestar" "compras"
@@ -33,71 +35,40 @@
     {{ $weightedPages := index site.Taxonomies.categories . }}
 
     {{ if hugo.IsDevelopment }}
-      {{ $weightedPages = shuffle $weightedPages}}
-    {{ end}}
+      {{ $weightedPages = shuffle $weightedPages }}
+    {{ end }}
 
     {{/* Use weighted pages for the TERM to check the category actually has pages to show */}}
     {{ with and (gt $weightedPages.Count 0) $weightedPages }}
 
       <section class="mt-20">
         {{ with .Page }}
-        <header class="mx-4 md:mx-12 my-12">
-          <h2 class="text-primary text-3xl  uppercase font-stretch-85% md:text-4xl my-4">{{ .Title }}</h2>
-          {{ .Description }}
-        </header>
+          <header class="mx-4 my-12 md:mx-12">
+            <h2
+              class="text-primary font-stretch-85%  my-4 text-3xl uppercase md:text-4xl">
+              {{ .Title }}
+            </h2>
+            {{ .Description }}
+          </header>
         {{ end }}
-
 
         {{ $featured := first 4 . }}
 
-        {{ with index $featured 0}}
-
-        {{ .Render "hero"}}
-
-        {{/*  <article class="relative col-span-3">
-          <a
-          href="{{ .RelPermalink }}">
-          {{ with partial "page/get-cover" . }}
-            {{ partial "imgproxy/img" (dict "src" .src "alt" .alt "class" "w-full object-cover aspect-[16/9]") }}
-          {{ end }}
-          </a>
-          <div class="flex flex-col items-center absolute bottom-0 my-10 justify-end drop-shadow-[0_2px_10px_rgba(0,0,0,.85)]">
-            {{ with index (.GetTerms "destino") 0}}
-              <a
-                href="{{ .RelPermalink }}"
-                class="text-white font-medium  underline uppercase"
-                >{{ or .Params.name .Title }}</a
-              >
-            {{ end }}
-            <h3 class="max-w-3/5 md:text-3xl lg:text-4xl text-center text-white font-medium font-stretch-85%">
-              <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
-            </h3>
-            <span class="flex-none text-white font-medium">
-              <time
-              datetime="{{ .Date | time.Format "2006-01-02" }}"
-              data-pagefind-ignore>{{ .Date | time.Format "02.01.06" }}</time> por
-              {{ with index (.GetTerms "authors") 0 }}
-                {{ .Title }}
-              {{ end }}
-            </span>
-          </div>
-        </article>  */}}
-        {{ end}}
-
-        <div class="my-12 mx-4 md:mx-12 grid grid-cols-1 md:grid-cols-3 gap-4">
-
-        {{ range after 1 $featured }}
-
-          {{ .Render "summary" }}
+        {{ with index $featured 0 }}
+          {{ .Render "hero" }}
         {{ end }}
+
+        <div class="mx-4 my-12 grid grid-cols-1 gap-4 md:mx-12 md:grid-cols-3">
+          {{ range after 1 $featured }}
+
+            {{ .Render "summary" }}
+          {{ end }}
         </div>
-        {{/*  <aside class="bg-slate-50 rounded-2xl col-4 row-start-2 row-span-3 flex items-center justify-center border-3 border-dashed border-slate-300 text-lg text-slate-300">Publicidad</aside>  */}}
+        {{/* <aside class="bg-slate-50 rounded-2xl col-4 row-start-2 row-span-3 flex items-center justify-center border-3 border-dashed border-slate-300 text-lg text-slate-300">Publicidad</aside> */}}
 
       </section>
     {{ end }}
 
   {{ end }}
-
-
 
 {{ end }}

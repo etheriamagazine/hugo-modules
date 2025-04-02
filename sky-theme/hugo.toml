@@ -10,6 +10,8 @@ ignoreFiles = ['^banners/']
 
 [minify]
   minifyOutput = true
+  [minify.tdewolff.html]
+    keepQuotes = true
 
 [outputs]
   home = ['html']

@@ -29,9 +29,8 @@
         data-pagefind-ignore
         >{{ .Date | time.Format "02.01.06" }}</time
       >
-      por
-      {{ range .GetTerms "authors" }}
-        {{ .Title }}
+      {{ with index (.GetTerms "authors") 0 }}
+        por {{ .Title }}
       {{ end }}
     </span>
   </header>
