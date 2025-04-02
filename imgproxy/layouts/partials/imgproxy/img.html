@@ -32,7 +32,7 @@
   {{ end }}
   src="{{ $src | safeURL }}"
   {{ with $srcset }}
-    srcset="{{ delimit . ",\n" | safeHTMLAttr }}"
+    srcset="{{ delimit . "," | safeHTMLAttr }}"
   {{ end }}
   {{ with .alt }}
     alt="{{ . }}"
@@ -42,11 +42,10 @@
   {{ end }}
   {{ with $loading }}
     loading="{{ . }}"
-  {{ end}}
+  {{ end }}
   {{ with $decoding }}
     decoding="{{ . }}"
-  {{ end}}
+  {{ end }}
   {{ with $fetchpriority }}
     fetchpriority="{{ . }}"
-  {{ end}}
-  />
+  {{ end }} />
