@@ -2,7 +2,7 @@
   {{ $category := .Params.category }}
   {{ $destino := .Params.destino }}
 
-  {{ $pages := .Pages }}
+  {{ $pages := .Pages.ByLastmod.Reverse }}
 
   {{ if (and $category $destino) }}
     {{ $pages = site.RegularPages }}

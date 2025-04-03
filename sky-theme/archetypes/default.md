@@ -2,7 +2,7 @@
 title: "{{ replace .File.ContentBaseName "-" " " | title }}"
 date: {{ .Date }}
 draft: true
-coverImage: etheria_images/2024/03/lago-garda-italia.jpg
+cover: etheria_images/2024/03/lago-garda-italia.jpg
 categories: 
   - viajes-para-mujeres
 author: 

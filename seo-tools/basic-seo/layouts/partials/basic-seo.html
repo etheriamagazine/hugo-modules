@@ -62,7 +62,7 @@
 
 <!-- find image metadata -->
 {{/* Process summary:
-  - check coverImage in page first, then site image
+  - check coverfirst, then site image
   - check if static, absolute url or a resource
   - if Resource, find page resource, then global resource
   - extract absURL or Permalink depending on context
@@ -72,7 +72,7 @@
   - and: returns first falsy value. If all are truthy, returns last argument.
   - or: returns first truthy value. If all are falsy, returns last argument.
 */}}
-{{ $image := or .Params.coverImage site.Params.metadata.image }}
+{{ $image := or .Params.cover site.Params.metadata.image }}
 {{ $isAbsUrl := hasPrefix $image "http" }}
 {{ $isStatic :=  and $image (not $isAbsUrl) (fileExists (add `static/` (string $image))) }}
 {{ $imageResource := and $image (not $isStatic) (or (.Resources.Get $image) (resources.Get $image)) }}

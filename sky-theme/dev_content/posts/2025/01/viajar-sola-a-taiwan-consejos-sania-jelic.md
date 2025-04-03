@@ -1,8 +1,7 @@
 ---
 title: "Viajar sola a Taiwán, un planazo de Sania Jelic"
 date: 2025-01-22
-coverImage: https://fotos.etheriamagazine.com/2025/01/sun-mook-lago-taiwan.jpg
-summary: "El viaje en solitario de Sania Jelic por Asia la lleva a la antigua Formosa."
+cover: https://fotos.etheriamagazine.com/2025/01/sun-mook-lago-taiwan.jpg
 categories: 
   - viajar-sola
   - historias
@@ -14,7 +13,7 @@ authors:
 ---
 
 El viaje en solitario de Sania Jelic por Asia la lleva a la antigua Formosa, una isla 
-con un pasado complejo y un futuro incierto. <!-- more -->En este artículo nos cuenta qué ver en su 
+con un pasado complejo y un futuro incierto. En este artículo nos cuenta qué ver en su 
 capital, Taipéi, y en la menos conocida ciudad de Taitung y sus alrededores. También nos 
 brinda algunos consejos prácticos para viajar sola a Taiwán. 
 
@@ -197,8 +196,6 @@ gastronómico para familiarizarse con los platos típicos.
 
 **También te puede interesar:** 
 
-[Consejos prácticos de Sania Jelic para viajar sola a 
-Japón](https://etheriamagazine.com/2025/01/03/consejos-practicos-sania-jelic-viajar-sola-a-japon/) 
+{{< reflink path=posts/2025/01/consejos-practicos-sania-jelic-viajar-sola-a-japon >}} 
 
-[¿Es seguro viajar sola a Seúl? Sania Jelic comparte su experiencia en Corea del 
-Sur](https://etheriamagazine.com/2024/12/13/viajar-sola-a-seul-sania-jelic-corea/)
+{{< reflink path=posts/2024/12/viajar-sola-a-seul-sania-jelic-corea >}}

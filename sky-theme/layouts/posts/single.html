@@ -1,10 +1,22 @@
 {{ define "main" }}
   {{ .Page.Store.Set "aside_counter" 0 }}
 
+  {{ $coverSrc := "" }}
+  {{ $coverAlt := "" }}
 
-  <article>
+  {{ with partial "page/get-cover" . }}
+    {{ $coverAlt = .alt }}
+    {{ with partial "imgproxy/responsive-urls" .src }}
+      {{ $coverSrc = .src }}
+    {{ end }}
+  {{ end }}
+
+  <article
+    data-cover-src="{{ $coverSrc }}"
+    data-cover-alt="{{ $coverAlt }}"
+    data-pagefind-meta="image[data-cover-src], image_alt[data-cover-alt]">
     <div
-      class="md:story-big prose md:prose-lg max-sm:prose-img:aspect-square md:prose-img:aspect-[4/3] max-sm:prose-img:w-full prose-img:object-cover mx-auto max-w-none px-4 pt-8 md:px-8 md:pt-16">
+      class="md:story-big prose md:prose-lg max-sm:prose-img:aspect-square md:prose-img:aspect-[3/2] max-sm:prose-img:w-full prose-img:object-cover mx-auto max-w-none px-4 pt-8 md:px-8 md:pt-16">
       <header class="not-prose prose-base mb-8">
         <ul class="not-prose flex" data-pagefind-ignore>
           <li class="after:mx-2 after:content-['/']">
@@ -90,6 +102,17 @@
           <p class="prose">{{ .Params.bio }}</p>
         {{ end }}
       </aside>
+      {{ with and (gt .Lastmod .Date) .Lastmod }}
+        <div
+          class="bg-primary-50 text-primary-700 ring-primary-600/10 inline-flex items-center rounded-md px-2 py-1 font-medium ring-1 ring-inset">
+          <span>Artículo actualizado el</span>
+          <time
+            datetime="{{ . | time.Format "2006-01-02" }}"
+            data-pagefind-ignore
+            >{{ . | time.Format "02.01.2006" }}</time
+          >
+        </div>
+      {{ end }}
       {{ .Content }}
     </div>
   </article>

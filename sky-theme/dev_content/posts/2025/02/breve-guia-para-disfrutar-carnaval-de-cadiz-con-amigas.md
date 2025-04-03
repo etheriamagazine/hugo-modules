@@ -1,7 +1,7 @@
 ---
 title: "Guía del Carnaval de Cádiz para tu primera visita"
 date: 2025-02-22
-coverImage: https://fotos.etheriamagazine.com/2020/01/agrupacion-carnaval.jpg
+cover: https://fotos.etheriamagazine.com/2020/01/agrupacion-carnaval.jpg
 categories: 
   - viajar-con-amigas
 destino: 
@@ -112,7 +112,6 @@ importancia. Cada vez son más las chirigotas femeninas o con componentes femeni
 se presentan al concurso oficial del COAC. Aunque, de momento, ninguna ha llegado a las 
 fases eliminatorias, todo se andará. 
 
-
 En cuanto a los coros, son ya muchas las mujeres que unen sus voces a las masculinas, 
 por no contar con las habituales instrumentistas (de guitarras y bandurrias). Algo 
 parecido ocurre con las comparsas, donde las voces agudas son un elemento fundamental. 
@@ -182,5 +181,5 @@ también sesiones de playa, spa, etc.
 
 **Más información de turismo** 
 
-[Turismo de Cádiz.](https://turismo.cadiz.es/es/cultura/carnaval-de-c%C3%A1diz) [Patronato 
-de Turismo de Cádiz](https://www.cadizturismo.com/es).
+[Turismo de Cádiz.](https://turismo.cadiz.es/es/cultura/carnaval-de-c%C3%A1diz) 
+[Patronato de Turismo de Cádiz](https://www.cadizturismo.com/es).

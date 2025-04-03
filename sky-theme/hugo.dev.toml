@@ -33,6 +33,11 @@
 
 
 [params]
+  [params.content]
+    defaultPostCover = ""
+
+  [params.reflink]
+    errorOn404 = false
 
   [params.navigation]
     travelInterests = [
@@ -43,7 +48,7 @@
       "viajes-urbanos",
       "viajes-cine",
       "viajes-ecoturismo",
-      "viajes-gastronomicos"
+      "viajes-gastronomicos",
     ]
 
     travelPlanning = [
@@ -81,19 +86,19 @@
       format = "avif"
 
 
-[params.plausible]
-  enable = true
-  domain = "etheriamagazine-com.fly.dev"
+  [params.plausible]
+    enable = true
+    domain = "etheriamagazine-com.fly.dev"
 
-  proxy = true
-  proxyPath = "/eu-compliance"
+    proxy = true
+    proxyPath = "/eu-compliance"
 
-  [params.plausible.optional]
-    local = true
-    fileDownloads = true
-    outboundLinks = true
-    error404 = true
-    customEvents = true
+    [params.plausible.optional]
+      local = true
+      fileDownloads = true
+      outboundLinks = true
+      error404 = true
+      customEvents = true
 
-[params.ads]
-  adsSection = "publi"
+  [params.ads]
+    adsSection = "publi"

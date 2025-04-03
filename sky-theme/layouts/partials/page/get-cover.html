@@ -1,14 +1,37 @@
-{{ $src := site.Params.content.defaultCoverImage | default "" }}
-{{ $alt := .LinkTitle | default site.Title }}
+{{- /*
+  Extracts the cover metadata from the frontmatter.
 
-{{ with .Params.coverImage }}
-  {{ if eq "string" (printf "%T" .)}}
+  This piece of information can be either
+  - a plain string, e.g. https://hosts/img/some-image.jpg
+  - an map with src and alt properties
+
+  If alt is not specified, the LinkTitle of the post is used as an alt:
+
+  Yaml examples:
+  ---
+  title: My post
+  cover: https://hosts/img/some-image.jpg
+  ---
+
+  ---
+  title: My post
+  cover:
+    src: https://hosts/img/some-image.jpg
+    alt: My alt text
+  ---
+
+  */}}
+{{ $src := site.Params.content.defaultPostCover | default "" }}
+{{ $alt := .LinkTitle }}
+
+{{ with .Params.cover }}
+  {{ if eq "string" (printf "%T" .) }}
     {{ $src = . }}
   {{ else if reflect.IsMap . }}
     {{ $src = .src }}
     {{ if .alt }}
       {{ $alt = .alt }}
-    {{ end}}
+    {{ end }}
   {{ end }}
 {{ end }}
 
