@@ -1,3 +1,14 @@
+{{- /*
+  Renders an image tag using the configured imgproxy.
+
+  Required context vars:
+  - [src]: original source image
+
+  Optional:
+  - [loading=lazy]: Loading attribute, lazy or eager.
+  - [decoding=async]: Decoding attribute, async or sync?
+  - [fetchpriority=false]: If set to 'high', preaload image
+*/}}
 {{ $src := .src }}
 {{ $srcset := false }}
 {{ $original := false }}

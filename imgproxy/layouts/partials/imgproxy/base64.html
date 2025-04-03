@@ -1,4 +1,7 @@
-{{/*  base64 url encoding  */}}
+{{/* Returns input Base64 url encoded
+  There are some differences betwen Base64 and Base64 URL encoding
+  See https://medium.com/@bagdasaryanaleksandr97/understanding-base64-vs-base64-url-encoding-whats-the-difference-31166755bc26
+*/}}
 {{ $s := base64Encode . }}
 {{ $s := replace $s "+" "-" }}
 {{ $s := replace $s "/" "_" }}

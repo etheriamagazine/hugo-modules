@@ -19,7 +19,7 @@
     {{ end }}
 
   {{ else if eq $sourceStyle "plain" }}
-    {{ $path = printf "/%s/plain/%s" $processingOptions $src }}
+    {{ $path = printf "/%s/plain/%s" $processingOptions (urlquery $src) }}
 
     {{ if $ext }}
       {{ $path = printf "%s@%s" $path $ext }}
