@@ -111,194 +111,208 @@ ignoreFiles = ['^banners/']
 
 
 [menu]
-  # menu-100: Viajar Sola
+  # main-100: Viajar Sola
   [[menu.main]]
     name = 'Viajar sola'
-    identifier = 'menu-100'
+    identifier = 'main-100'
     pageRef = 'categories/viajar-sola'
     weight = 1
 
   [[menu.main]]
     name = 'España'
-    identifier = 'menu-100/1'
+    identifier = 'main-100/1'
     pageRef = 'categories/viajar-sola/españa'
-    parent = 'menu-100'
+    parent = 'main-100'
     weight = 1
 
   [[menu.main]]
     name = 'Europa'
-    identifier = 'menu-100/2'
+    identifier = 'main-100/2'
     pageRef = 'categories/viajar-sola/europa'
-    parent = 'menu-100'
+    parent = 'main-100'
     weight = 2
 
   [[menu.main]]
     name = 'Mundo'
-    identifier = 'menu-100/3'
+    identifier = 'main-100/3'
     pageRef = 'categories/viajar-sola/mundo'
-    parent = 'menu-100'
+    parent = 'main-100'
     weight = 3
 
 
-  # menu-200: Viajar con amigas
+  # main-200: Viajar con amigas
   [[menu.main]]
     name = 'Viajar con amigas'
-    identifier = 'menu-200'
+    identifier = 'main-200'
     pageRef = 'categories/viajar-con-amigas'
     weight = 2
 
   [[menu.main]]
     name = 'España'
-    identifier = 'menu-200/1'
+    identifier = 'main-200/1'
     pageRef = 'categories/viajar-con-amigas/españa'
-    parent = 'menu-200'
+    parent = 'main-200'
     weight = 1
 
   [[menu.main]]
     name = 'Europa'
-    identifier = 'menu-200/2'
+    identifier = 'main-200/2'
     pageRef = 'categories/viajar-con-amigas/europa'
-    parent = 'menu-200'
+    parent = 'main-200'
     weight = 2
 
   [[menu.main]]
     name = 'Mundo'
-    identifier = 'menu-200/3'
+    identifier = 'main-200/3'
     pageRef = 'categories/viajar-con-amigas/mundo'
-    parent = 'menu-200'
+    parent = 'main-200'
     weight = 3
 
-  # menu-300: Viajar en familia
+  # main-300: Viajar en familia
   [[menu.main]]
     name = 'Viajar en familia'
-    identifier = 'menu-300'
+    identifier = 'main-300'
     pageRef = 'categories/viajar-en-familia'
     weight = 3
 
   [[menu.main]]
     name = 'España'
-    identifier = 'menu-300/1'
+    identifier = 'main-300/1'
     pageRef = 'categories/viajar-en-familia/españa'
-    parent = 'menu-300'
+    parent = 'main-300'
     weight = 1
 
   [[menu.main]]
     name = 'Europa'
-    identifier = 'menu-300/2'
+    identifier = 'main-300/2'
     pageRef = 'categories/viajar-en-familia/europa'
-    parent = 'menu-300'
+    parent = 'main-300'
     weight = 2
 
   [[menu.main]]
     name = 'Mundo'
-    identifier = 'menu-300/3'
+    identifier = 'main-300/3'
     pageRef = 'categories/viajar-en-familia/mundo'
-    parent = 'menu-300'
+    parent = 'main-300'
     weight = 3
 
-  # menu-400: Viajar en pareja
+  # main-400: Viajar en pareja
   [[menu.main]]
     name = 'Viajar en pareja'
-    identifier = 'menu-400'
+    identifier = 'main-400'
     pageRef = 'categories/viajar-en-pareja'
     weight = 4
 
   [[menu.main]]
     name = 'España'
-    identifier = 'menu-400/1'
+    identifier = 'main-400/1'
     pageRef = 'categories/viajar-en-pareja/españa'
-    parent = 'menu-400'
+    parent = 'main-400'
     weight = 1
 
   [[menu.main]]
     name = 'Europa'
-    identifier = 'menu-400/2'
+    identifier = 'main-400/2'
     pageRef = 'categories/viajar-en-pareja/europa'
-    parent = 'menu-400'
+    parent = 'main-400'
     weight = 2
 
   [[menu.main]]
     name = 'Mundo'
-    identifier = 'menu-400/3'
+    identifier = 'main-400/3'
     pageRef = 'categories/viajar-en-pareja/mundo'
-    parent = 'menu-400'
+    parent = 'main-400'
     weight = 3
 
-  # menu-500: Estilo de vida
+  # main-500: Estilo de vida
   [[menu.main]]
     name = 'Estilo de vida'
-    identifier = 'menu-500'
+    identifier = 'main-500'
     pageRef = ''
     weight = 5
 
   [[menu.main]]
     name = 'Cultura'
-    identifier = 'menu-500/1'
+    identifier = 'main-500/1'
     pageRef = 'categories/cultura'
-    parent = 'menu-500'
+    parent = 'main-500'
     weight = 1
 
   [[menu.main]]
     name = 'Hoteles'
-    identifier = 'menu-500/2'
+    identifier = 'main-500/2'
     pageRef = 'categories/hoteles'
-    parent = 'menu-500'
+    parent = 'main-500'
     weight = 2
 
   [[menu.main]]
     name = 'Gourmet'
-    identifier = 'menu-500/3'
+    identifier = 'main-500/3'
     pageRef = 'categories/gourmet'
-    parent = 'menu-500'
+    parent = 'main-500'
     weight = 3
 
   [[menu.main]]
     name = 'Bienestar'
-    identifier = 'menu-500/4'
+    identifier = 'main-500/4'
     pageRef = 'categories/bienestar'
-    parent = 'menu-500'
+    parent = 'main-500'
     weight = 4
 
   [[menu.main]]
     name = 'Compras'
-    identifier = 'menu-500/5'
+    identifier = 'main-500/5'
     pageRef = 'categories/compras'
-    parent = 'menu-500'
+    parent = 'main-500'
     weight = 5
 
   [[menu.main]]
     name = 'Ocio'
-    identifier = 'menu-500/5'
+    identifier = 'main-500/5'
     pageRef = 'categories/ocio'
-    parent = 'menu-500'
+    parent = 'main-500'
     weight = 6
 
 
-  # menu-600: Entre mujeres
+  # main-600: Entre mujeres
   [[menu.main]]
     name = 'Entre mujeres'
-    identifier = 'menu-600'
+    identifier = 'main-600'
     pageRef = ''
     weight = 6
 
 
   [[menu.main]]
     name = 'Mujeres Top'
-    identifier = 'menu-600/1'
+    identifier = 'main-600/1'
     pageRef = 'categories/mujeres-top'
-    parent = 'menu-600'
+    parent = 'main-600'
     weight = 1
 
   [[menu.main]]
     name = 'Historias'
-    identifier = 'menu-600/2'
+    identifier = 'main-600/2'
     pageRef = 'categories/historias'
-    parent = 'menu-600'
+    parent = 'main-600'
     weight = 2
 
   [[menu.main]]
     name = 'Equipo Etheria'
-    identifier = 'menu-600/3'
+    identifier = 'main-600/3'
     pageRef = 'pagina de equipo!!'
-    parent = 'menu-600'
+    parent = 'main-600'
     weight = 3
+
+
+  # Menu footer
+  [[menu.footer]]
+    name = 'Política de privacidad'
+    identifier = 'footer-100'
+    pageRef = 'pages/politica-de-privacidad'
+    weight = 1
+
+  [[menu.footer]]
+    name = 'Política de cookies'
+    identifier = 'footer-200'
+    pageRef = 'pages/politica-de-cookies'
+    weight = 2

@@ -9,26 +9,15 @@
 @plugin "@tailwindcss/typography";
 
 @custom-variant aria-current (&:where([aria-current]));
-/* @custom-variant header-sm (&:where(.header-sm, .header-sm *)); */
-
 @custom-variant viewport-scroll ( &:where(.viewport-scroll, .viewport-scroll *));
 
-@custom-variant header-sm {
-  @media (width >= 40em) {
-    &:where(.header-sm, .header-sm *) {
-      @slot;
-    }
-  }
-}
-
-:focus {
-  outline: 4px dotted var(--color-primary,#d33a2c)!important;
+main :focus {
+  outline: 4px dotted var(--color-primary,#009ed0)!important;
   outline-offset: 2px
 }
 
 
 @custom-variant hero (&:where(.hero, .hero *));
-
 
 
 @theme {
@@ -80,49 +69,55 @@
 
 }
 
-@utility h-unset {
-  height: unset;
+@layer base {
+  mark {
+    @apply inline font-bold bg-transparent border-b-primary-600 border-b-3 text-primary-600 px-0;
+  }
 }
 
-@utility story-big {
-  --story-big-grid-cols: 1fr repeat(10, minmax(0, 1fr)) 1.6fr 240px 1fr;
-
-  @apply grid grid-cols-(--story-big-grid-cols) ;
+@layer components {
 
 
-  :where(& > *) {
-    grid-column: 2 / 12;
-    margin-top: 0;
+  .story {
+    @apply px-4 pt-8;
+
+    @variant prose-img {
+      @apply w-full object-cover aspect-square;
+    }
+
+    @variant md {
+      --story-grid-cols: 1fr repeat(10, minmax(0, 1fr)) 1.6fr 240px 1fr;
+      @apply px-8 pt-16;
+      @apply grid grid-cols-(--story-grid-cols);
+
+      @variant prose-img {
+        @apply aspect-[3/2] w-auto;
+      }
+    }
+
+    :where(& > *) {
+      grid-column: 2 / 12;
+      margin-top: 0;
+    }
+
+    :where(& > header) {
+      grid-column: 2/14;
+    }
+
+    :where(& > [class*="aside"]) {
+      grid-column: 13;
+      grid-row: span 4;
+    }
+
+  }
+}
+
+@utility lead-first-p {
+
+  :where(& > p:first-of-type) {
+    @apply font-medium text-primary text-lg ;
   }
 
-  :where(& > header) {
-    grid-column: 2/14;
-  }
-
-  :where(& > [class*="sidespace"]) {
-    grid-column: 13;
-    grid-row: span 20;
-  }
-
-
-  :where(& > h2) {
-    grid-column: 2/14;
-  }
-
-  & > .author-bio {
-    grid-column: 13;
-    grid-row: 2 / span 20;
-  }
-
-  & > .adspace {
-    grid-column: 13;
-    grid-row: span 4;
-  }
-
-  & > .ad-space {
-    grid-column: 13;
-    grid-row: 6 / 16;
-  }
 }
 
 @utility font-overlay {
@@ -136,17 +131,18 @@
 
 /* Customize prose settings */
 @utility prose {
+  @apply max-w-none;
   /* --tw-prose-body: var(--color-green-800); */
 
-  p {
+  /* p {
     margin-top: 0em
-  }
+  } */
 
 
   :not(:where([class~="not-prose"], [class~="not-prose"] *)) {
 
 
-    &:where(p:first-of-type) {
+    /* &:where(p:first-of-type) {
       @apply font-bold text-slate-600;
     }
     &:where(p) {
@@ -157,7 +153,7 @@
       + * {
         margin-top: 0;
       }
-    }
+    } */
 
   }
 }
@@ -167,12 +163,6 @@
     + * {
       margin-top: 0;
     }
-  }
-}
-
-@layer base {
-  mark {
-    @apply inline font-bold bg-transparent border-b-primary-600 border-b-3 text-primary-600 px-0;
   }
 }
 

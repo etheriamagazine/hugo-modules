@@ -16,9 +16,9 @@
     data-cover-alt="{{ $coverAlt }}"
     data-pagefind-meta="image[data-cover-src], image_alt[data-cover-alt]">
     <div
-      class="md:story-big prose md:prose-lg max-sm:prose-img:aspect-square md:prose-img:aspect-[3/2] max-sm:prose-img:w-full prose-img:object-cover mx-auto max-w-none px-4 pt-8 md:px-8 md:pt-16">
-      <header class="not-prose prose-base mb-8">
-        <ul class="not-prose flex" data-pagefind-ignore>
+      class="story prose md:prose-lg lead-first-p">
+      <header class="not-prose mb-8">
+        <ul class="flex" data-pagefind-ignore>
           <li class="after:mx-2 after:content-['/']">
             {{ with .GetTerms "authors" }}
               {{ range . }}
@@ -40,7 +40,7 @@
         <h1 class="text-primary-600 mb-6 text-3xl font-semibold md:text-4xl">
           {{ .Title }}
         </h1>
-        <ul class="flex *:mr-4" data-pagefind-ignore>
+        <ul class="grid md:grid-cols-2" data-pagefind-ignore>
           <li class="flex gap-1">
             <svg
               class="w-4"
@@ -82,7 +82,7 @@
           </li>
         </ul>
       </header>
-      <aside class="author-bio not-prose max-sm:hidden">
+      <aside class="aside author-bio not-prose max-sm:hidden">
         {{ range .GetTerms "authors" }}
           {{ $authorPage := . }}
           <div

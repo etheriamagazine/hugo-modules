@@ -33,6 +33,10 @@
 
 
 [params]
+  [params.general]
+    shortDateFormat = "2006.01.02"
+    longDateFormat = ":date_long"
+
   [params.content]
     defaultPostCover = ""
 

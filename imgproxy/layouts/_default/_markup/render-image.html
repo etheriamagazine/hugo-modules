@@ -3,7 +3,8 @@
 {{ $srcset := false }}
 {{ $original := false }}
 
-{{ with (and site.Params.imgproxy.enabled site.Params.imgproxy) }}
+{{ with (and site.Params.imgproxy.enabled site.Params.imgproxy (urls.Parse $src).IsAbs ) }}
+
   {{ $original = $src }}
 
   {{ with partial "imgproxy/responsive-urls" $src }}

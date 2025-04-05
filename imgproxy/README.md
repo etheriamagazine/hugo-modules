@@ -20,7 +20,7 @@ Sample configuration in `config/_default/params.toml` file.
 ```toml
 
 [imgproxy]
-    enabled = false 
+    enabled = false
     host = "https://imgp.etheriamagazine.com/"
     sourceStyle = "plain"
 

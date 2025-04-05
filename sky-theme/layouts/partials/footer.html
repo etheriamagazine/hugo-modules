@@ -1,5 +1,5 @@
 
-<footer class="mt-4">
+<footer class="mt-24">
   <div  class="px-4 md:px-12 pt-4 bg-gray-500 text-base text-white">
       <div class="container mx-auto">
 
@@ -14,6 +14,12 @@
           <p class="my-2">
               Etheria Magazine es una revista de viajes española dirigida a mujeres inquietas y apasionadas que les encanta viajar. Aquí encontrarás artículos de calidad, elaborados por periodistas profesionales, que te ayudarán a organizar tus escapadas tanto si viajas sola como con amigas, en pareja o en familia. *Todos los contenidos tienen derechos de autor por lo que queda expresamente prohibida su reproducción total o parcial sin el consentimiento del medio.
           </p>
+
+          <ul class="">
+            {{ range site.Menus.footer }}
+              <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+            {{ end}}
+          </ul>
 
           <p>Copyright {{ now.Year }}. All rights reserved.</p>
       </div>

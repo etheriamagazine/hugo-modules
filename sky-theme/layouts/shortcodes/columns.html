@@ -1,0 +1,10 @@
+{{/*  {{- $cols := default "2" (.Get "cols" | lower) }}  */}}
+{{ $parts := split .Inner "<--->" }}
+
+<div class="grid grid-cols-1 sm:grid-cols-{{ len $parts }} gap-12">
+  {{ range $parts }}
+    <div class="">
+      {{ . | $.Page.RenderString }}
+    </div>
+  {{ end }}
+</div>

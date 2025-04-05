@@ -1,0 +1,6 @@
+{{/*  {{- $cols := default "2" (.Get "cols" | lower) }}  */}}
+{{ $parts := split .Inner "<--->" }}
+
+<div class="aside not-prose">
+  {{ .Inner | $.Page.RenderString }}
+</div>

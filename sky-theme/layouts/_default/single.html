@@ -1,10 +1,14 @@
 {{ define "main" }}
-  <h1 class="bg-amber-200">{{ .Title }}</h1>
 
-  {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
-  {{ $dateHuman := .Date | time.Format ":date_long" }}
-  <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
 
-  {{ .Content }}
+  <div class="story prose md:prose-lg">
+    <header class="not-prose">
+      <h1 class="text-primary-600 mb-6 text-3xl font-semibold md:text-4xl">
+        {{ .Title }}
+      </h1>
+    </header>
+    {{ .Content }}
+  </div>
+
   {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
 {{ end }}
