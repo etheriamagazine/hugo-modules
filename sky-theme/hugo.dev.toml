@@ -33,8 +33,13 @@
 
 
 [params]
+  [params.gitinfo]
+    repositoryUrl = "https://github.com/etheriamagazine/hugo-modules"
+    branch = "main"
+    contentRoot = "sky-theme/dev_content"
+
   [params.general]
-    shortDateFormat = "2006.01.02"
+    shortDateFormat = "02.01.2006"
     longDateFormat = ":date_long"
 
   [params.content]

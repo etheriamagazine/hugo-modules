@@ -5,8 +5,11 @@ defaultContentLanguage = "es"
 removePathAccents = true
 summaryLength = 3
 enableEmoji = true
-
+enableGitInfo = true
 ignoreFiles = ['^banners/']
+
+[frontmatter]
+  lastmod = ['lastmod', 'modified', 'date', 'publishDate', 'pubdate']
 
 [minify]
   minifyOutput = true

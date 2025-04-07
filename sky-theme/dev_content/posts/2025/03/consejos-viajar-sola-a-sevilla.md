@@ -1,6 +1,8 @@
 ---
 title: "Viajar sola a Sevilla, una experiencia que no puedes perderte"
 date: 2025-03-13
+lastmod: 2025-03-11
+
 cover: https://fotos.etheriamagazine.com/2025/03/sevilla-plaza-espana.jpg
 categories: 
   - viajar-sola

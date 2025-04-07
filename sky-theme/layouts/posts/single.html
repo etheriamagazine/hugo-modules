@@ -11,12 +11,12 @@
     {{ end }}
   {{ end }}
 
+
   <article
     data-cover-src="{{ $coverSrc }}"
     data-cover-alt="{{ $coverAlt }}"
     data-pagefind-meta="image[data-cover-src], image_alt[data-cover-alt]">
-    <div
-      class="story prose md:prose-lg lead-first-p">
+    <div class="story prose md:prose-lg lead-first-p">
       <header class="not-prose mb-8">
         <ul class="flex" data-pagefind-ignore>
           <li class="after:mx-2 after:content-['/']">
@@ -40,7 +40,7 @@
         <h1 class="text-primary-600 mb-6 text-3xl font-semibold md:text-4xl">
           {{ .Title }}
         </h1>
-        <ul class="grid md:grid-cols-2" data-pagefind-ignore>
+        <ul class="flex flex-col gap-x-8 md:flex-row" data-pagefind-ignore>
           <li class="flex gap-1">
             <svg
               class="w-4"
@@ -102,10 +102,10 @@
           <p class="prose">{{ .Params.bio }}</p>
         {{ end }}
       </aside>
-      {{ with and (gt .Lastmod .Date) .Lastmod }}
-        <div
-          class="bg-primary-50 text-primary-700 ring-primary-600/10 inline-flex items-center rounded-md px-2 py-1 font-medium ring-1 ring-inset">
-          <span>Artículo actualizado el</span>
+
+      {{ with and (ne .Lastmod .Date) .Lastmod }}
+        <div class="">
+          Artículo actualizado el
           <time
             datetime="{{ . | time.Format "2006-01-02" }}"
             data-pagefind-ignore
@@ -114,6 +114,29 @@
         </div>
       {{ end }}
       {{ .Content }}
+
+
+      <div class="not-prose" data-pagefind-ignore>
+        <hr class="my-8" />
+        {{ with .GitInfo }}
+          <div>
+            Última edicion: {{ time.Format ":date_long" .AuthorDate }}:
+            <a
+              class="font-medium hover:underline"
+              href="{{ site.Params.gitinfo.repositoryUrl }}/commit/{{ .Hash }}">
+              {{ .Subject }} ({{ .AbbreviatedHash }})
+            </a>
+          </div>
+        {{ end }}
+        {{ with .File }}
+          <a
+            class="font-medium hover:underline"
+            href="{{ site.Params.gitinfo.repositoryUrl }}/edit/main/{{ site.Params.gitinfo.contentRoot }}/{{ .Path }}?plain=1">
+            Ver código fuente
+          </a>
+        {{ end }}
+
+      </div>
     </div>
   </article>
 {{ end }}
