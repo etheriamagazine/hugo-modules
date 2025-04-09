@@ -1,6 +1,6 @@
 {{ define "main" }}
   {{ $posts := where site.RegularPages "Type" "posts" }}
-  {{ if hugo.IsDevelopment }}
+  {{ if site.Params.shufflePosts }}
     {{ $posts = shuffle $posts }}
   {{ end }}
 
@@ -20,10 +20,12 @@
   </div>
 
   {{/* 3. Publicidad horizontal */}}
-  <div
-    class="mx-4 my-8 flex h-40 items-center justify-center rounded-2xl border-4 border-dashed border-slate-200 bg-slate-100 text-slate-400 md:mx-12">
-    Publicidad
-  </div>
+  {{ range partial "ads.html" "home_1" }}
+    <div
+      class="overflow-clip [&_img]:object-cover [&_img]:w-full [&>*]:w-full  mx-4 my-4 md:mx-48 md:my-20 flex items-center justify-center rounded-2xl">
+      {{ .Render "ad" }}
+    </div>
+  {{ end }}
 
   {{/* 4. Aquí vienen las categorías */}}
   {{ $selectedCategories := slice
@@ -34,7 +36,7 @@
   {{ range $selectedCategories }}
     {{ $weightedPages := index site.Taxonomies.categories . }}
 
-    {{ if hugo.IsDevelopment }}
+    {{ if site.Params.shufflePosts }}
       {{ $weightedPages = shuffle $weightedPages }}
     {{ end }}
 
@@ -45,7 +47,7 @@
         {{ with .Page }}
           <header class="mx-4 my-12 md:mx-12">
             <h2
-              class="text-primary font-stretch-85%  my-4 text-3xl uppercase md:text-4xl">
+              class="text-primary font-stretch-85% my-4 text-3xl uppercase md:text-4xl">
               {{ .Title }}
             </h2>
             {{ .Description }}
@@ -57,6 +59,7 @@
         {{ with index $featured 0 }}
           {{ .Render "hero" }}
         {{ end }}
+
 
         <div class="mx-4 my-12 grid grid-cols-1 gap-4 md:mx-12 md:grid-cols-3">
           {{ range after 1 $featured }}

@@ -21,6 +21,11 @@
     source = "dev_content"
     target = "content"
 
+  # sample content
+  [[module.mounts]]
+    source = "content"
+    target = "content"
+
   # mount content adapter
   [[module.mounts]]
     source = "content/categories/_content.gotmpl"
@@ -33,17 +38,12 @@
 
 
 [params]
+  shufflePostsHome = true
+
   [params.gitinfo]
     repositoryUrl = "https://github.com/etheriamagazine/hugo-modules"
-    branch = "main"
     contentRoot = "sky-theme/dev_content"
-
-  [params.general]
-    shortDateFormat = "02.01.2006"
-    longDateFormat = ":date_long"
-
-  [params.content]
-    defaultPostCover = ""
+    # branch = "main"
 
   [params.reflink]
     errorOn404 = false

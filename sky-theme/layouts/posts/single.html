@@ -131,7 +131,7 @@
         {{ with .File }}
           <a
             class="font-medium hover:underline"
-            href="{{ site.Params.gitinfo.repositoryUrl }}/edit/main/{{ site.Params.gitinfo.contentRoot }}/{{ .Path }}?plain=1">
+            href="{{ site.Params.gitinfo.repositoryUrl }}/edit/{{ site.Params.gitinfo.branch | default "main" }}/{{ site.Params.gitinfo.contentRoot | default "content" }}/{{ .Path }}?plain=1">
             Ver código fuente
           </a>
         {{ end }}

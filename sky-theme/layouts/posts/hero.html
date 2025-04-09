@@ -57,7 +57,7 @@
       <time
         datetime="{{ .Date | time.Format "2006-01-02" }}"
         data-pagefind-ignore
-        >{{ .Date | time.Format "02.01.06" }}</time
+        >{{ .Date | time.Format site.Params.dateFormatShort }}</time
       >
       {{ with index (.GetTerms "authors") 0 }}
         por {{- .Title }}

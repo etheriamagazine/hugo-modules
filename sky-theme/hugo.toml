@@ -319,3 +319,16 @@ ignoreFiles = ['^banners/']
     identifier = 'footer-200'
     pageRef = 'pages/politica-de-cookies'
     weight = 2
+
+
+[params]
+  adsSection = "ads"
+  dateFormatLong = ":date_long"
+  dateFormatShort = "02.01.2006"
+  defaultPostCover = "https://placehold.co/1200x750"
+  shufflePostsHome = false
+
+  [params.gitinfo]
+    repositoryUrl = "https://github.com/etheriamagazine/hugo-modules"
+    branch = "main"
+    contentRoot = "content"

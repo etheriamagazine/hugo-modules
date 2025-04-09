@@ -21,7 +21,7 @@
   ---
 
   */}}
-{{ $src := site.Params.content.defaultPostCover | default "" }}
+{{ $src := site.Params.defaultPostCover }}
 {{ $alt := .LinkTitle }}
 
 {{ with .Params.cover }}

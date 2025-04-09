@@ -59,7 +59,7 @@
   <span class="row-4">
     <time
     datetime="{{ .Date | time.Format "2006-01-02" }}"
-    data-pagefind-ignore>{{ .Date | time.Format "02.01.06" }}</time> por
+    data-pagefind-ignore>{{ .Date | time.Format site.Params.dateFormatShort }}</time> por
     {{ with index (.GetTerms "authors") 0 }}
       {{ .Title }}
     {{ end }}

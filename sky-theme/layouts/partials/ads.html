@@ -4,13 +4,18 @@
 */}}
 
 {{ $ads := slice }}
-{{ $placement := . }}
+{{ $group := . }}
 
-{{ with site.Params.ads.adsSection }}
 
-  {{ $ads = where site.RegularPages "Section" "eq" . }}
-  {{ $ads = where $ads "Params.ads.placement" "intersect" (slice $placement) }}
+{{ with site.GetPage site.Params.adsSection }}
+  {{ $ads = .Pages }}
+  {{ $ads = where $ads "Params.ads.groups" "intersect" (slice $group) }}
   {{ $ads = sort $ads "PublishDate" "desc" }}
+
 {{ end }}
+
+{{/*  {{ $ads = where site.RegularPages "Section" "eq" site.Params.adsSection }}
+{{ $ads = where $ads "Params.ads.groups" "intersect" (slice $group) }}
+{{ $ads = sort $ads "PublishDate" "desc" }}  */}}
 
 {{ return $ads }}

@@ -1,0 +1,42 @@
+{{ $type := .Params.ads.type | default "raw" }}
+{{ $href := .Params.ads.href }}
+{{ $alt := .Title }}
+
+{{ if eq $type "image" }}
+  {{ $img := index (.Resources.ByType "image") 0 }}
+  <a
+    {{ with $href }}
+      href="{{ . }}"
+    {{ end }}>
+    <img
+      src="{{ $img.RelPermalink }}"
+      {{ with $alt }}
+        alt="{{ . }}"
+      {{ end }} />
+  </a>
+{{ else if eq $type "responsive" }}
+
+  {{ $imgDesktop := .Resources.GetMatch "*--desktop.{gif,jpg,png}" }}
+  {{ $img := .Resources.GetMatch "*--mobile.{gif,jpg,png}" }}
+
+  <a
+    {{ with $href }}
+      href="{{ . }}"
+    {{ end }}>
+    <picture>
+      {{ with $imgDesktop }}
+        <source media="(width >= 40em)" srcset="{{ .RelPermalink }}" />
+      {{ end }}
+      {{ with $img }}
+        <img
+          src="{{ .RelPermalink }}"
+          {{ with $alt }}
+            alt="{{ . }}"
+          {{ end }}
+           />
+      {{ end }}
+    </picture>
+  </a>
+{{ else }}
+  {{ .Content }}
+{{ end }}
