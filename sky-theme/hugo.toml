@@ -29,12 +29,9 @@ ignoreFiles = ['^banners/']
   author = "authors"
   destino = "destino"
 
-
 [permalinks]
   [permalinks.page]
-    posts = "/articulos/:slug"
-    publicidad = "/publicidad/:slug"
-
+    posts = "/articulos/:filename"
 
   [permalinks.taxonomy]
     categories = "/categorias"
@@ -43,7 +40,6 @@ ignoreFiles = ['^banners/']
   [permalinks.term]
     categories = "/:slug"
     authors = "/autoras/:slug"
-
 
 
 [related]
