@@ -67,6 +67,8 @@ main :focus {
   --size-2x: min(5vmin, 1rem);
   --size-1x: min(2.5vmin, 0.5rem);
 
+  --dashed-border: var(--color-slate-100);
+
 }
 
 @layer base {
@@ -110,6 +112,17 @@ main :focus {
     }
 
   }
+}
+
+
+@utility dashed-border {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,var(--dashed-border),var(--dashed-border) 50%,transparent 0,transparent);
+  background-size: 8px 1px;
 }
 
 @utility lead-first-p {

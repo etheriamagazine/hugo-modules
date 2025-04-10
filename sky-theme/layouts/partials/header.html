@@ -1,117 +1,200 @@
-<header
-  class="sticky top-0 z-10 bg-white px-4 lg:px-24 viewport-scroll:shadow-lg max-sm:shadow-xs
-  grid items-center gap-4
-  grid-cols-[auto_auto_1fr] md:grid-cols-[1fr_auto_1fr] viewport-scroll:grid-cols-[auto_1fr_auto]">
-
-  {{/*  Etheria logo */}}
-  {{/*  Make either h1 or div the wrapper tag of the log based on whether page is home or no  */}}
-  {{ $wrapperTag := cond .IsHome "h1" "div" }}
-  {{ printf "<%s class=\"col-2 md:viewport-scroll:col-1\">" $wrapperTag | safeHTML }}
-  <a tabIndex="-1" href="/">
-    <svg
-      role="img"
-      class="h-10 md:h-18 my-4 md:my-4 md:viewport-scroll:h-10 text-primary [--magazine-stroke-width:0.6]  md:not-viewport-scroll:[--magazine-stroke-width:0]"
-      fill="currentColor"
-      viewBox="0 0 100.259 26.95">
-      <title>{{ site.Title }}</title>
-      <path
-        d="M 14.567,0 V 0.383 H 19.21 V 13.63 h 0.424 V 0.383 h 4.642 V 0 Z m 15.951,0.002 v 13.629 h 0.424 V 6.78 h 9.172 v 6.85 H 40.54 V 0.002 H 40.114 V 6.398 H 30.942 V 0.002 Z m 32.995,0 v 13.629 h 1.91 V 7.559 h 2.039 l 3.467,6.072 h 2.308 L 69.43,7.375 c 0.977,-0.17 1.77,-0.553 2.392,-1.176 0.61,-0.609 0.92,-1.415 0.92,-2.42 0,-0.694 -0.129,-1.287 -0.383,-1.77 A 3.19,3.19 0 0 0 71.311,0.85 4.788,4.788 0 0 0 69.753,0.2 8.825,8.825 0 0 0 67.886,0.003 h -4.374 z m 15.681,0 v 13.629 h 1.912 L 81.104,0.002 Z m 13.418,0 -5.916,13.629 h 2.123 l 1.373,-3.354 h 6.469 l 1.387,3.354 H 100.2 L 94.34,0.002 Z M 0.257,0.043 v 2.83 l 1.84,0.002 V 1.742 H 9.032 V 0.043 Z m 47.841,0 v 2.973 h 1.84 V 1.6 h 6.936 V 0.043 Z M 65.395,1.6 h 2.334 a 6.265,6.265 0 0 1 1.176,0.1 2.846,2.846 0 0 1 0.977,0.353 1.994,1.994 0 0 1 0.666,0.666 c 0.169,0.283 0.254,0.623 0.254,1.033 0,0.411 -0.084,0.75 -0.254,1.031 a 1.837,1.837 0 0 1 -0.68,0.682 c -0.282,0.184 -0.623,0.31 -1.006,0.38 a 6.75,6.75 0 0 1 -1.244,0.114 h -2.195 l -0.028,0.002 z m 28.026,0.607 2.547,6.398 h -5.11 z M 0.257,4.572 v 9.06 h 9.056 v -1.7 H 2.096 v -4.53 h 6.51 V 5.703 h -6.51 v -1.13 h -1.84 z m 47.841,0 v 9.06 h 9.059 v -1.7 l -7.219,0.002 V 7.402 h 6.51 V 5.705 h -6.51 V 4.572 Z M 0.257,15.26 v 1.654 H 9.302 V 15.26 Z"
-        id="path1" />
-      <path
-        d="m 32.429,20.75 a 3.236,3.236 0 0 0 -1.245,0.229 2.995,2.995 0 0 0 -0.963,0.634 c -0.27,0.27 -0.466,0.596 -0.623,0.977 a 3.226,3.226 0 0 0 -0.226,1.232 3.526,3.526 0 0 0 0.226,1.233 2.871,2.871 0 0 0 0.623,0.99 2.783,2.783 0 0 0 0.977,0.666 c 0.382,0.155 0.806,0.238 1.273,0.238 a 4.58,4.58 0 0 0 1.233,-0.154 c 0.354,-0.113 0.65,-0.227 0.89,-0.367 v -2.563 h -1.712 v 0.155 h 1.53 v 2.308 a 4.75,4.75 0 0 1 -0.85,0.31 4.043,4.043 0 0 1 -1.063,0.13 3.1,3.1 0 0 1 -1.23,-0.229 2.664,2.664 0 0 1 -0.92,-0.637 2.532,2.532 0 0 1 -0.58,-0.933 3.456,3.456 0 0 1 -0.2,-1.147 3.033,3.033 0 0 1 0.2,-1.133 2.876,2.876 0 0 1 0.58,-0.933 2.72,2.72 0 0 1 0.906,-0.623 2.902,2.902 0 0 1 1.175,-0.227 3.052,3.052 0 0 1 0.99,0.17 2.302,2.302 0 0 1 0.468,0.197 2.64,2.64 0 0 1 0.38,0.286 l 0.127,-0.127 A 3.088,3.088 0 0 0 33.518,20.936 2.97,2.97 0 0 0 32.428,20.75 Z M 0.2,20.904 v 5.877 H 0.384 V 21.12 h 0.029 l 2.59,5.662 H 3.157 L 5.749,21.12 h 0.027 v 5.662 L 5.946,26.78 V 20.905 H 5.622 L 3.073,26.51 0.526,20.904 Z m 81.586,0 v 5.877 h 0.184 v -5.635 h 0.029 l 4.203,5.635 0.27,-0.002 v -5.875 h -0.186 v 5.635 h -0.027 l -4.22,-5.635 z m 14.72,0 v 5.877 l 3.553,-0.002 v -0.168 h -3.37 v -2.79 h 3.044 v -0.17 h -3.045 v -2.577 h 3.242 v -0.17 h -3.423 z m -78.685,0.002 -2.547,5.875 h 0.197 l 0.723,-1.683 h 3.412 l 0.694,1.683 h 0.199 l -2.451,-5.875 z m 28.535,0 -2.547,5.875 h 0.2 l 0.72,-1.683 h 3.412 l 0.694,1.683 h 0.197 l -2.45,-5.875 z m 11.664,0 v 0.17 h 3.75 l -3.863,5.479 v 0.226 h 4.133 v -0.17 h -3.95 l 3.837,-5.465 v -0.24 z m 13.532,0 v 5.875 h 0.183 v -5.875 z m -53.631,0.13 1.613,3.905 h -3.283 l 1.67,-3.906 z m 28.535,0 1.613,3.905 h -3.283 l 1.67,-3.906 z"
-        id="path2"
-        style="stroke:currentColor;stroke-width:var(--magazine-stroke-width)" />
-    </svg>
-  </a>
-  {{ printf "</%s>" $wrapperTag | safeHTML }}
-
-  {{/* Links de categorias */}}
-  <nav
+<!-- prettier-ignore-attribute -->
+<header class="sticky top-0 z-10">
+  <!-- prettier-ignore-attribute -->
+  <div
+    id="container"
     class="
-  col-span-full row-2 max-md:hidden md:viewport-scroll:col-2 md:viewport-scroll:row-1
-      flex justify-center justify-self-center font-stretch-85% tracking-wide uppercase text-md font-medium">
-    <ul class="flex flex-wrap items-center text-md">
-      {{ range .Site.Menus.main }}
+    viewport-scroll:shadow-lg
+    max-sm:shadow-xs
 
-        <li
-          {{ if .HasChildren }}
-            x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open
-            = false" :aria-expanded="open" class="p-2 lg:px-3 relative flex
-            items-center space-x-1"
-          {{ else }}
-            class="p-2 lg:px-3"
-          {{ end }}
-          {{ if $.IsMenuCurrent .Menu . }}
-            aria-current="page"
-          {{ end }}>
-          <a
-            class="text-primary hover:text-slate-700" href="{{ .URL }}"
-            @focus="$dispatch('navitemselected')"
-            @navitemselected.window="open = ($event.srcElement !== $event.target)"
-            >{{ .Name }}</a
-          >
-          {{ if .HasChildren }}
-            <button class="shrink-0 p-0" @click="open = true">
-              <span class="sr-only">Mostrar submenu</span>
-              <svg class="h-3 w-3">
-                <use href="/img/icons.svg#chevron-down" />
-              </svg>
-            </button>
-            <ul
-              class="origin-top-right absolute top-full left-1/2 -translate-x-1/2 min-w-[240px] bg-white border border-slate-200 p-2 rounded-lg shadow-xl"
-              style="display: none"
-              x-show.transition="open"
+    grid
+    grid-cols-[auto_1fr]
+    md:grid-cols-[1fr_auto_1fr]
+    md:viewport-scroll:grid-cols-[auto_1fr_auto]
 
-              >
-              {{ range .Children }}
-                <li
-                  {{ if $.IsMenuCurrent .Menu . }}
-                    aria-current="page"
-                  {{ end }}>
-                  <a
-                    class="text-primary hover:bg-slate-50 flex items-center p-2"
-                    href="{{ .URL }}"
-                    >{{ .Name }}</a
-                  >
-                </li>
-              {{ end }}
-            </ul>
-          {{ end }}
-        </li>
-      {{ end }}
-    </ul>
-  </nav>
-
-  <div class="col-3 row-1 justify-self-end flex items-center gap-2">
-    <button
-      x-data
-      @click="$store.search.show()"
-      type="button"
-      class="max-sm:hidden inline-flex items-center gap-1 rounded-full bg-gray-950/2 px-2 py-1 inset-ring inset-ring-gray-950/8 dark:bg-white/5 dark:inset-ring-white/2">
+    items-center gap-4 bg-white px-4  lg:px-24">
+    {{/* Etheria logo */}}
+    {{/* Make either h1 or div the wrapper tag of the log based on whether page is home or no */}}
+    {{ $wrapperTag := cond .IsHome "h1" "div" }}
+    {{ printf "<%s class=\"col-1 md:col-2 md:viewport-scroll:col-1\">" $wrapperTag | safeHTML }}
+    <a tabindex="-1" href="/">
       <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 16 16"
-        class="-ml-0.5 size-4 fill-gray-600 dark:fill-gray-500">
+        role="img"
+        class="md:h-18 md:viewport-scroll:h-10 text-primary md:not-viewport-scroll:[--magazine-stroke-width:0] my-4 h-10 [--magazine-stroke-width:0.6] md:my-4"
+        fill="currentColor"
+        viewBox="0 0 100.259 26.95">
+        <title>{{ site.Title }}</title>
         <path
-          fill-rule="evenodd"
-          d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-          clip-rule="evenodd"></path></svg
-      ><kbd
-        class="hidden font-sans text-xs/4 text-gray-500 dark:text-gray-400 [.os-macos_&amp;]:block"
-        >⌘K</kbd
+          d="M 14.567,0 V 0.383 H 19.21 V 13.63 h 0.424 V 0.383 h 4.642 V 0 Z m 15.951,0.002 v 13.629 h 0.424 V 6.78 h 9.172 v 6.85 H 40.54 V 0.002 H 40.114 V 6.398 H 30.942 V 0.002 Z m 32.995,0 v 13.629 h 1.91 V 7.559 h 2.039 l 3.467,6.072 h 2.308 L 69.43,7.375 c 0.977,-0.17 1.77,-0.553 2.392,-1.176 0.61,-0.609 0.92,-1.415 0.92,-2.42 0,-0.694 -0.129,-1.287 -0.383,-1.77 A 3.19,3.19 0 0 0 71.311,0.85 4.788,4.788 0 0 0 69.753,0.2 8.825,8.825 0 0 0 67.886,0.003 h -4.374 z m 15.681,0 v 13.629 h 1.912 L 81.104,0.002 Z m 13.418,0 -5.916,13.629 h 2.123 l 1.373,-3.354 h 6.469 l 1.387,3.354 H 100.2 L 94.34,0.002 Z M 0.257,0.043 v 2.83 l 1.84,0.002 V 1.742 H 9.032 V 0.043 Z m 47.841,0 v 2.973 h 1.84 V 1.6 h 6.936 V 0.043 Z M 65.395,1.6 h 2.334 a 6.265,6.265 0 0 1 1.176,0.1 2.846,2.846 0 0 1 0.977,0.353 1.994,1.994 0 0 1 0.666,0.666 c 0.169,0.283 0.254,0.623 0.254,1.033 0,0.411 -0.084,0.75 -0.254,1.031 a 1.837,1.837 0 0 1 -0.68,0.682 c -0.282,0.184 -0.623,0.31 -1.006,0.38 a 6.75,6.75 0 0 1 -1.244,0.114 h -2.195 l -0.028,0.002 z m 28.026,0.607 2.547,6.398 h -5.11 z M 0.257,4.572 v 9.06 h 9.056 v -1.7 H 2.096 v -4.53 h 6.51 V 5.703 h -6.51 v -1.13 h -1.84 z m 47.841,0 v 9.06 h 9.059 v -1.7 l -7.219,0.002 V 7.402 h 6.51 V 5.705 h -6.51 V 4.572 Z M 0.257,15.26 v 1.654 H 9.302 V 15.26 Z"
+          id="path1" />
+        <path
+          d="m 32.429,20.75 a 3.236,3.236 0 0 0 -1.245,0.229 2.995,2.995 0 0 0 -0.963,0.634 c -0.27,0.27 -0.466,0.596 -0.623,0.977 a 3.226,3.226 0 0 0 -0.226,1.232 3.526,3.526 0 0 0 0.226,1.233 2.871,2.871 0 0 0 0.623,0.99 2.783,2.783 0 0 0 0.977,0.666 c 0.382,0.155 0.806,0.238 1.273,0.238 a 4.58,4.58 0 0 0 1.233,-0.154 c 0.354,-0.113 0.65,-0.227 0.89,-0.367 v -2.563 h -1.712 v 0.155 h 1.53 v 2.308 a 4.75,4.75 0 0 1 -0.85,0.31 4.043,4.043 0 0 1 -1.063,0.13 3.1,3.1 0 0 1 -1.23,-0.229 2.664,2.664 0 0 1 -0.92,-0.637 2.532,2.532 0 0 1 -0.58,-0.933 3.456,3.456 0 0 1 -0.2,-1.147 3.033,3.033 0 0 1 0.2,-1.133 2.876,2.876 0 0 1 0.58,-0.933 2.72,2.72 0 0 1 0.906,-0.623 2.902,2.902 0 0 1 1.175,-0.227 3.052,3.052 0 0 1 0.99,0.17 2.302,2.302 0 0 1 0.468,0.197 2.64,2.64 0 0 1 0.38,0.286 l 0.127,-0.127 A 3.088,3.088 0 0 0 33.518,20.936 2.97,2.97 0 0 0 32.428,20.75 Z M 0.2,20.904 v 5.877 H 0.384 V 21.12 h 0.029 l 2.59,5.662 H 3.157 L 5.749,21.12 h 0.027 v 5.662 L 5.946,26.78 V 20.905 H 5.622 L 3.073,26.51 0.526,20.904 Z m 81.586,0 v 5.877 h 0.184 v -5.635 h 0.029 l 4.203,5.635 0.27,-0.002 v -5.875 h -0.186 v 5.635 h -0.027 l -4.22,-5.635 z m 14.72,0 v 5.877 l 3.553,-0.002 v -0.168 h -3.37 v -2.79 h 3.044 v -0.17 h -3.045 v -2.577 h 3.242 v -0.17 h -3.423 z m -78.685,0.002 -2.547,5.875 h 0.197 l 0.723,-1.683 h 3.412 l 0.694,1.683 h 0.199 l -2.451,-5.875 z m 28.535,0 -2.547,5.875 h 0.2 l 0.72,-1.683 h 3.412 l 0.694,1.683 h 0.197 l -2.45,-5.875 z m 11.664,0 v 0.17 h 3.75 l -3.863,5.479 v 0.226 h 4.133 v -0.17 h -3.95 l 3.837,-5.465 v -0.24 z m 13.532,0 v 5.875 h 0.183 v -5.875 z m -53.631,0.13 1.613,3.905 h -3.283 l 1.67,-3.906 z m 28.535,0 1.613,3.905 h -3.283 l 1.67,-3.906 z"
+          id="path2"
+          style="stroke:currentColor;stroke-width:var(--magazine-stroke-width)" />
+      </svg>
+    </a>
+    {{ printf "</%s>" $wrapperTag | safeHTML }}
+
+    {{/* Links de categorias */}}
+    <!-- prettier-ignore-attribute -->
+    <nav
+      class="row-2 col-span-full
+        md:viewport-scroll:col-2 md:viewport-scroll:row-1
+        max-md:hidden
+        font-stretch-85% text-md  flex justify-center justify-self-center font-medium uppercase tracking-wide ">
+      <ul class="text-md flex flex-wrap items-center">
+        {{ range .Site.Menus.main }}
+
+          <li
+            {{ if .HasChildren }}
+              x-data="{ open: false }" @mouseenter="open = true"
+              @mouseleave="open = false" :aria-expanded="open" class="p-2
+              lg:px-3 relative flex items-center space-x-1"
+            {{ else }}
+              class="p-2 lg:px-3"
+            {{ end }}
+            {{ if $.IsMenuCurrent .Menu . }}
+              aria-current="page"
+            {{ end }}>
+            <a
+              class="text-primary hover:text-slate-700"
+              href="{{ .URL }}"
+              @focus="$dispatch('navitemselected')"
+              @navitemselected.window="open = ($event.srcElement !== $event.target)"
+              >{{ .Name }}</a
+            >
+            {{ if .HasChildren }}
+              <button class="shrink-0 p-0" @click="open = true">
+                <span class="sr-only">Mostrar submenu</span>
+                <svg class="h-3 w-3">
+                  <use href="/img/icons.svg#chevron-down" />
+                </svg>
+              </button>
+              <ul
+                class="absolute left-1/2 top-full min-w-[240px] origin-top-right -translate-x-1/2 rounded-lg border border-slate-200 bg-white p-2 shadow-xl"
+                style="display: none"
+                x-show.transition="open">
+                {{ range .Children }}
+                  <li
+                    {{ if $.IsMenuCurrent .Menu . }}
+                      aria-current="page"
+                    {{ end }}>
+                    <a
+                      class="text-primary flex items-center p-2 hover:bg-slate-50"
+                      href="{{ .URL }}"
+                      >{{ .Name }}</a
+                    >
+                  </li>
+                {{ end }}
+              </ul>
+            {{ end }}
+          </li>
+        {{ end }}
+      </ul>
+    </nav>
+
+    <div class="col-3 row-1 flex hidden items-center gap-2 justify-self-end">
+      <button
+        x-data
+        @click="$store.search.show()"
+        type="button"
+        class="bg-gray-950/2 inset-ring inset-ring-gray-950/8 dark:inset-ring-white/2 inline-flex items-center gap-1 rounded-full px-2 py-1 max-sm:hidden dark:bg-white/5">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 16 16"
+          class="-ml-0.5 size-4 fill-gray-600 dark:fill-gray-500">
+          <path
+            fill-rule="evenodd"
+            d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+            clip-rule="evenodd"></path></svg
+        ><kbd
+          class="[.os-macos_&amp;]:block hidden font-sans text-xs/4 text-gray-500 dark:text-gray-400"
+          >⌘K</kbd
+        >
+        <kbd
+          class="not-[.os-macos_&amp;]:block hidden font-sans text-xs/4 text-gray-500 dark:text-gray-400"
+          >Ctrl&nbsp;K</kbd
+        >
+      </button>
+      <a class="font-stretch-85% font-medium uppercase text-slate-600"
+        >Suscríbete</a
       >
-      <kbd
-        class="hidden font-sans text-xs/4 text-gray-500 not-[.os-macos_&amp;]:block dark:text-gray-400"
-        >Ctrl&nbsp;K</kbd
-      >
-    </button>
-    <a class="text-slate-600 font-medium font-stretch-85% uppercase"
-      >Suscríbete</a
-    >
+    </div>
+
+    {{/* Hamburger menu (atención va en col-1) */}}
+    <div
+      class="col-2 row-1 justify-self-end md:hidden"
+      x-data
+      @click="$dispatch('hamburger', { open: true })">
+      <svg class="h-6 w-6 text-slate-600">
+        <use href="/img/icons.svg#bars" />
+      </svg>
+    </div>
   </div>
 
-  {{/* Hamburger menu (atención va en col-1) */}}
-  <svg class="col-1 row-1 h-6 w-6 md:hidden text-slate-600">
-    <use href="/img/icons.svg#bars" />
-  </svg>
+  <!-- prettier-ignore-attribute -->
+  <div
+    id="mobile_menu"
+    class="grid grid-rows-[auto_1fr_auto] bg-white z-100 fixed inset-0 md:hidden"
+    x-data="{open: false}"
+    @hamburger.window="open = $event.detail.open"
+    style="display: none"
+    x-show="open"
+    x-transition>
+    <div class="flex justify-between p-4">
+      <svg
+        role="img"
+        class="text-primary h-10 [--magazine-stroke-width:0.6]"
+        fill="currentColor"
+        viewBox="0 0 100.259 26.95">
+        <title>{{ site.Title }}</title>
+        <path
+          d="M 14.567,0 V 0.383 H 19.21 V 13.63 h 0.424 V 0.383 h 4.642 V 0 Z m 15.951,0.002 v 13.629 h 0.424 V 6.78 h 9.172 v 6.85 H 40.54 V 0.002 H 40.114 V 6.398 H 30.942 V 0.002 Z m 32.995,0 v 13.629 h 1.91 V 7.559 h 2.039 l 3.467,6.072 h 2.308 L 69.43,7.375 c 0.977,-0.17 1.77,-0.553 2.392,-1.176 0.61,-0.609 0.92,-1.415 0.92,-2.42 0,-0.694 -0.129,-1.287 -0.383,-1.77 A 3.19,3.19 0 0 0 71.311,0.85 4.788,4.788 0 0 0 69.753,0.2 8.825,8.825 0 0 0 67.886,0.003 h -4.374 z m 15.681,0 v 13.629 h 1.912 L 81.104,0.002 Z m 13.418,0 -5.916,13.629 h 2.123 l 1.373,-3.354 h 6.469 l 1.387,3.354 H 100.2 L 94.34,0.002 Z M 0.257,0.043 v 2.83 l 1.84,0.002 V 1.742 H 9.032 V 0.043 Z m 47.841,0 v 2.973 h 1.84 V 1.6 h 6.936 V 0.043 Z M 65.395,1.6 h 2.334 a 6.265,6.265 0 0 1 1.176,0.1 2.846,2.846 0 0 1 0.977,0.353 1.994,1.994 0 0 1 0.666,0.666 c 0.169,0.283 0.254,0.623 0.254,1.033 0,0.411 -0.084,0.75 -0.254,1.031 a 1.837,1.837 0 0 1 -0.68,0.682 c -0.282,0.184 -0.623,0.31 -1.006,0.38 a 6.75,6.75 0 0 1 -1.244,0.114 h -2.195 l -0.028,0.002 z m 28.026,0.607 2.547,6.398 h -5.11 z M 0.257,4.572 v 9.06 h 9.056 v -1.7 H 2.096 v -4.53 h 6.51 V 5.703 h -6.51 v -1.13 h -1.84 z m 47.841,0 v 9.06 h 9.059 v -1.7 l -7.219,0.002 V 7.402 h 6.51 V 5.705 h -6.51 V 4.572 Z M 0.257,15.26 v 1.654 H 9.302 V 15.26 Z"
+          id="path1" />
+        <path
+          d="m 32.429,20.75 a 3.236,3.236 0 0 0 -1.245,0.229 2.995,2.995 0 0 0 -0.963,0.634 c -0.27,0.27 -0.466,0.596 -0.623,0.977 a 3.226,3.226 0 0 0 -0.226,1.232 3.526,3.526 0 0 0 0.226,1.233 2.871,2.871 0 0 0 0.623,0.99 2.783,2.783 0 0 0 0.977,0.666 c 0.382,0.155 0.806,0.238 1.273,0.238 a 4.58,4.58 0 0 0 1.233,-0.154 c 0.354,-0.113 0.65,-0.227 0.89,-0.367 v -2.563 h -1.712 v 0.155 h 1.53 v 2.308 a 4.75,4.75 0 0 1 -0.85,0.31 4.043,4.043 0 0 1 -1.063,0.13 3.1,3.1 0 0 1 -1.23,-0.229 2.664,2.664 0 0 1 -0.92,-0.637 2.532,2.532 0 0 1 -0.58,-0.933 3.456,3.456 0 0 1 -0.2,-1.147 3.033,3.033 0 0 1 0.2,-1.133 2.876,2.876 0 0 1 0.58,-0.933 2.72,2.72 0 0 1 0.906,-0.623 2.902,2.902 0 0 1 1.175,-0.227 3.052,3.052 0 0 1 0.99,0.17 2.302,2.302 0 0 1 0.468,0.197 2.64,2.64 0 0 1 0.38,0.286 l 0.127,-0.127 A 3.088,3.088 0 0 0 33.518,20.936 2.97,2.97 0 0 0 32.428,20.75 Z M 0.2,20.904 v 5.877 H 0.384 V 21.12 h 0.029 l 2.59,5.662 H 3.157 L 5.749,21.12 h 0.027 v 5.662 L 5.946,26.78 V 20.905 H 5.622 L 3.073,26.51 0.526,20.904 Z m 81.586,0 v 5.877 h 0.184 v -5.635 h 0.029 l 4.203,5.635 0.27,-0.002 v -5.875 h -0.186 v 5.635 h -0.027 l -4.22,-5.635 z m 14.72,0 v 5.877 l 3.553,-0.002 v -0.168 h -3.37 v -2.79 h 3.044 v -0.17 h -3.045 v -2.577 h 3.242 v -0.17 h -3.423 z m -78.685,0.002 -2.547,5.875 h 0.197 l 0.723,-1.683 h 3.412 l 0.694,1.683 h 0.199 l -2.451,-5.875 z m 28.535,0 -2.547,5.875 h 0.2 l 0.72,-1.683 h 3.412 l 0.694,1.683 h 0.197 l -2.45,-5.875 z m 11.664,0 v 0.17 h 3.75 l -3.863,5.479 v 0.226 h 4.133 v -0.17 h -3.95 l 3.837,-5.465 v -0.24 z m 13.532,0 v 5.875 h 0.183 v -5.875 z m -53.631,0.13 1.613,3.905 h -3.283 l 1.67,-3.906 z m 28.535,0 1.613,3.905 h -3.283 l 1.67,-3.906 z"
+          id="path2"
+          style="stroke:currentColor;stroke-width:var(--magazine-stroke-width)" />
+      </svg>
+
+      <button @click="$dispatch('hamburger', {open: false})">
+        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M20 5.61143L18.3886 4L12 10.3886L5.61143 4L4 5.61143L10.3886 12L4 18.3886L5.61143 20L12 13.6114L18.3886 20L20 18.3886L13.6114 12L20 5.61143Z"></path>
+        </svg>
+      </button>
+    </div>
+    <nav>
+      <ul class="m-2">
+        {{ range .Site.Menus.main }}
+          <li class="relative before:dashed-border" x-data="{open: false}"
+
+          >
+          {{ if .HasChildren }}
+            <button class="w-full flex py-4 justify-between"
+              @click="open = !open; open && $dispatch('itemopen')"
+              @itemopen.window="($el !== $event.target) && (open = false)"
+              :class="open && 'bg-slate-100 font-bold'"
+            >
+              <span>{{ .Name }}</span>
+              <svg width="24" heigth="24" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
+              </svg>
+            </button>
+            <ul x-show="open" x-transition>
+              {{ range .Children }}
+              <li class="w-full flex mx-4 py-4 justify-between"><a href="{{ .URL }}">{{ .Name }}</a></li>
+              {{ end }}
+            </ul>
+          {{ else }}
+            <a class="flex py-4" href="{{ .URL }}">{{ .Name }}</a>
+          {{ end }}
+          </li>
+        {{ end }}
+      </ul>
+    </nav>
+    <div>aquí el footer</div>
+  </div>
 </header>
