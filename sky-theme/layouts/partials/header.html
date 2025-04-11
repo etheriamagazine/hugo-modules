@@ -8,7 +8,7 @@
     max-sm:shadow-xs
 
     grid
-    grid-cols-[auto_1fr]
+    grid-cols-[auto_1fr_auto]
     md:grid-cols-[1fr_auto_1fr]
     md:viewport-scroll:grid-cols-[auto_1fr_auto]
 
@@ -121,9 +121,9 @@
       >
     </div>
 
-    {{/* Hamburger menu (atención va en col-1) */}}
+    {{/* Hamburger icon 2 */}}
     <div
-      class="col-2 row-1 justify-self-end md:hidden"
+      class="col-3 row-1 justify-self-end md:hidden"
       x-data
       @click="$dispatch('hamburger', { open: true })">
       <svg class="h-6 w-6 text-slate-600">
