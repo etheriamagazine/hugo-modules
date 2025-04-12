@@ -1,0 +1,5 @@
+---
+cascade:
+  - params:
+      pagefindIndex: true
+---

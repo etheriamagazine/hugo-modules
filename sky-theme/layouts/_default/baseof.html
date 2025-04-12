@@ -18,7 +18,7 @@
     </a>
     {{ partial "header.html" . }}
 
-    <main id="main-content" data-pagefind-body>
+    <main id="main-content" {{ cond .Params.pagefindIndex "data-pagefind-body" "" | safeHTMLAttr }}>
       {{ block "main" . }}{{ end }}
     </main>
 

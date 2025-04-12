@@ -185,7 +185,7 @@ function SearchResultWithSubs(r) {
   return html`
     <li class="flex gap-4 py-8">
       <img
-        class="mt-1 w-32 object-cover"
+        class="hidden md:visible mt-1 w-32 object-cover"
         src=${r.meta.image}
         alt=${r.meta.image_alt}
       />

@@ -84,7 +84,7 @@ main :focus {
     @apply px-4 pt-8;
 
     @variant prose-img {
-      @apply w-full object-cover aspect-square;
+      @apply w-full object-cover min-h-96;
     }
 
     @variant md {
@@ -93,7 +93,7 @@ main :focus {
       @apply grid grid-cols-(--story-grid-cols);
 
       @variant prose-img {
-        @apply aspect-[3/2] w-auto;
+        @apply w-auto ;
       }
     }
 

@@ -82,7 +82,7 @@
           </li>
         </ul>
       </header>
-      <aside class="aside author-bio not-prose max-sm:hidden">
+      <aside class="aside author-bio not-prose max-sm:hidden" data-pagefind-ignore>
         {{ range .GetTerms "authors" }}
           {{ $authorPage := . }}
           <div
@@ -135,7 +135,6 @@
             Ver código fuente
           </a>
         {{ end }}
-
       </div>
     </div>
   </article>
