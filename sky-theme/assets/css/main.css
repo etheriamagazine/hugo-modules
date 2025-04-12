@@ -67,7 +67,7 @@ main :focus {
   --size-2x: min(5vmin, 1rem);
   --size-1x: min(2.5vmin, 0.5rem);
 
-  --dashed-border: var(--color-slate-100);
+  --dashed-border: var(--color-slate-200);
 
 }
 

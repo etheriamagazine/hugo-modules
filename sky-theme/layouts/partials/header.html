@@ -123,12 +123,19 @@
 
     {{/* Hamburger icon 2 */}}
     <div
-      class="col-3 row-1 justify-self-end md:hidden"
-      x-data
-      @click="$dispatch('hamburger', { open: true })">
-      <svg class="h-6 w-6 text-slate-600">
-        <use href="/img/icons.svg#bars" />
-      </svg>
+      class="col-3 row-1 justify-self-end flex gap-4 md:hidden"
+      >
+      <button x-data @click="$store.search.show()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+        </svg>
+      </button>
+
+      <button x-data @click="$dispatch('hamburger', { open: true })">
+        <svg class="h-6 w-6 text-slate-600">
+          <use href="/img/icons.svg#bars" />
+        </svg>
+      </button>
     </div>
   </div>
 
@@ -172,6 +179,8 @@
           <li class="relative before:dashed-border" x-data="{open: false}"
 
           >
+
+
           {{ if .HasChildren }}
             <button class="w-full flex py-4 justify-between"
               @click="open = !open; open && $dispatch('itemopen')"
@@ -185,7 +194,9 @@
             </button>
             <ul x-show="open" x-transition>
               {{ range .Children }}
-              <li class="w-full flex mx-4 py-4 justify-between"><a href="{{ .URL }}">{{ .Name }}</a></li>
+              <li class="flex mx-4 py-4 justify-between active:font-bold active:bg-slate-100">
+                <a class="w-full " href="{{ .URL }}">{{ .Name }}</a>
+              </li>
               {{ end }}
             </ul>
           {{ else }}

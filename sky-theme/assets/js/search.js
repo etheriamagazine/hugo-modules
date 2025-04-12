@@ -81,6 +81,10 @@ export function Search(props) {
     resultSize.value += 5;
   }
 
+  function close() {
+    isOpen.value = false;
+  }
+
   if (isOpen.value) {
     return html` <div
       class="fixed bottom-0 left-0 right-0 top-0 z-30 flex flex-col bg-[#0003] p-4 backdrop-blur-sm sm:p-8 md:p-16 lg:px-64"
@@ -121,7 +125,8 @@ export function Search(props) {
               <button
                 type="reset"
                 class="rounded-sm border border-slate-800/15 bg-white bg-center p-1 text-xs font-bold uppercase text-slate-800/60 shadow"
-              >
+                onClick=${close}
+                >
                 <small> Esc </small>
               </button>
             </form>
