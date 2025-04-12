@@ -9,19 +9,26 @@ import {
   useComputed,
 } from "jslibs/preact-bundle.js";
 
-const path = "/pagefind/pagefind.js";
-const pagefind = await import(path);
-await pagefind.options({
-  highlightParam: "highlight"
-});
-pagefind.init();
+let pagefind;
 
+async function importAndInitPagefind() {
+  const path = "/pagefind/pagefind.js";
+  const pagefind = await import(path);
+  await pagefind.options({
+    highlightParam: "highlight",
+  });
+  pagefind.init();
+  console.log("pagefind initialized");
+  return pagefind;
+}
 
-export const isOpen = signal(false);
+const isOpen = signal(false);
+
+// export signal isSearchOpen so other modules can interact
+export { isOpen as isSearchOpen };
 
 export function Search(props) {
   const input = useRef();
-  // const isOpen = useSignal(false);
   const searchText = useSignal("");
   const results = useSignal([]);
   const resultSize = useSignal(5);
@@ -29,7 +36,8 @@ export function Search(props) {
 
   // note second parameter to useEffect
   useEffect(async () => {
-    const search = await pagefind.debouncedSearch(searchText.value);
+
+    const search = pagefind && await pagefind.debouncedSearch(searchText.value);
 
     if (search) {
       const fiveResults = await Promise.all(
@@ -41,10 +49,13 @@ export function Search(props) {
     }
   }, [searchText.value, resultSize.value]);
 
-  useEffect(() => {
+  useEffect(async () => {
     if (isOpen.value) {
       console.log("focus");
       input.current.focus();
+      if (!pagefind) {
+        pagefind = await importAndInitPagefind();
+      }
     }
   }, [isOpen.value]);
 
@@ -56,37 +67,15 @@ export function Search(props) {
         (event.key == "k" && (event.metaKey || event.ctrlKey))
       ) {
         event.preventDefault();
-
-        // isOpen.value = !isOpen.value;
-        // if(isOpen.value) {
-        //   input.focus();
-        //   console.log(input);
-        // }
-
-        if (isOpen.value) {
-          isOpen.value = false;
-        } else {
-          isOpen.value = true;
-        }
+        isOpen.value = !isOpen.value;
       }
-    }
-    // const button = document.getElementById("search-lens");
-
-    function onSearchLensClick(event) {
-      isOpen.value = true;
     }
 
     window.addEventListener("keydown", onKeyDown);
-    // button.addEventListener("click", onSearchLensClick)
     return () => {
       window.removeEventListener("keydown", onKeyDown);
-      // button.removeEventListener("click", onSearchLensClick)
     };
   }, []);
-
-  function execute() {
-    alert(searchText.value);
-  }
 
   function loadMoreResults() {
     resultSize.value += 5;
@@ -94,18 +83,17 @@ export function Search(props) {
 
   if (isOpen.value) {
     return html` <div
-      class="fixed z-30 top-0 left-0 right-0 bottom-0 backdrop-blur-sm flex flex-col
-      p-4 sm:p-8 md:p-16 lg:px-64 bg-[#0003]"
+      class="fixed bottom-0 left-0 right-0 top-0 z-30 flex flex-col bg-[#0003] p-4 backdrop-blur-sm sm:p-8 md:p-16 lg:px-64"
     >
-      <div class="bg-white shadow-lg grow w-full rounded-lg ring-amber-300">
-        <div class="flex flex-col h-full">
-          <header class="flex-initial flex border-b border-b-slate-100 px-6">
-            <form class="flex-auto flex items-center">
+      <div class="w-full grow rounded-lg bg-white shadow-lg ring-amber-300">
+        <div class="flex h-full flex-col">
+          <header class="flex flex-initial border-b border-b-slate-100 px-6">
+            <form class="flex flex-auto items-center">
               <label>
                 <svg
                   width="20"
                   height="20"
-                  class="stroke-2 text-slate-600 mr-8"
+                  class="mr-8 stroke-2 text-slate-600"
                   viewBox="0 0 20 20"
                 >
                   <path
@@ -120,13 +108,7 @@ export function Search(props) {
               </label>
               <input
                 ref=${input}
-                class="
-                h-16
-                border-0
-                outline-0
-                &::-webkit-search-cancel-button]:hidden
-                flex-auto appearance-none focus:outline-none
-                "
+                class="&::-webkit-search-cancel-button]:hidden h-16 flex-auto appearance-none border-0 outline-0 focus:outline-none"
                 autocomplete="off"
                 autocorrect="off"
                 spellcheck="false"
@@ -138,20 +120,14 @@ export function Search(props) {
 
               <button
                 type="reset"
-                class="
-                bg-white rounded-sm border border-slate-800/15 bg-center p-1 shadow uppercase text-xs
-                text-slate-800/60
-                font-bold
-
-                "
+                class="rounded-sm border border-slate-800/15 bg-white bg-center p-1 text-xs font-bold uppercase text-slate-800/60 shadow"
               >
                 <small> Esc </small>
               </button>
             </form>
           </header>
-          <div class="flex-auto max-h-[600px] overflow-y-auto">
+          <div class="max-h-[600px] flex-auto overflow-y-auto">
             <ol class="p-8">
-
               ${results.value?.map((r) => SearchResultWithSubs(r))}
             </ol>
             <!-- <button onClick=${loadMoreResults}>Load more results</button> -->
@@ -176,7 +152,6 @@ function SearchResultWithSubs(r) {
   const nonRootSubresults = computeSubResults(r);
 
   function computeSubResults(r) {
-
     if (Array.isArray(r.sub_results)) {
       const hasRootSubresult =
         r.sub_results?.[0]?.url === (r.meta?.url || r.url);
@@ -187,8 +162,7 @@ function SearchResultWithSubs(r) {
     }
 
     return [];
-  };
-
+  }
 
   function thinSubResults(results, limit) {
     if (results.length <= limit) {
@@ -203,28 +177,30 @@ function SearchResultWithSubs(r) {
     return results.filter((r) => top_results.includes(r.url));
   }
 
+  return html`
+    <li class="flex gap-4 py-8">
+      <img
+        class="mt-1 w-32 object-cover"
+        src=${r.meta.image}
+        alt=${r.meta.image_alt}
+      />
+      <div>
+        <p class="font-bold text-slate-800">
+          <a href=${r.url}>${r.meta.title}</a>
+        </p>
+        <p dangerouslySetInnerHTML=${{ __html: r.excerpt }}></p>
 
-    return html`
-      <li class="py-8 flex gap-4">
-        <img class="mt-1 object-cover w-32"  src=${r.meta.image} alt=${r.meta.image_alt} />
-        <div>
-          <p class="font-bold text-slate-800">
-            <a href=${r.url}>${r.meta.title}</a>
-          </p>
-          <p dangerouslySetInnerHTML=${{ __html: r.excerpt }}></p>
-
-          ${nonRootSubresults.map(
-            (sr) => html`
-              <div class="pt-2 pl-2 text-sm text-slate-500">
-                <p class="font-bold before:content-['⤷_']">
-                  <a href=${sr.url}>${sr.title}</a>
-                </p>
-                <p dangerouslySetInnerHTML=${{ __html: sr.excerpt }}></p>
-              </div>
-            `,
-          )}
-        </div>
-      </li>
-    `;
-
+        ${nonRootSubresults.map(
+          (sr) => html`
+            <div class="pl-2 pt-2 text-sm text-slate-500">
+              <p class="font-bold before:content-['⤷_']">
+                <a href=${sr.url}>${sr.title}</a>
+              </p>
+              <p dangerouslySetInnerHTML=${{ __html: sr.excerpt }}></p>
+            </div>
+          `,
+        )}
+      </div>
+    </li>
+  `;
 }
