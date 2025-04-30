@@ -13,12 +13,16 @@
       {{ $group_name := (printf "lateral_%d" $group_num) }}
       {{ printf "<!-- ad-group %s -->" $group_name | safeHTML }}
       {{ range (partialCached "ad-group" $group_name $group_name ) }}
-        <div class="rounded-4xl overflow-clip shadow-2xl mb-12 ">
+        <div class="observe-ads rounded-4xl overflow-clip shadow-2xl mb-12 ">
           {{ .Content }}
         </div>
       {{ end }}
     {{ else if in (slice 2 4) $i }}
+        <div class="observe-ads">
+
       {{ partial "related" . }}
+    </div>
+
     {{ end }}
   </div>
 </aside>

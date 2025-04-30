@@ -24,3 +24,18 @@ export function setupScrollObserver() {
 
   observer.observe(marker);
 }
+
+export function observeAds() {
+
+  const options = {};
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      console.log("observe ads", entry);
+    });
+  }, options);
+
+  const targets = document.querySelectorAll(".observe-ads");
+  targets.forEach(target => observer.observe(target));
+
+}

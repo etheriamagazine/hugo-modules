@@ -20,10 +20,10 @@
   </div>
 
   {{/* 3. Publicidad horizontal */}}
-  {{ range partial "ads.html" "home_1" }}
+  {{ range partial "easyads/get.html" "home_2" }}
     <div
-      class="overflow-clip [&_img]:object-cover [&_img]:w-full [&>*]:w-full  mx-4 my-4 md:mx-48 md:my-20 flex items-center justify-center rounded-2xl">
-      {{ .Render "ad" }}
+      class="flex items-center justify-center my-8">
+      {{ .Render "embed" }}
     </div>
   {{ end }}
 

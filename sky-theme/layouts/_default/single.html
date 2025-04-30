@@ -4,7 +4,7 @@
   <div class="story prose md:prose-lg">
     <header class="not-prose">
       <h1 class="text-primary-600 mb-6 text-3xl font-semibold md:text-4xl">
-        {{ .Title }}
+        {{ .Title }} {{.Kind}} {{ .Type}} {{ .Section }}
       </h1>
     </header>
     {{ .Content }}

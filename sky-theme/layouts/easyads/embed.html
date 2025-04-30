@@ -1,0 +1,80 @@
+{{ $defaults := (dict "type" "plain") }}
+
+{{ with merge $defaults (or .Params.easyads dict) }}
+
+  {{ if eq .type "image" }}
+    {{ $img := or ($.Resources.Get .image) (index ($.Resources.ByType "image") 0) }}
+    {{ $alt := or .alt $.Title }}
+    {{ $url := .url }}
+
+    {{ if not $url }}
+      {{ errorf "[easyads] No url param specified in %s" $.Path }}
+    {{ end }}
+
+
+    <a
+      {{ with $url }}
+        href="{{ . }}"
+      {{ end }}>
+      <img
+        src="{{ $img.RelPermalink }}"
+        {{ with $alt }}
+          alt="{{ . }}"
+        {{ end }} />
+    </a>
+    {{/* {{ else if eq .type "responsive" }}
+    {{ $alt := or .alt $.Title }}
+    {{ $url := .url }}
+
+    {{ with .resources }}
+      {{ $img := $.Resources.Get .mobile }}
+      {{ $imgDesktop := $.Resources.Get .desktop }}
+
+
+      <a
+        {{ with $url }}
+          href="{{ . }}"
+        {{ end }}>
+        <picture>
+          {{ with $imgDesktop }}
+            <source media="(width >= 40em)" srcset="{{ .RelPermalink }}" />
+          {{ end }}
+          {{ with $img }}
+            <img
+              src="{{ .RelPermalink }}"
+              {{ with $alt }}
+                alt="{{ . }}"
+              {{ end }} />
+          {{ end }}
+        </picture>
+      </a>
+    {{ end }}
+
+    */}}
+  {{ else if eq .type "iframe" }}
+
+    {{ $width := .width }}
+    {{ if not $width }}
+      {{ errorf "[easyads] width param is mandatory for 'iframe' ad. Set width in frontmatter in %s" $.Path }}
+    {{ end }}
+
+    {{ $height := .height }}
+    {{ if not $height }}
+      {{ errorf "[easyads] height param is mandatory for 'iframe' ad. Set height in frontmatter in %s" $.Path }}
+    {{ end }}
+
+
+    <iframe
+      src="{{ $.Page.RelPermalink }}"
+      loading="lazy"
+      width="{{ $width }}"
+      height="{{ $height }}"
+      scrolling="no"
+      ></iframe>
+
+  {{ else if eq .type "plain" }}
+    {{ $.Content }}
+  {{ else }}
+    {{ errorf "[easyads] Unknown type of ad %q" .type }}
+  {{ end }}
+{{ end }}

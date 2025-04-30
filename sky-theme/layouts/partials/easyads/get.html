@@ -1,0 +1,17 @@
+{{/* Please note that each advertisement is a regular hugo content page. Use
+  expiryDate, publishDate, drat and other standard hugo techniques to control if
+  an ad is included in the rendering or not
+*/}}
+
+{{ $ads := slice }}
+{{ $target := . }}
+{{ $adsSection := site.Params.easyads.section | default "" }}
+{{ with site.GetPage $adsSection }}
+  {{ $ads = .Pages }}
+  {{ $ads = where .Pages "Params.easyads.target" $target }}
+  {{ $ads = $ads | union (where .Pages "Params.easyads.target" "intersect" (slice $target)) }}
+  {{ $ads = sort $ads "PublishDate" "desc" }}
+{{ end }}
+
+
+{{ return $ads }}

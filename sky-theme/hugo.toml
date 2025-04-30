@@ -318,11 +318,13 @@ ignoreFiles = ['^banners/']
 
 
 [params]
-  adsSection = "ads"
   dateFormatLong = ":date_long"
   dateFormatShort = "02.01.2006"
   defaultPostCover = "https://placehold.co/1200x750"
   shufflePostsHome = false
+
+  [params.easyads]
+    section = "easyads"
 
   [params.gitinfo]
     repositoryUrl = "https://github.com/etheriamagazine/hugo-modules"
