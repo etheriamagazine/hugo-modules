@@ -122,7 +122,7 @@ desde 2009.
 Para celebrar el 30 aniversario de la declaración de la Unesco, se ha organizado un gran 
 número de eventos, actividades deportivas, exposiciones, festivales, teatro, 
 recreaciones y competiciones que se pueden consultar en este 
-[programa](https://unesco.kutnahora.cz/program/){:target="_blank"}. 
+[programa](https://unesco.kutnahora.cz/program/). 
 
 ## Sigue leyendo...
 
