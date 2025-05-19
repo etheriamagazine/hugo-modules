@@ -8,4 +8,3 @@ easyads:
     - home_1
 ---
 
-{{< ads/image src="copy.png" href="https://www.polonia.travel/es" alt="Publicidad: ven a visitar Polonia" >}}

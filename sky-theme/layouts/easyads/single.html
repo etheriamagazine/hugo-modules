@@ -6,41 +6,7 @@
     </style>
   </head>
   <body>
-    {{ $defaults := (dict "type" "plain") }}
-
-    {{ with merge $defaults (or .Params.easyads dict) }}
-
-      {{ if eq .type "image" }}
-        {{ $img := or ($.Resources.Get .image) (index ($.Resources.ByType "image") 0) }}
-        {{ $alt := or .alt $.Title }}
-        {{ $url := .url }}
-
-        {{ if not $url }}
-          {{ errorf "[easyads] No url param specified in %s" $.Path }}
-        {{ end }}
-
-
-        <a
-          {{ with $url }}
-            href="{{ . }}"
-          {{ end }}>
-          <img
-            src="{{ $img.RelPermalink }}"
-            {{ with $alt }}
-              alt="{{ . }}"
-            {{ end }} />
-        </a>
-
-      {{ else if eq .type "iframe" }}
-        {{ $.Content }}
-
-      {{ else if eq .type "plain" }}
-        {{ $.Content }}
-
-      {{ else }}
-        {{ errorf "[easyads] Unknown type of ad %q" .type}}
-      {{ end }}
-    {{ end }}
+    {{ $.Content }}
 
   </body>
 </html>

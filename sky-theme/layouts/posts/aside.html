@@ -10,13 +10,17 @@
     {{/* Cycle through lateral_1, related, lateral_2, related */}}
     {{ if in (slice 1 3) $i }}
       {{ $group_num := add (div $i 2)  1 }}
-      {{ $group_name := (printf "lateral_%d" $group_num) }}
+      {{ $group_name := (printf "side_%d" $group_num) }}
       {{ printf "<!-- ad-group %s -->" $group_name | safeHTML }}
-      {{ range (partialCached "ad-group" $group_name $group_name ) }}
-        <div class="observe-ads rounded-4xl overflow-clip shadow-2xl mb-12 ">
-          {{ .Content }}
+
+      {{ range partial "easyads/get.html" $group_name }}
+        <div
+          class="flex items-center justify-center rounded-4xl overflow-clip shadow-2xl mb-12">
+          {{ .Render "embed" }}
         </div>
       {{ end }}
+
+
     {{ else if in (slice 2 4) $i }}
         <div class="observe-ads">
 

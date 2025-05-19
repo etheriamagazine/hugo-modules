@@ -8,7 +8,7 @@
     {{ $url := .url }}
 
     {{ if not $url }}
-      {{ errorf "[easyads] No url param specified in %s" $.Path }}
+      {{ errorf "[easyads] missing target url for ad. Set 'url' key in %s" $.Path }}
     {{ end }}
 
 
@@ -22,24 +22,40 @@
           alt="{{ . }}"
         {{ end }} />
     </a>
-    {{/* {{ else if eq .type "responsive" }}
+
+  {{ else if eq .type "responsive" }}
+
+    {{ $img := or ($.Resources.Get .image) (index ($.Resources.ByType "image") 0) }}
     {{ $alt := or .alt $.Title }}
     {{ $url := .url }}
 
-    {{ with .resources }}
-      {{ $img := $.Resources.Get .mobile }}
-      {{ $imgDesktop := $.Resources.Get .desktop }}
+    {{ if not $url }}
+      {{ errorf "[easyads] missing url for ad. Set 'url' frontmatter key in %s" $.Path }}
+    {{ end }}
 
+
+    {{ with .images }}
+
+      {{ $mobile := $.Resources.Get .mobile }}
+      {{ $desktop := $.Resources.Get .desktop }}
+
+      {{ if not $mobile }}
+        {{ errorf "[easyads] missing mobile image for responsive ad. Set 'images.mobile' frontmatter key in %s" $.Path }}
+      {{ end }}
+
+      {{ if not $desktop }}
+        {{ errorf "[easyads] missing desktop image for responsive ad. Set 'images.desktop' frontmatter key in %s" $.Path }}
+      {{ end }}
 
       <a
         {{ with $url }}
           href="{{ . }}"
         {{ end }}>
         <picture>
-          {{ with $imgDesktop }}
+          {{ with $desktop }}
             <source media="(width >= 40em)" srcset="{{ .RelPermalink }}" />
           {{ end }}
-          {{ with $img }}
+          {{ with $mobile }}
             <img
               src="{{ .RelPermalink }}"
               {{ with $alt }}
@@ -48,19 +64,23 @@
           {{ end }}
         </picture>
       </a>
+
+      {{ else }}
+      {{ errorf "[easyads] no images specified for 'responsive' ad type. Set 'images' in frontmatter in %s" $.Path }}
+
     {{ end }}
 
-    */}}
+
   {{ else if eq .type "iframe" }}
 
     {{ $width := .width }}
     {{ if not $width }}
-      {{ errorf "[easyads] width param is mandatory for 'iframe' ad. Set width in frontmatter in %s" $.Path }}
+      {{ errorf "[easyads] missing width param is 'iframe' ad. Set width in frontmatter in %s" $.Path }}
     {{ end }}
 
     {{ $height := .height }}
     {{ if not $height }}
-      {{ errorf "[easyads] height param is mandatory for 'iframe' ad. Set height in frontmatter in %s" $.Path }}
+      {{ errorf "[easyads] missing height param for 'iframe' ad. Set height in frontmatter in %s" $.Path }}
     {{ end }}
 
 
@@ -74,7 +94,9 @@
 
   {{ else if eq .type "plain" }}
     {{ $.Content }}
+
   {{ else }}
-    {{ errorf "[easyads] Unknown type of ad %q" .type }}
+    {{ errorf "[easyads] Unknown ad type %q in %s" .type $.Path}}
+
   {{ end }}
 {{ end }}
