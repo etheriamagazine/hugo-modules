@@ -25,6 +25,9 @@ de una cata de vinos, y lo hará, como en anteriores ocasiones, en una espectacu
 ubicación. Esta vez el espacio histórico elegido ha sido el Torel Palace, un hotel 
 boutique con aires de mansión decimonónica y vistas privilegiadas. 
 
+
+{{< youtube id=0RKpf3rK57I title="Etheria ♥️ Hugo" >}}
+
 La propuesta no puede ser mejor: reunir a 20 de los mejores productores del país, más de 
 100 vinos diferentes, chefs de renombre y artistas de distintas disciplinas para crear 
 una experiencia integral. Este evento, organizado por Out of Paper, propone una 
