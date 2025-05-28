@@ -40,7 +40,7 @@
       {{- end }}
       loading="lazy"
       decoding="async" />
-    {{ with .Title -}}
+    {{ with (or .Title .Text) -}}
       <figcaption>{{ . }}</figcaption>
     {{- end }}
   </figure>
