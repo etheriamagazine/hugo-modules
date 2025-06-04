@@ -1,7 +1,6 @@
 ---
 title: "Raja Ampat, cómo viajar sola al último paraíso de Indonesia"
 date: 2025-05-15
-lastmod: 2025-05-18
 cover: https://fotos.etheriamagazine.com/2025/05/sania-raja-ampat-mirador.jpg
 categories: 
   - viajar-sola
