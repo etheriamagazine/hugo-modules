@@ -1,12 +1,14 @@
 {{ define "main" }}
-  {{ $posts := where site.RegularPages "Type" "posts" }}
-  {{ if site.Params.shufflePosts }}
-    {{ $posts = shuffle $posts }}
-  {{ end }}
+  {{ $posts := where site.RegularPages "Type" "posts"  }}
+  {{ $posts = $posts.ByLastmod.Reverse  }}
+
+  {{ $heroStory := index $posts 0 }}
+
 
   {{/* 1. Hero story */}}
+  {{ $heroStory := index $posts 0 }}
   <div class="">
-    {{ with index $posts 0 }}
+    {{ with $heroStory }}
       {{ .Render "hero" }}
     {{ end }}
   </div>
@@ -36,10 +38,6 @@
   {{ range $selectedCategories }}
     {{ $weightedPages := index site.Taxonomies.categories . }}
 
-    {{ if site.Params.shufflePosts }}
-      {{ $weightedPages = shuffle $weightedPages }}
-    {{ end }}
-
     {{/* Use weighted pages for the TERM to check the category actually has pages to show */}}
     {{ with and (gt $weightedPages.Count 0) $weightedPages }}
 
@@ -54,7 +52,7 @@
           </header>
         {{ end }}
 
-        {{ $featured := first 4 . }}
+        {{ $featured := first 4 .Pages.ByLastmod.Reverse }}
 
         {{ with index $featured 0 }}
           {{ .Render "hero" }}

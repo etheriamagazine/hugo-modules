@@ -8,11 +8,12 @@ author:
   - Redaccion Etheria
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Este es el primer párrafo del post. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-![Alt de la foto](https://fotos.etheriamagazine.com/2025/05/foto.jpg  "Pie de foto")
+![Posado veraniego en la playa del Palmar](https://fotos.etheriamagazine.com/2025/05/BackgroundTerminalElPalmar.jpg)
 
-## Titular 2
+
+## Título sección (nivel 2)
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
@@ -29,5 +30,5 @@ Aquí viene una lista:
 
 También te puede interesar:
 
-  - {{<reflink "/2025/03/guia-viaje-a-trinidad-cuba">}}
-  - {{<reflink "/2025/03/concurso-tapas-aranda-de-duero">}}
+  - {{<reflink "posts/2025/03/guia-viaje-a-trinidad-cuba">}}
+  - {{<reflink "posts/2025/03/concurso-tapas-aranda-de-duero">}}
