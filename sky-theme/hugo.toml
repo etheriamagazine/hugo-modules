@@ -22,7 +22,7 @@ ignoreFiles = ['^banners/']
   rss = ['rss']
   section = ['html']
   taxonomy = ['html']
-  term = ['html' ]
+  term = ['html']
 
 [taxonomies]
   category = "categories"
@@ -321,6 +321,20 @@ ignoreFiles = ['^banners/']
   dateFormatLong = ":date_long"
   dateFormatShort = "02.01.2006"
   defaultPostCover = "https://placehold.co/1200x750"
+  mainCategories = [
+    "viajar-sola",
+    "viajar-con-amigas",
+    "viajar-en-pareja",
+    "viajar-en-familia",
+  ]
+  otherCategories = [
+    "inspiración",
+    "cultura",
+    "ocio",
+    "gourmet",
+    "bienestar",
+    "compras",
+  ]
 
   [params.easyads]
     section = "easyads"

@@ -2,26 +2,25 @@
   {{ $posts := where site.RegularPages "Type" "posts"  }}
   {{ $posts = $posts.ByLastmod.Reverse  }}
 
-  {{ $heroStory := index $posts 0 }}
+  {{ $mainCategories := site.Params.mainCategories }}
+  {{ $otherCategories := site.Params.otherCategories }}
+
+  {{/* 1 Main cover story & recent */}}
+  {{ $mainStories := (where $posts "Params.categories" "intersect" $mainCategories) | first 5 }}
+
+  {{ with (index $mainStories 0) }}
+    {{ .Render "hero" }}
+  {{ end }}
 
 
-  {{/* 1. Hero story */}}
-  {{ $heroStory := index $posts 0 }}
-  <div class="">
-    {{ with $heroStory }}
-      {{ .Render "hero" }}
-    {{ end }}
-  </div>
-
-  {{/* 2. Featured stories */}}
   <div
     class="mx-4 my-8 grid grid-cols-1 gap-4 gap-y-12 md:mx-12 md:grid-cols-4">
-    {{ range first 4 (after 1 $posts) }}
+    {{ range first 4 (after 1 $mainStories) }}
       {{ .Render "summary" }}
     {{ end }}
   </div>
 
-  {{/* 3. Publicidad horizontal */}}
+  {{/* 2 Horizontal ad section */}}
   {{ range partial "easyads/get.html" "home_1" }}
     <div
       class="flex items-center justify-center my-8">
@@ -29,13 +28,10 @@
     </div>
   {{ end }}
 
-  {{/* 4. Aquí vienen las categorías */}}
-  {{ $selectedCategories := slice
-    "viajar-sola" "viajar-con-amigas" "viajar-en-pareja" "viajar-en-familia" "inspiración"
-    "cultura" "ocio" "gourmet" "bienestar" "compras"
-  }}
 
-  {{ range $selectedCategories }}
+  {{/* 3 Categoriy teasers */}}
+
+  {{ range (append $otherCategories $mainCategories) }}
     {{ $weightedPages := index site.Taxonomies.categories . }}
 
     {{/* Use weighted pages for the TERM to check the category actually has pages to show */}}
@@ -52,16 +48,17 @@
           </header>
         {{ end }}
 
-        {{ $featured := first 4 .Pages.ByLastmod.Reverse }}
 
-        {{ with index $featured 0 }}
+        {{ $categoryStories := .Pages.ByLastmod.Reverse  | complement $mainStories | first 5 }}
+
+
+        {{ with index $categoryStories 0 }}
           {{ .Render "hero" }}
         {{ end }}
 
 
         <div class="mx-4 my-12 grid grid-cols-1 gap-4 md:mx-12 md:grid-cols-3">
-          {{ range after 1 $featured }}
-
+          {{ range after 1 $categoryStories }}
             {{ .Render "summary" }}
           {{ end }}
         </div>
