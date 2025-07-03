@@ -12,16 +12,15 @@
 @custom-variant viewport-scroll ( &:where(.viewport-scroll, .viewport-scroll *));
 
 main :focus {
-  outline: 4px dotted var(--color-primary,#009ed0)!important;
-  outline-offset: 2px
+  outline: 4px dotted var(--color-primary, #009ed0) !important;
+  outline-offset: 2px;
 }
-
 
 @custom-variant hero (&:where(.hero, .hero *));
 
-
 @theme {
-  --font-sans: "Mona Sans", system-ui, sans-serif; /* referenced by --default-font-family */
+  --font-sans:
+    "Mona Sans", system-ui, sans-serif; /* referenced by --default-font-family */
 
   --color-orange-300: #f56642;
   --color-blue-100: #427bf5;
@@ -68,32 +67,29 @@ main :focus {
   --size-1x: min(2.5vmin, 0.5rem);
 
   --dashed-border: var(--color-slate-200);
-
 }
 
 @layer base {
   mark {
-    @apply inline font-bold bg-transparent border-b-primary-600 border-b-3 text-primary-600 px-0;
+    @apply border-b-primary-600 border-b-3 text-primary-600 inline bg-transparent px-0 font-bold;
   }
 }
 
 @layer components {
-
-
   .story {
     @apply px-4 pt-8;
 
     @variant prose-img {
-      @apply w-full object-cover min-h-96;
+      @apply min-h-96 w-full object-cover;
     }
 
     @variant md {
       --story-grid-cols: 1fr repeat(10, minmax(0, 1fr)) 1.6fr 240px 1fr;
       @apply px-8 pt-16;
-      @apply grid grid-cols-(--story-grid-cols);
+      @apply grid-cols-(--story-grid-cols) grid;
 
       @variant prose-img {
-        @apply w-auto ;
+        @apply w-auto;
       }
     }
 
@@ -110,10 +106,8 @@ main :focus {
       grid-column: 13;
       grid-row: span 4;
     }
-
   }
 }
-
 
 @utility dashed-border {
   position: absolute;
@@ -121,54 +115,37 @@ main :focus {
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg,var(--dashed-border),var(--dashed-border) 50%,transparent 0,transparent);
+  background: linear-gradient(
+    90deg,
+    var(--dashed-border),
+    var(--dashed-border) 50%,
+    transparent 0,
+    transparent
+  );
   background-size: 8px 1px;
 }
 
-@utility lead-first-p {
+@utility lead {
+  @apply text-primary text-lg font-medium;
+}
 
-  :where(& > p:first-of-type) {
-    @apply font-medium text-primary text-lg ;
+@utility drop-cap {
+  &:first-letter {
+    @apply float-left ml-0 mr-4 mt-2 text-[8em] uppercase leading-[0.7];
   }
-
 }
 
 @utility font-overlay {
-  @apply font-medium tracking-tight font-stretch-85%;
+  @apply font-stretch-85% font-medium tracking-tight;
 }
 
 @utility font-title-overlay {
-  @apply font-medium tracking-tight font-stretch-85%;
+  @apply font-stretch-85% font-medium tracking-tight;
 }
-
 
 /* Customize prose settings */
 @utility prose {
   @apply max-w-none;
-  /* --tw-prose-body: var(--color-green-800); */
-
-  /* p {
-    margin-top: 0em
-  } */
-
-
-  :not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-
-
-    /* &:where(p:first-of-type) {
-      @apply font-bold text-slate-600;
-    }
-    &:where(p) {
-      margin-top: 0em;
-    }
-
-    &:where(aside) {
-      + * {
-        margin-top: 0;
-      }
-    } */
-
-  }
 }
 
 @utility prose-lg {
@@ -180,14 +157,6 @@ main :focus {
 }
 
 @layer utilities {
-  /* .prose:first-child > p:first-child::first-line {
-    @apply uppercase text-justify;
-  } */
-  /*
-  .prose-intro > p:first-child::first-letter {
-    @apply uppercase text-[5em] leading-[0.7] float-left ml-0 mr-4;
-  } */
-
   input[type="search"]::-webkit-search-decoration,
   input[type="search"]::-webkit-search-cancel-button,
   input[type="search"]::-webkit-search-results-button,
