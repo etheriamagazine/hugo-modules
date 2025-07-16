@@ -6,8 +6,8 @@
   <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
 {{ else }}
   {{ if $errorOn404 }}
-    {{ errorf "[reflink] Path not found: %s in %s" $path .Position}}
+    {{ errorf "[reflink] Path not found: %s in %s" $path .Position }}
   {{ else }}
-    {{ warnf "[reflink] Path not found: %s in %s" $path .Position}}
+    {{ warnf "[reflink] Path not found: %s in %s" $path .Position }}
   {{ end }}
 {{ end }}

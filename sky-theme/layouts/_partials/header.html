@@ -122,12 +122,19 @@
     </div>
 
     {{/* Hamburger icon 2 */}}
-    <div
-      class="col-3 row-1 justify-self-end flex gap-4 md:hidden"
-      >
+    <div class="col-3 row-1 flex gap-4 justify-self-end md:hidden">
       <button x-data @click="$store.search.show()">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="size-6">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
         </svg>
       </button>
 
@@ -176,32 +183,38 @@
     <nav>
       <ul class="m-2">
         {{ range .Site.Menus.main }}
-          <li class="relative before:dashed-border" x-data="{open: false}"
-
-          >
-
-
-          {{ if .HasChildren }}
-            <button class="w-full flex py-4 justify-between"
-              @click="open = !open; open && $dispatch('itemopen')"
-              @itemopen.window="($el !== $event.target) && (open = false)"
-              :class="open && 'bg-slate-100 font-bold'"
-            >
-              <span>{{ .Name }}</span>
-              <svg width="24" heigth="24" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
-              </svg>
-            </button>
-            <ul x-show="open" x-transition>
-              {{ range .Children }}
-              <li class="flex mx-4 py-4 justify-between active:font-bold active:bg-slate-100">
-                <a class="w-full " href="{{ .URL }}">{{ .Name }}</a>
-              </li>
-              {{ end }}
-            </ul>
-          {{ else }}
-            <a class="flex py-4" href="{{ .URL }}">{{ .Name }}</a>
-          {{ end }}
+          <li class="before:dashed-border relative" x-data="{open: false}">
+            {{ if .HasChildren }}
+              <button
+                class="flex w-full justify-between py-4"
+                @click="open = !open; open && $dispatch('itemopen')"
+                @itemopen.window="($el !== $event.target) && (open = false)"
+                :class="open && 'bg-slate-100 font-bold'">
+                <span>{{ .Name }}</span>
+                <svg
+                  width="24"
+                  heigth="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke-width="1.5"
+                  stroke="currentColor">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
+                </svg>
+              </button>
+              <ul x-show="open" x-transition>
+                {{ range .Children }}
+                  <li
+                    class="mx-4 flex justify-between py-4 active:bg-slate-100 active:font-bold">
+                    <a class="w-full" href="{{ .URL }}">{{ .Name }}</a>
+                  </li>
+                {{ end }}
+              </ul>
+            {{ else }}
+              <a class="flex py-4" href="{{ .URL }}">{{ .Name }}</a>
+            {{ end }}
           </li>
         {{ end }}
       </ul>

@@ -12,18 +12,20 @@
 
 
   <div class="mt-12 md:mx-32">
-      <h1 class="text-primary text-3xl font-light uppercase font-stretch-semi-condensed md:text-4xl">{{ .Title }}</h1>
-      {{ .Description }}
+    <h1
+      class="text-primary font-stretch-semi-condensed text-3xl font-light uppercase md:text-4xl">
+      {{ .Title }}
+    </h1>
+    {{ .Description }}
 
-      {{ .Content }}
+    {{ .Content }}
 
 
-      <div class="grid grid-cols-4 gap-y-8 mt-4 gap-2">
-        {{ range $pages }}
-          {{ .Render "summary" }}
-        {{ end }}
-      </div>
-
+    <div class="mt-4 grid grid-cols-4 gap-2 gap-y-8">
+      {{ range $pages }}
+        {{ .Render "summary" }}
+      {{ end }}
+    </div>
   </div>
   {{/* {{ partial "components/pagination.html" . }} */}}
 {{ end }}

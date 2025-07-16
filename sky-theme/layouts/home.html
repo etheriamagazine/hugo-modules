@@ -1,6 +1,6 @@
 {{ define "main" }}
-  {{ $posts := where site.RegularPages "Type" "posts"  }}
-  {{ $posts = $posts.ByLastmod.Reverse  }}
+  {{ $posts := where site.RegularPages "Type" "posts" }}
+  {{ $posts = $posts.ByLastmod.Reverse }}
 
   {{ $mainCategories := site.Params.mainCategories }}
   {{ $otherCategories := site.Params.otherCategories }}
@@ -22,12 +22,10 @@
 
   {{/* 2 Horizontal ad section */}}
   {{ range partial "easyads/get.html" "home_1" }}
-    <div
-      class="flex items-center justify-center my-8">
+    <div class="my-8 flex items-center justify-center">
       {{ .Render "embed" }}
     </div>
   {{ end }}
-
 
   {{/* 3 Categoriy teasers */}}
 
@@ -48,9 +46,7 @@
           </header>
         {{ end }}
 
-
         {{ $categoryStories := .Pages.ByLastmod.Reverse  | complement $mainStories | first 5 }}
-
 
         {{ with index $categoryStories 0 }}
           {{ .Render "hero" }}

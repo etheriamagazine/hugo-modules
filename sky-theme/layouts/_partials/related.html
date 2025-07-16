@@ -2,12 +2,12 @@
   <aside class="max-w-[300px]">
     <p class="text-lg">También te sugerimos</p>
     {{ range . }}
-      <article class="flex mb-4 gap-2">
+      <article class="mb-4 flex gap-2">
         <a href="{{ .RelPermalink }}">
           <div class="w-24 rounded-xl">
-          {{ with partial "page/get-cover" . }}
-            {{ partial "imgproxy/img" (dict "src" .src "alt" .alt "class" "shadow-lg aspect-square") }}
-          {{ end }}
+            {{ with partial "page/get-cover" . }}
+              {{ partial "imgproxy/img" (dict "src" .src "alt" .alt "class" "shadow-lg aspect-square") }}
+            {{ end }}
           </div>
         </a>
 

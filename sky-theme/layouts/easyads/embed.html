@@ -22,7 +22,6 @@
           alt="{{ . }}"
         {{ end }} />
     </a>
-
   {{ else if eq .type "responsive" }}
 
     {{ $img := or ($.Resources.Get .image) (index ($.Resources.ByType "image") 0) }}
@@ -32,7 +31,6 @@
     {{ if not $url }}
       {{ errorf "[easyads] missing url for ad. Set 'url' frontmatter key in %s" $.Path }}
     {{ end }}
-
 
     {{ with .images }}
 
@@ -46,6 +44,7 @@
       {{ if not $desktop }}
         {{ errorf "[easyads] missing desktop image for responsive ad. Set 'images.desktop' frontmatter key in %s" $.Path }}
       {{ end }}
+
 
       <a
         {{ with $url }}
@@ -64,12 +63,9 @@
           {{ end }}
         </picture>
       </a>
-
-      {{ else }}
+    {{ else }}
       {{ errorf "[easyads] no images specified for 'responsive' ad type. Set 'images' in frontmatter in %s" $.Path }}
-
     {{ end }}
-
 
   {{ else if eq .type "iframe" }}
 
@@ -89,14 +85,10 @@
       loading="lazy"
       width="{{ $width }}"
       height="{{ $height }}"
-      scrolling="no"
-      ></iframe>
-
+      scrolling="no"></iframe>
   {{ else if eq .type "plain" }}
     {{ $.Content }}
-
   {{ else }}
-    {{ errorf "[easyads] Unknown ad type %q in %s" .type $.Path}}
-
+    {{ errorf "[easyads] Unknown ad type %q in %s" .type $.Path }}
   {{ end }}
 {{ end }}

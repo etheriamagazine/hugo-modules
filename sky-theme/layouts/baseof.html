@@ -11,16 +11,22 @@
   </head>
 
   <body>
-    <a href="#main-content" class="absolute left-0 top-0 bg-primary text-white py-2 px-4 z-250 transform -translate-y-full focus:translate-y-0 transition">
-        Ir al contenido principal
+    <a
+      href="#main-content"
+      class="bg-primary z-250 absolute left-0 top-0 -translate-y-full transform px-4 py-2 text-white transition focus:translate-y-0">
+      Ir al contenido principal
     </a>
     {{ partial "header.html" . }}
 
-    <main id="main-content" {{ cond .Params.pagefindIndex "data-pagefind-body" "" | safeHTMLAttr }}>
+
+    <main
+      id="main-content"
+      {{ cond .Params.pagefindIndex "data-pagefind-body" "" | safeHTMLAttr }}>
       {{ block "main" . }}{{ end }}
     </main>
 
     {{ partialCached "footer.html" . }}
+
 
     <div id="search"></div>
 
