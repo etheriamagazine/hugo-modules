@@ -3,20 +3,7 @@
   Big article story that can accomodate various sizes.
 
   - It uses grid for overlay positioning See https://css-tricks.com/positioning-overlay-content-with-css-grid/
-
-  - It uses of `place-items-center` on the container, as `justify-items-center`
-  makes the image not span to the full width of the container or grid cell
-
-  - It sets places children directly with place-self-stretch and place-self-center
-
-  - The image expands horizontally by place-self-stretch and h-full vertically
-
-  - We provide a default aspect ratio of 3/2 that can be overriden in a container:
-      <div class="[&_article_img]:aspect-[16/10]">
-      ... render ...
-      </div>
-  - It provides some drop shadows for the text and a light linear gradient styling the ::after
-  pseudoelement.
+  - Note h3 has z-index so that linear gradient on ::after pseudoelement doesn't affect the text
 */}}
 <article
   class="@container *:col-1 *:row-1 after:col-1 after:row-1 after:bg-linear-to-b grid grid-cols-1 grid-rows-1 after:pointer-events-none after:from-transparent after:from-20% after:to-black/35 after:opacity-60 after:transition-opacity hover:after:opacity-100">
@@ -25,18 +12,15 @@
       {{ partial "imgproxy/img" (dict
         "src" .src
         "alt" .alt
-        "class" "place-self-stretch h-full object-cover aspect-[16/8] max-sm:aspect-square"
+        "class" "w-full object-cover aspect-[16/8] max-sm:aspect-square"
         "loading" "eager"
         "fetchpriority" "high")
       }}
     {{ end }}
   </a>
 
-  <div
-    class="z-5 max-w-5/6 @md:max-w-3/5 flex flex-col items-center place-self-center drop-shadow-[0_2px_10px_rgba(0,0,0,.85)]">
-    <h3
-      class="@xs:my-2 @md:my-4 @xl:my-6 @lg:text-4xl @3xl:text-5xl font-title-overlay text-center text-3xl text-white">
-      <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
-    </h3>
-  </div>
+  <h3
+    class="z-2 max-w-5/6 @md:max-w-3/5 @lg:text-4xl @3xl:text-5xl font-title-overlay place-self-center text-center text-3xl text-white drop-shadow-[0_2px_10px_rgba(0,0,0,.85)]">
+    <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+  </h3>
 </article>
