@@ -16,6 +16,7 @@ async function importAndInitPagefind() {
   const pagefind = await import(path);
   await pagefind.options({
     highlightParam: "highlight",
+    excerptLength: 24,
   });
   pagefind.init();
   console.log("pagefind initialized");
@@ -24,38 +25,52 @@ async function importAndInitPagefind() {
 
 const isOpen = signal(false);
 
+let storedSearchText = sessionStorage.getItem("Search.searchText") || "";
+let storedResults = JSON.parse(
+  sessionStorage.getItem("Search.results") || "[]",
+);
+
 // export signal isSearchOpen so other modules can interact
 export { isOpen as isSearchOpen };
 
 export function Search(props) {
   const input = useRef();
-  const searchText = useSignal("");
-  const results = useSignal([]);
+  const searchDone = useSignal(true);
+  const searchText = useSignal(storedSearchText);
+  const results = useSignal(storedResults);
   const resultSize = useSignal(5);
   const onInput = (event) => (searchText.value = event.currentTarget.value);
 
   // note second parameter to useEffect
   useEffect(async () => {
+    if (pagefind) {
+      searchDone.value = false;
+      const search =
+        pagefind && (await pagefind.debouncedSearch(searchText.value));
 
-    const search = pagefind && await pagefind.debouncedSearch(searchText.value);
-
-    if (search) {
-      const fiveResults = await Promise.all(
-        search.results.slice(0, resultSize.value).map((r) => r.data()),
-      );
-      results.value = fiveResults;
-    } else {
-      results.value = [];
+      if (search) {
+        const fiveResults = await Promise.all(
+          search.results.slice(0, resultSize.value).map((r) => r.data()),
+        );
+        results.value = fiveResults;
+        searchDone.value = true;
+        sessionStorage.setItem("Search.searchText", searchText.value);
+        sessionStorage.setItem("Search.results", JSON.stringify(results.value));
+      } else {
+        results.value = [];
+      }
     }
   }, [searchText.value, resultSize.value]);
 
   useEffect(async () => {
     if (isOpen.value) {
-      console.log("focus");
-      input.current.focus();
+      document.body.classList.add("dialog-open");
+      input.current?.focus();
       if (!pagefind) {
         pagefind = await importAndInitPagefind();
       }
+    } else {
+      document.body.classList.remove("dialog-open");
     }
   }, [isOpen.value]);
 
@@ -86,64 +101,75 @@ export function Search(props) {
   }
 
   if (isOpen.value) {
-    return html` <div
-      class="fixed bottom-0 left-0 right-0 top-0 z-30 flex flex-col bg-[#0003] p-4 backdrop-blur-sm sm:p-8 md:p-16 lg:px-64"
+    return html`<aside
+      role="dialog"
+      class="fixed inset-4 z-30 flex flex-col overflow-hidden rounded bg-white shadow-lg sm:inset-8 lg:inset-x-64"
     >
-      <div class="w-full grow rounded-lg bg-white shadow-lg ring-amber-300">
-        <div class="flex h-full flex-col">
-          <header class="flex flex-initial border-b border-b-slate-100 px-6">
-            <form class="flex flex-auto items-center">
-              <label>
-                <svg
-                  width="20"
-                  height="20"
-                  class="mr-8 stroke-2 text-slate-600"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z"
-                    stroke="currentColor"
-                    fill="none"
-                    fill-rule="evenodd"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>
-                </svg>
-              </label>
-              <input
-                ref=${input}
-                class="&::-webkit-search-cancel-button]:hidden h-16 flex-auto appearance-none border-0 outline-0 focus:outline-none"
-                autocomplete="off"
-                autocorrect="off"
-                spellcheck="false"
-                type="search"
-                value=${searchText}
-                onInput=${onInput}
-                placeholder="Busca tu viaje..."
-              />
+      <header
+        class="flex flex-initial border-b border-b-slate-200 px-6 text-slate-500"
+      >
+        <form class="flex flex-auto items-center">
+          <label>
+            <svg
+              width="20"
+              height="20"
+              class="mr-8 stroke-2"
+              viewBox="0 0 20 20"
+            >
+              <path
+                d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z"
+                stroke="currentColor"
+                fill="none"
+                fill-rule="evenodd"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+            </svg>
+          </label>
+          <input
+            ref=${input}
+            class="h-16 flex-auto border-0 outline-0 focus:outline-none"
+            autocomplete="off"
+            autocorrect="off"
+            spellcheck="false"
+            type="search"
+            value=${searchText}
+            onInput=${onInput}
+            placeholder="Busca artículos en Etheria Magazine"
+          />
 
-              <button
-                type="reset"
-                class="rounded-sm border border-slate-800/15 bg-white bg-center p-1 text-xs font-bold uppercase text-slate-800/60 shadow"
-                onClick=${close}
-                >
-                <small> Esc </small>
-              </button>
-            </form>
-          </header>
-          <div class="max-h-[600px] flex-auto overflow-y-auto">
-            <ol class="p-8">
+          <button
+            type="reset"
+            class="/60 rounded-sm border border-slate-800/15 bg-white bg-center p-1 text-xs font-bold uppercase shadow"
+            onClick=${close}
+          >
+            <small> Esc </small>
+          </button>
+        </form>
+      </header>
+      <div class="grid flex-auto overflow-y-auto">
+        ${searchText.value &&
+        searchDone.value &&
+        (results.value.length > 0
+          ? html` <ol class="p-4">
               ${results.value?.map((r) => SearchResultWithSubs(r))}
-            </ol>
-            <!-- <button onClick=${loadMoreResults}>Load more results</button> -->
-          </div>
-          <!-- <footer>SearchEngine 1.0</footer>  -->
-        </div>
+            </ol>`
+          : html`<div class="place-self-center md:text-2xl">
+              🦄 Vaya, parece que no hay resultados.
+            </div>`)}
+
+        <!-- <button onClick=${loadMoreResults}>Load more results</button> -->
       </div>
-    </div>`;
+      <small
+        class="flex flex-initial items-end justify-end bg-gray-50 p-4 py-2 font-medium text-slate-300"
+      >
+        Search_by_
+        <strong>Etheria Magazine</strong>
+      </small>
+    </aside>`;
   } else {
-    return html`<div></div>`;
-    // return null;
+    // return html`<div></div>`;
+    return null;
   }
 }
 
@@ -183,25 +209,39 @@ function SearchResultWithSubs(r) {
   }
 
   return html`
-    <li class="flex gap-4 py-8">
-      <img
-        class="hidden md:visible mt-1 w-32 object-cover"
-        src=${r.meta.image}
-        alt=${r.meta.image_alt}
-      />
-      <div>
-        <p class="font-bold text-slate-800">
-          <a href=${r.url}>${r.meta.title}</a>
-        </p>
-        <p dangerouslySetInnerHTML=${{ __html: r.excerpt }}></p>
+    <li
+      class="flex gap-x-6 rounded-2xl border-b border-slate-200 p-6 last:border-b-0 hover:bg-slate-100"
+    >
+      <figure class="hidden flex-none md:block">
+        <a href=${r.url}>
+          <img
+            class="aspect-4/3 mb-10 mt-1 w-48 object-cover shadow-2xl md:block"
+            src=${r.meta.image}
+            alt=${r.meta.image_alt}
+          />
+        </a>
+      </figure>
+      <div class="relative text-slate-600">
+        <a href=${r.url}>
+          <h2
+            class="font-stretch-95% text-lg font-medium text-slate-800 hover:underline md:text-2xl"
+          >
+            ${r.meta.title}
+          </h2>
+        </a>
 
+        <p class="mt-1" dangerouslySetInnerHTML=${{ __html: r.excerpt }}></p>
         ${nonRootSubresults.map(
           (sr) => html`
-            <div class="pl-2 pt-2 text-sm text-slate-500">
-              <p class="font-bold before:content-['⤷_']">
-                <a href=${sr.url}>${sr.title}</a>
-              </p>
-              <p dangerouslySetInnerHTML=${{ __html: sr.excerpt }}></p>
+            <div class="pl-3 pt-2">
+              <a href=${sr.url}>
+                <h3
+                  class="before:inline-block before:content-['⤷_'] underline"
+                >
+                  ${sr.title}
+                </h3>
+                <p dangerouslySetInnerHTML=${{ __html: sr.excerpt }}></p>
+              </a>
             </div>
           `,
         )}

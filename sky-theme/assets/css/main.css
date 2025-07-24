@@ -70,12 +70,25 @@ main :focus {
 }
 
 @layer base {
+  :target {
+    scroll-margin-top: 105px;
+  }
+
   mark {
-    @apply border-b-primary-600 border-b-3 text-primary-600 inline bg-transparent px-0 font-bold;
+    @apply border-b-primary-600 border-b-3 text-primary-600 inline border-dashed bg-inherit font-bold;
+  }
+
+  @supports (-moz-appearance: none) {
+    * {
+      text-decoration-thickness: 0.08rem !important;
+    }
   }
 }
 
 @layer components {
+  .dialog-open {
+    @apply after:z-29 overflow-hidden after:fixed after:inset-0 after:bg-[#0003] after:backdrop-blur-sm;
+  }
   .story {
     @apply px-4 pt-8;
 
@@ -146,6 +159,7 @@ main :focus {
 /* Customize prose settings */
 @utility prose {
   @apply max-w-none;
+  @apply decoration-[0.15rem];
 }
 
 @utility prose-lg {

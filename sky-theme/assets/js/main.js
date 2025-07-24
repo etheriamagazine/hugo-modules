@@ -16,4 +16,4 @@ Alpine.start();
 setupScrollObserver();
 observeAds();
 
-render(html`<${Search} />`, document.getElementById("search"));
+render(html`<${Search} />`, document.body);

@@ -1,5 +1,5 @@
 
-function getCookie(name){
+function readCookie(name){
     let parts = document.cookie.split(";")
     for(var n = 0; n < parts.length; n++) {
         let key = name + "=";
@@ -14,17 +14,15 @@ function getCookie(name){
     return null;
 }
 
-function setCookie(name, value, owner, isSecure, days = 2 * 31) {
+function setCookie(name, value, { owner, isSecure, days } = {}) {
     const d = new Date();
     d.setTime(d.getTime() + (days*24*60*60*1000));
-    // let expires = "expires="+ d.toUTCString();
     let domain = owner? `; domain=${owner}` : "";
     let expires = `; expires=${d.toUTCString()}`;
     let secure = isSecure? "; Secure" : "";
 
     let cookie = name + "=" + (value || "") + domain + expires + "; path=/; samesite=strict" + secure;
-    console.log(cookie);
     document.cookie = cookie;
 }
 
-export { getCookie, setCookie };
+export { readCookie, setCookie };
