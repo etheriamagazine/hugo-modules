@@ -3,8 +3,20 @@
   font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
   font-family: 'Mona Sans';
   src:
-    url('../fonts/MonaSansVF-Regular.woff2') format('woff2 supports variations'),
-    url('../fonts/MonaSansVF-Regular.woff2') format('woff2-variations');
+    url('../fonts/MonaSans[wdth,wght].woff2') format(woff2) tech(variations);
   font-weight: 200 900;
   font-stretch: 75% 125%;
+  text-decoration-thickness: 0.15rem;
+
+}
+
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Mona Sans';
+  src:
+    url('../fonts/MonaSans-Italic[wdth,wght].woff2') format(woff2) tech(variations);
+  font-weight: 200 900;
+  font-stretch: 75% 125%;
+  font-style: italic;
+  text-decoration-thickness: 0.15rem;
 }
