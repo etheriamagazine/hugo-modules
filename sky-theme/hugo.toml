@@ -2,7 +2,7 @@ baseURL = 'https://example.org/'
 title = 'Sky Theme'
 defaultContentLanguage = "es"
 
-removePathAccents = true
+# removePathAccents = true
 summaryLength = 3
 enableEmoji = true
 enableGitInfo = true
@@ -328,13 +328,48 @@ ignoreFiles = ['^banners/']
     "viajar-en-familia",
   ]
   otherCategories = [
-    "inspiración",
-    "cultura",
-    "ocio",
-    "gourmet",
     "bienestar",
     "compras",
+    "cultura",
+    "excursiones",
+    "gourmet",
+    "historias",
+    "hoteles",
+    "inspiración",
+    "mujeres-top",
+    "ocio",
+    "proyectos",
+    "que-llevar-en-la-maleta",
+    "sorteos"
   ]
+
+  [params.home]
+    selectFeaturedPostsFromCategories = [
+      "viajar-sola",
+      "viajar-con-amigas",
+      "viajar-en-pareja",
+      "viajar-en-familia"
+    ]
+    categoryList = [
+      "viajar-sola",
+      "viajar-con-amigas",
+      "viajar-en-pareja",
+      "viajar-en-familia",
+      "inspiración",
+      "excursiones",
+      "hoteles",
+      "cultura",
+      "mujeres-top",
+      "bienestar",
+      "compras",
+      "gourmet",
+      "historias",
+      "ocio",
+      "proyectos",
+      "que-llevar-en-la-maleta",
+      "sorteos",
+    ]
+
 
   [params.easyads]
     section = "easyads"

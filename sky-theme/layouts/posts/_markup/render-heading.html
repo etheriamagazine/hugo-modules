@@ -3,6 +3,6 @@
   {{- .Text | safeHTML -}}
 </h{{ .Level }}>
 
-{{ if (in (slice 2) .Level) }}
+{{/*  {{ if (in (slice 2) .Level) }}
   {{ .Page.Render "aside" }}
-{{ end }}
+{{ end }}  */}}

@@ -86,10 +86,29 @@ main :focus {
 }
 
 @layer components {
-  .dialog-open {
-    @apply after:z-29 overflow-hidden after:fixed after:inset-0 after:bg-[#0003] after:backdrop-blur-sm;
+  .story-grid {
+    --story-grid-cols: 1;
+
+    @apply grid-cols-(--story-grid-cols) grid;
+
+    @variant md {
+      --story-grid-cols: 1fr repeat(10, minmax(0, 1fr)) 1.6fr 240px 1fr;
+
+      :where(& > :not(aside, header)) {
+        grid-column: 2 / 12;
+      }
+
+      :where(& > header) {
+        grid-column: 2 / 14;
+      }
+
+      :where(& > aside) {
+        grid-column: 13;
+      }
+    }
   }
-  .story {
+
+  .story2 {
     @apply px-4 pt-8;
 
     @variant prose-img {
@@ -108,7 +127,7 @@ main :focus {
 
     :where(& > *) {
       grid-column: 2 / 12;
-      margin-top: 0;
+      margin-bottom: 0;
     }
 
     :where(& > header) {
@@ -119,6 +138,27 @@ main :focus {
       grid-column: 13;
       grid-row: span 4;
     }
+  }
+}
+
+@utility story-side-* {
+  --story-side-start: 5;
+  --story-side-span: 8;
+
+  grid-row: calc(--value(integer) * var(--story-side-span));
+
+  @variant md {
+    grid-row: calc(
+        var(--story-side-start) + (--value(integer) - 1) *
+          var(--story-side-span)
+      ) /
+      span calc(var(--story-side-span) - 1);
+  }
+}
+
+@layer components {
+  .dialog-open {
+    @apply after:z-29 overflow-hidden after:fixed after:inset-0 after:bg-[#0003] after:backdrop-blur-sm;
   }
 }
 
@@ -144,7 +184,7 @@ main :focus {
 
 @utility drop-cap {
   &:first-letter {
-    @apply float-left ml-0 mr-4 mt-2 text-[8em] uppercase leading-[0.7];
+    @apply float-left ml-0 mr-4 mt-3 text-[8em] uppercase leading-[0.7];
   }
 }
 
@@ -154,20 +194,6 @@ main :focus {
 
 @utility font-title-overlay {
   @apply font-stretch-85% font-medium tracking-tight;
-}
-
-/* Customize prose settings */
-@utility prose {
-  @apply max-w-none;
-  @apply decoration-[0.15rem];
-}
-
-@utility prose-lg {
-  &:where(aside) {
-    + * {
-      margin-top: 0;
-    }
-  }
 }
 
 @layer utilities {

@@ -8,5 +8,5 @@ easyads:
   url: https://www.civitatis.com
   alt: Descubre Civitatis
   target: 
-    - side_1
+    - side
 ---

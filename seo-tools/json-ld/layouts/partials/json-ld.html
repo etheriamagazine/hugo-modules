@@ -44,7 +44,7 @@
   {{ with .GetTerms "authors" }}
     {{ $s.Set "authors" slice }}
     {{ range . }}
-      {{ $s.Add "authors" (partialCached "json-ld/author" .) }}
+      {{ $s.Add "authors" (partial "json-ld/author" .) }}
     {{ end }}
   {{ end }}
 
@@ -111,12 +111,21 @@
   {{ with .Params.knowsAbout }}
     {{ $s.Set "knowsAbout" . }}
   {{ end }}
-  {{ with .Params.urls }}
+
+  {{ if or .Params.instagram .Params.linkedin }}
     {{ $s.Set "sameAs" slice }}
-    {{ range . }}
-      {{ $s.Add "sameAs" . }}
+
+    {{ with .Params.instagram }}
+        {{ $s.Add "sameAs" (printf "https://instagram.com/%s" .) }}
     {{ end }}
+
+    {{ with .Params.linkedin }}
+        {{ $s.Add "sameAs" (printf "https://linkedin.com/in/%s" .) }}
+    {{ end }}
+
   {{ end }}
+
+
 
   {{ return $s.Values }}
 {{ end }}

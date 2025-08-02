@@ -8,6 +8,6 @@ easyads:
   url: https://www.polonia.travel/es
   alt: Ven a visitar Polonia
   target: 
-    - side_1
+    - side
 ---
 

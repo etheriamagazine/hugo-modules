@@ -10,4 +10,5 @@ easyads:
 
   target: 
     - home_1
+    - side
 ---
