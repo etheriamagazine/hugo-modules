@@ -2,7 +2,7 @@ baseURL = 'https://example.org/'
 title = 'Sky Theme'
 defaultContentLanguage = "es"
 
-# removePathAccents = true
+removePathAccents = false
 summaryLength = 3
 enableEmoji = true
 enableGitInfo = true
@@ -321,27 +321,6 @@ ignoreFiles = ['^banners/']
   dateFormatLong = ":date_long"
   dateFormatShort = "02.01.2006"
   defaultPostCover = "https://placehold.co/1200x750"
-  mainCategories = [
-    "viajar-sola",
-    "viajar-con-amigas",
-    "viajar-en-pareja",
-    "viajar-en-familia",
-  ]
-  otherCategories = [
-    "bienestar",
-    "compras",
-    "cultura",
-    "excursiones",
-    "gourmet",
-    "historias",
-    "hoteles",
-    "inspiración",
-    "mujeres-top",
-    "ocio",
-    "proyectos",
-    "que-llevar-en-la-maleta",
-    "sorteos"
-  ]
 
   [params.home]
     selectFeaturedPostsFromCategories = [
@@ -369,7 +348,6 @@ ignoreFiles = ['^banners/']
       "que-llevar-en-la-maleta",
       "sorteos",
     ]
-
 
   [params.easyads]
     section = "easyads"

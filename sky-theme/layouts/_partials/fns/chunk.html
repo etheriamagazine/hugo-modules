@@ -1,23 +1,9 @@
 {{ $s := newScratch }}
-{{ $collection := .collection }}
+{{ $collection := .collection | default slice }}
+{{ $number_of_chunks := .number_of_chunks | default 1 }}
 
-{{ if $collection }}
-  {{ $number_of_chunks := .number_of_chunks }}
-  {{ $size := or .size (div (len $collection) (float (.number_of_chunks | default 1)) | math.Floor | int) }}
-
-  {{ $collection = or $collection or}}
-  {{/*  {{ warnf "lenght %d" (len $collection)}}
-  {{ warnf "chunks %d" .number_of_chunks}}
-  {{ warnf "size %d" $size }}  */}}
-
-  {{ range $i, $v := $collection }}
-      {{ $chunk_num := (div $i $size) }}
-      {{ $chunk_num = cond $number_of_chunks (mod $chunk_num $number_of_chunks) $chunk_num  }}
-      {{- $s.Add (string $chunk_num) (slice $v) }}
-  {{ end }}
-
-{{ else }}
-  {{ errorf "fns/chunk: no collection prop in passed context"}}
+{{ range $i, $v := $collection }}
+    {{$s.Add (string (mod $i $number_of_chunks)) (slice $v) }}
 {{ end }}
 
 {{ return $s.Values }}
