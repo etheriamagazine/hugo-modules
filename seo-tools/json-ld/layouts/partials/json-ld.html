@@ -102,7 +102,7 @@
   {{ $s := newScratch }}
   {{ $s.Set "@type" "Person" }}
   {{ $s.Set "name" .Title }}
-  {{ $s.Set "description" .Params.bio }}
+  {{ $s.Set "description" .Params.description }}
   {{ $s.Set "image" (printf "https://gravatar.com/avatar/%s" (sha256 .Params.email)) }}
 
   {{ with .Params.jobTitle }}
