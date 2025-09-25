@@ -14,6 +14,6 @@ module:
       target: content
     - source: content/categories/_content.gotmpl
       target: content/categories/_content.gotmpl
-    - source: hugo_stats.json
-      target: assets/notwatching/hugo_stats.json
-      disableWatch: true
+    # - source: hugo_stats.json
+    #   target: assets/notwatching/hugo_stats.json
+    #   disableWatch: true
