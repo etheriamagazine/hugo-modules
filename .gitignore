@@ -7,7 +7,8 @@ node_modules
 
 # hugo build output & temp files
 public
-resources/_gen
+resoureces/_gen
+**/resources/_gen
 .hugo_build.lock
 hugo_stats.json
 
