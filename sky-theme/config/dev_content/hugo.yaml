@@ -1,0 +1,19 @@
+module:
+  mounts:
+    - source: archetypes
+      target: archetypes
+    - source: assets
+      target: assets
+    - source: layouts
+      target: layouts
+    - source: static
+      target: static
+    - source: dev_content
+      target: content
+    - source: content
+      target: content
+    - source: content/categories/_content.gotmpl
+      target: content/categories/_content.gotmpl
+    - source: hugo_stats.json
+      target: assets/notwatching/hugo_stats.json
+      disableWatch: true

@@ -43,7 +43,7 @@
         max-md:hidden
         font-stretch-85% text-md  flex justify-center justify-self-center font-medium uppercase tracking-wide ">
       <ul class="text-md flex flex-wrap items-center">
-        {{ range .Site.Menus.main }}
+        {{ range .Site.Menus.main.ByWeight }}
 
           <li
             {{ if .HasChildren }}

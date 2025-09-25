@@ -1,0 +1,63 @@
+dateFormatLong: :date_long
+dateFormatShort: 02.01.2006
+defaultPostCover: https://placehold.co/1200x750
+home:
+  selectFeaturedPostsFromCategories:
+    - viajar-sola
+    - viajar-con-amigas
+    - viajar-en-pareja
+    - viajar-en-familia
+  categoryList:
+    - viajar-sola
+    - viajar-con-amigas
+    - viajar-en-pareja
+    - viajar-en-familia
+    - inspiración
+    - excursiones
+    - hoteles
+    - cultura
+    - mujeres-top
+    - bienestar
+    - compras
+    - gourmet
+    - historias
+    - ocio
+    - proyectos
+    - que-llevar-en-la-maleta
+    - sorteos
+
+easyads:
+  section: easyads
+
+gitinfo:
+  repositoryUrl: https://github.com/etheriamagazine/hugo-modules
+  branch: main
+  contentRoot: sky-theme/dev_content
+
+reflink:
+  errorOn404: true
+
+imgproxy:
+  enabled: true
+  host: https://imgp.etheriamagazine.com/
+  sourceStyle: plain
+  responsive:
+    defaultSize: 900
+    responsiveSizes:
+      - 600
+      - 900
+      - 1200
+    processingOptions: rs:fit:%s
+    format: avif
+
+plausible:
+  enable: true
+  domain: etheriamagazine-com.fly.dev
+  proxy: true
+  proxyPath: /eu-compliance
+  optional:
+    local: true
+    fileDownloads: true
+    outboundLinks: true
+    error404: true
+    customEvents: true

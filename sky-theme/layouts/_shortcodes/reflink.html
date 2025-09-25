@@ -5,9 +5,10 @@
 {{ with site.GetPage $path }}
   <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
 {{ else }}
-  {{ if $errorOn404 }}
+  {{ if eq $errorOn404 "error" }}
     {{ errorf "[reflink] Path not found: %s in %s" $path .Position }}
-  {{ else }}
+  {{ else if eq $errorOn404 "warn" }}
     {{ warnf "[reflink] Path not found: %s in %s" $path .Position }}
+  {{ else }}
   {{ end }}
 {{ end }}

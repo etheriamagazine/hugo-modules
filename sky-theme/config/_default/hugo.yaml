@@ -1,0 +1,95 @@
+baseURL: https://example.org/
+title: Sky Theme
+defaultContentLanguage: es
+removePathAccents: true
+summaryLength: 20
+enableEmoji: true
+enableGitInfo: true
+
+build:
+  noJSConfigInAssets: true
+  buildStats:
+    enable: true
+  cachebusters:
+    - source: layouts/.*
+      target: css
+    - source: assets/js/.*
+      target: css
+    - source: layouts/categories/term.html
+      target: categories
+    - source: assets/notwatching/hugo_stats\.json
+      target: css
+
+frontmatter:
+  lastmod:
+    - lastmod
+    - modified
+    - date
+    - publishDate
+    - pubdate
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+    parser:
+      autoHeadingID: true
+      autoHeadingIDType: github-ascii
+      wrapStandAloneImageWithinParagraph: false
+
+minify:
+  minifyOutput: true
+  tdewolff:
+    html:
+      keepQuotes: true
+
+module:
+  imports:
+    - path: github.com/etheriamagazine/hugo-modules/jslibs/preact-bundle
+    - path: github.com/etheriamagazine/hugo-modules/jslibs/alpinejs
+    - path: github.com/etheriamagazine/hugo-modules/jslibs/a11y-dialog
+    - path: github.com/etheriamagazine/hugo-modules/imgproxy
+    - path: github.com/etheriamagazine/hugo-modules/seo-tools/basic-seo
+    - path: github.com/etheriamagazine/hugo-modules/seo-tools/plausible-analytics
+    - path: github.com/etheriamagazine/hugo-modules/seo-tools/json-ld
+
+
+outputs:
+  home:
+    - html
+  page:
+    - html
+  rss:
+    - rss
+  section:
+    - html
+  taxonomy:
+    - html
+  term:
+    - html
+
+permalinks:
+  page:
+    posts: /articulos/:contentbasename
+  taxonomy:
+    categories: /categorias
+    authors: /autoras
+  term:
+    categories: /:slug
+    authors: /autoras/:slug
+
+related:
+  includeNewer: true
+  threshold: 80
+  toLower: true
+  indices:
+    - name: authors
+      weight: 2
+    - name: categories
+      weight: 1
+
+taxonomies:
+  category: categories
+  author: authors
+  destino: destino
+
