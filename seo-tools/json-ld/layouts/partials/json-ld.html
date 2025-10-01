@@ -92,7 +92,7 @@
     {{ end}}
   {{ end }}
 
-  {{ with or site.Params.metadata.author_urls (slice site.BaseURL) }}
+  {{ with or site.Params.metadata.authorUrls (slice site.BaseURL) }}
     {{ $s.Set "sameAs" . }}
   {{ end }}
   {{ return $s.Values }}

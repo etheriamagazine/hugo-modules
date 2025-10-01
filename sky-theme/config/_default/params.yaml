@@ -8,10 +8,10 @@ home:
     - viajar-en-pareja
     - viajar-en-familia
   categoryList:
-    - viajar-sola
     - viajar-con-amigas
-    - viajar-en-pareja
     - viajar-en-familia
+    - viajar-en-pareja
+    - viajar-sola
     - inspiración
     - excursiones
     - hoteles

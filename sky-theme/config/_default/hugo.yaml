@@ -71,6 +71,7 @@ outputs:
 permalinks:
   page:
     posts: /articulos/:contentbasename
+    pages: :contentbasename
   taxonomy:
     categories: /categorias
     authors: /autoras

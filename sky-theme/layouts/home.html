@@ -26,6 +26,9 @@
     </div>
   {{ end }}
 
+  {{/* Newsletter */}}
+  {{ partial "subscribe/form.html" }}
+
   {{/* Category list: etiher from config or all categories */}}
   {{ $categoryList := slice }}
 

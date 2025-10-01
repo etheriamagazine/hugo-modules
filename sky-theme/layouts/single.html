@@ -1,15 +1,19 @@
 {{ define "main" }}
-  <div class="story prose md:prose-lg">
+  <header class="bg-primary p-8">
+      <h1 class="text-white  mb-6 text-3xl font-semibold md:text-4xl">
+        {{ .Title }} {{.Kind}} {{.Type}}
+      </h1>
+  </header>
+  <div class="mt-12 md:mx-auto w-full md:w-2/3">
+  <div class="story prose md:prose-lg max-w-none">
     <header class="not-prose">
       <h1 class="text-primary-600 mb-6 text-3xl font-semibold md:text-4xl">
         {{ .Title }}
-        {{ .Kind }}
-        {{ .Type }}
-        {{ .Section }}
       </h1>
     </header>
     {{ .Content }}
   </div>
 
   {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+  </div>
 {{ end }}

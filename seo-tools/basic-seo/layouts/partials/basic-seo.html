@@ -12,7 +12,7 @@
 {{ $title := (or .Params.meta_title .Title site.Title) }}
 {{ if not .IsHome }}
   {{ with site.Params.metadata.titleFormat }}
-    {{ $title = printf . $title site.Title }}
+    {{ $title = printf . $title }}
   {{ end }}
 {{ end }}
 <title>{{ $title }}</title>
@@ -109,7 +109,7 @@
 {{ with (or $imageUrlOptimized $imageUrl) }}
   <meta name="twitter:image" content="{{ . }}" />
 {{ end }}
-{{ with site.Params.metadata.twitter }}
+{{ with site.Params.metadata.twitterUsername }}
   <meta name="twitter:site" content="@{{ . }}" />
 {{ end }}
 {{/*
