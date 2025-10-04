@@ -85,7 +85,7 @@ main :focus {
     @apply grid-cols-(--story-grid-cols) grid;
 
     @variant md {
-      --story-grid-cols: 1fr repeat(10, minmax(0, 1fr)) 1.6fr 240px 1fr;
+      --story-grid-cols: 1fr repeat(10, minmax(0, 1fr)) 1.4fr 260px 1fr;
 
       :where(& > :not(aside, header)) {
         grid-column: 2 / 12;

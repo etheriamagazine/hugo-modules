@@ -1,4 +1,4 @@
-<article class="transition hover:*:underline">
+<article class="transition-transform hover:-translate-y-1 hover:drop-shadow-lg hover:drop-shadow-primary-900/25">
   <header class="grid h-full grid-rows-[auto_auto_minmax(auto,1fr)_auto_auto] gap-2">
     <div class="row-1 flex gap-2">
       {{ with .GetTerms "tags" }}
@@ -13,23 +13,23 @@
         {{ end }}
       {{ end }}
     </div>
-    <a class="row-2" href="{{ .RelPermalink }}">
+    <a class="row-2 peer" href="{{ .RelPermalink }}">
       {{ with partial "page/get-cover" . }}
-        {{ partial "imgproxy/img" (dict "src" .src "alt" .alt "class" "w-full object-cover aspect-[3/2]") }}
+        {{ partial "imgproxy/img" (dict "src" .src "alt" .alt "class" "transition w-full object-cover aspect-[3/2]") }}
       {{ end }}
 
     </a>
 
     <h2
-      class="row-3 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+      class="row-3 text-xl font-bold tracking-tight text-gray-900 dark:text-white hover:underline peer-hover:underline">
       <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
     </h2>
 
-    <p class="row-4 mb-2 md:mb-4 line-clamp-3 break-words ">
+    <p class="row-4 mb-2 md:mb-4 line-clamp-3 break-words md:hidden">
       {{ .Summary | plainify }}
     </p>
 
-    <span class="row-5 align-self-end flex-none text-gray-900">
+    <span class="row-5 align-self-end flex-none text-gray-900 text-sm font-medium">
       <time
         datetime="{{ .Date | time.Format "2006-01-02" }}"
         data-pagefind-ignore

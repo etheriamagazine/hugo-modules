@@ -136,11 +136,11 @@
     {{ range seq 3 }}
       {{ $i :=  . }}
       {{ with (index $easyads (string (sub $i 1)) ) }}
-        <aside class="story-side-{{ $i }}">
-          <div class="sticky top-20">
+        <aside class="not-prose story-side-{{ $i }}">
+          <div class="md:sticky md:top-20">
             {{ range . }}
               <div
-                class="not-prose rounded-4xl mb-12 flex items-center justify-center overflow-clip shadow-2xl">
+                class="**:w-full **:rounded-none rounded-none mb-12 overflow-clip shadow-2xl">
                 {{ .Render "embed" }}
               </div>
             {{ end }}

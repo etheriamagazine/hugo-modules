@@ -13,7 +13,7 @@
     md:grid-cols-[1fr_auto_1fr]
     md:viewport-scroll:grid-cols-[auto_1fr_auto]
 
-    items-center gap-4 bg-white px-4 lg:px-36">
+    items-center gap-3 bg-white px-4 lg:px-36">
     {{/* Etheria logo */}}
     {{/* Make either h1 or div the wrapper tag of the log based on whether page is home or no */}}
     {{ $wrapperTag := cond .IsHome "h1" "div" }}
@@ -21,7 +21,7 @@
     <a tabindex="-1" href="/">
       <svg
         role="img"
-        class="md:h-18 md:viewport-scroll:h-10 text-primary md:not-viewport-scroll:[--magazine-stroke-width:0] my-4 h-10 [--magazine-stroke-width:0.6] md:my-4"
+        class="md:h-16 md:viewport-scroll:h-10 text-primary md:not-viewport-scroll:[--magazine-stroke-width:0] my-4 h-10 [--magazine-stroke-width:0.6] md:my-4"
         fill="currentColor"
         viewBox="0 0 100.259 26.95">
         <title>{{ site.Title }}</title>
