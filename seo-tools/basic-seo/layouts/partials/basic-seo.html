@@ -11,8 +11,8 @@
 <!-- title -->
 {{ $title := (or .Params.meta_title .Title site.Title) }}
 {{ if not .IsHome }}
-  {{ with site.Params.metadata.titleFormat }}
-    {{ $title = printf . $title }}
+  {{ with site.Params.metadata.titleFormat | default "%s — %s" }}
+    {{ $title = printf . $title site.Title }}
   {{ end }}
 {{ end }}
 <title>{{ $title }}</title>

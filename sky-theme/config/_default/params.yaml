@@ -1,30 +1,24 @@
-dateFormatLong: :date_long
-dateFormatShort: 02.01.2006
-defaultPostCover: https://placehold.co/1200x750
-home:
-  selectFeaturedPostsFromCategories:
-    - viajar-sola
-    - viajar-con-amigas
-    - viajar-en-pareja
-    - viajar-en-familia
-  categoryList:
-    - viajar-con-amigas
-    - viajar-en-familia
-    - viajar-en-pareja
-    - viajar-sola
-    - inspiración
-    - excursiones
-    - hoteles
-    - cultura
-    - mujeres-top
-    - bienestar
-    - compras
-    - gourmet
-    - historias
-    - ocio
-    - proyectos
-    - que-llevar-en-la-maleta
-    - sorteos
+skytheme:
+  dateFormatLong: :date_long
+  dateFormatShort: 02.01.2006
+  defaultPostCover: https://placehold.co/1200x750
+
+  home:
+    latestStories:
+      - viajar-con-amigas
+      - viajar-en-familia
+      - viajar-en-pareja
+      - viajar-sola
+
+    categoriesToDisplay:
+      - viajar-con-amigas
+      - viajar-en-familia
+      - viajar-en-pareja
+      - viajar-sola
+      - estilo-de-vida
+      - organizate
+
+
 
 easyads:
   section: easyads

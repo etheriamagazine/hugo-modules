@@ -1,25 +1,57 @@
-{{/*
-
-  This content adapter creates virtual variant pages for
+{{/* This content adapter creates virtual variant pages for
   - Europa
   - España
   - Mundo
   only for some categories. Enjoy!
 */}}
+
+{{ $categories := dict
+  "viajar-con-amigas" (dict
+  "title" "Viajar con amigas %s"
+  "description" "Consejos y guías para disfrutar de viajes inolvidables con tus amigas en destinos maravillosos."
+  )
+
+  "viajar-en-familia" (dict
+  "title" "Viajar con familia %s"
+  "description" "Encuentra ideas y consejos para viajes familiares llenos de diversión, aprendizaje y momentos especiales."
+  )
+
+  "viajar-en-pareja" (dict
+  "title" "Viajar en pareja %s"
+  "description" "Descubre los destinos más románticos y actividades para compartir con tu pareja en cada viaje."
+  )
+
+  "viajar-sola" (dict
+  "title" "Viajar sola %s"
+  "description" "Explora el mundo por tu cuenta: consejos, seguridad y empoderamiento para las mujeres viajeras solas."
+  )
+}}
+
+{{ $tags := dict
+  "españa" (dict
+    "name" "España"
+    "suffix" "por España"
+  )
+  "europa" (dict
+    "name" "Europa"
+    "suffix" "por Europa"
+  )
+  "mundo" (dict
+    "name" "Mundo"
+    "suffix" "por el Mundo"
+  )
+}}
+
 {{ $selected_categories := (slice "viajar-sola" "viajar-en-pareja" "viajar-en-familia" "viajar-con-amigas") }}
 {{ $variants := (slice "España" "Europa" "Mundo") }}
 
+{{ range $category, $c := $categories }}
 
-{{ range $selected_categories }}
-
-  {{ $c := . }}
-
-  {{ range $variants }}
-    {{ $v := . }}
+  {{ range $tag, $t := $tags }}
 
     {{ $params := dict
-      "category" $c
-      "destino" $v
+      "category" $category
+      "tag" $tag
     }}
     {{ $content := dict
       "mediaType" "text/markdown"
@@ -29,9 +61,11 @@
       "params" $params
       "content" $content
       "kind" "term"
-      "path" (printf "%s/%s" $c ( lower $v ))
-      "title" (printf "%s - %s" $c $v )
-      "slug" (printf "%s/%s" $c ( lower $v ))
+      "path" (printf "%s/%s" $category ( lower $tag ))
+      "slug" (printf "%s/%s" $category ( lower $tag ))
+
+      "title" (printf $c.title $t.suffix )
+      "description" $c.description
     }}
     {{ $.AddPage $page }}
   {{ end }}

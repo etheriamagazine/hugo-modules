@@ -1,13 +1,13 @@
 {{ define "main" }}
   {{ $category := .Params.category }}
-  {{ $destino := .Params.destino }}
+  {{ $tag := .Params.tag }}
 
   {{ $pages := .Pages.ByLastmod.Reverse }}
 
-  {{ if (and $category $destino) }}
+  {{ if (and $category $tag) }}
     {{ $pages = site.RegularPages }}
     {{ $pages = where site.RegularPages ".Params.categories" "intersect" (slice $category) }}
-    {{ $pages = where $pages "Params.destino" "intersect" (slice $destino (lower $destino)) }}
+    {{ $pages = where $pages "Params.tags" "intersect" (slice $tag (lower $tag)) }}
   {{ end }}
 
 

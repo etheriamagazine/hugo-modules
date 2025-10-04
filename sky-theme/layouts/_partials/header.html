@@ -4,6 +4,7 @@
   <div
     id="container"
     class="
+    viewport-scroll:text-sm
     viewport-scroll:shadow-lg
     max-sm:shadow-xs
 
@@ -12,7 +13,7 @@
     md:grid-cols-[1fr_auto_1fr]
     md:viewport-scroll:grid-cols-[auto_1fr_auto]
 
-    items-center gap-4 bg-white px-4  lg:px-24">
+    items-center gap-4 bg-white px-4 lg:px-36">
     {{/* Etheria logo */}}
     {{/* Make either h1 or div the wrapper tag of the log based on whether page is home or no */}}
     {{ $wrapperTag := cond .IsHome "h1" "div" }}
@@ -49,9 +50,9 @@
             {{ if .HasChildren }}
               x-data="{ open: false }" @mouseenter="open = true"
               @mouseleave="open = false" :aria-expanded="open" class="p-2
-              lg:px-3 relative flex items-center space-x-1"
+              lg:px-2 relative flex items-center gap-0.5"
             {{ else }}
-              class="p-2 lg:px-3"
+              class="p-2 lg:px-2"
             {{ end }}
             {{ if $.IsMenuCurrent .Menu . }}
               aria-current="page"
@@ -66,12 +67,12 @@
             {{ if .HasChildren }}
               <button class="shrink-0 p-0" @click="open = true">
                 <span class="sr-only">Mostrar submenu</span>
-                <svg class="h-3 w-3">
-                  <use href="/img/icons.svg#chevron-down" />
+                <svg class="viewport-scroll:h-2 viewport-scroll:w-2 h-3 w-3 stroke-4 stroke-slate-600" viewBox="0 0 24 24" fill="none">
+      <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
                 </svg>
               </button>
               <ul
-                class="absolute left-1/2 top-full min-w-[240px] origin-top-right -translate-x-1/2 rounded-lg border border-slate-200 bg-white p-2 shadow-xl"
+                class="z-11 absolute left-1/2 top-full min-w-[240px] origin-top-right -translate-x-1/2 rounded-lg border border-slate-200 bg-white p-2 shadow-xl"
                 style="display: none"
                 x-show.transition="open">
                 {{ range .Children }}

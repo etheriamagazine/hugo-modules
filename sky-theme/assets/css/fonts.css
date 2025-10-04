@@ -3,20 +3,25 @@
   font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
   font-family: 'Mona Sans';
   src:
-    url('../fonts/MonaSans[wdth,wght].woff2') format(woff2) tech(variations);
+    url('../fonts/MonaSansVF[wdth,wght,ital].woff2') format(woff2) tech(variations);
   font-weight: 200 900;
   font-stretch: 75% 125%;
   text-decoration-thickness: 0.15rem;
 
 }
 
+
 @font-face {
-  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-  font-family: 'Mona Sans';
-  src:
-    url('../fonts/MonaSans-Italic[wdth,wght].woff2') format(woff2) tech(variations);
-  font-weight: 200 900;
-  font-stretch: 75% 125%;
+  font-family: InterVariable;
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/InterVariable.woff2") format("woff2");
+}
+@font-face {
+  font-family: InterVariable;
   font-style: italic;
-  text-decoration-thickness: 0.15rem;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/InterVariable-Italic.woff2") format("woff2");
 }

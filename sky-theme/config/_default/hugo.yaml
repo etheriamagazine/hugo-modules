@@ -2,6 +2,7 @@ baseURL: https://example.org/
 title: Sky Theme
 defaultContentLanguage: es
 removePathAccents: true
+capitalizeListTitles: false
 summaryLength: 20
 enableEmoji: true
 enableGitInfo: true
@@ -93,4 +94,5 @@ taxonomies:
   category: categories
   author: authors
   destino: destino
+  tag: tags
 

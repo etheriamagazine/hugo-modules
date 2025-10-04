@@ -2,7 +2,7 @@
 
 {{ with $lastMod }}
   <time datetime="{{ . | time.Format "2006-01-02" }}">
-    {{ . | time.Format (site.Params.dateFormatLong | default ":date_long" ) }}
+    {{ . | time.Format (site.Params.skytheme.dateFormatLong | default ":date_long" ) }}
   </time>
 {{ else }}
   {{ warnf "Shortcode lastmod used in a page with no lastmod frontmatter field. %s" .Position }}

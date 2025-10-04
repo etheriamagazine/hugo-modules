@@ -21,7 +21,7 @@ main :focus {
 @theme {
   --font-sans:
     "Mona Sans", system-ui, sans-serif; /* referenced by --default-font-family */
-
+  --default-font-feature-settings: 'liga' 1, 'calt' 1; /* Inter fix for Chrome */
   --color-orange-300: #f56642;
   --color-blue-100: #427bf5;
   --color-gray-50: #f8fafc;
@@ -52,8 +52,17 @@ main :focus {
 @layer base {
   html {
     font-size: 18px;
+    --my-max-w: 1200px;
   }
 
+  [data-scroll-observer] {
+    position: relative;
+    top: -20px;
+  }
+
+  img {
+    @apply rounded-xl;
+  }
   :target {
     scroll-margin-top: 105px;
   }
@@ -163,7 +172,7 @@ main :focus {
 }
 
 @utility lead {
-  @apply text-primary text-lg font-medium;
+  @apply text-lg font-medium;
 }
 
 @utility drop-cap {
@@ -177,7 +186,22 @@ main :focus {
 }
 
 @utility font-title-overlay {
-  @apply font-stretch-85% font-medium tracking-tight;
+  @apply font-medium font-stretch-92%;
+}
+
+@utility text-shadow-cartoon {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  text-shadow:
+    0px 0px  2px rgba(26, 16, 38,.1),
+    0px 0px 10px rgba(26, 16, 38,.6),
+    0px 0px 20px rgba(26, 16, 38,.9)
+
+
+  ;
+
+
 }
 
 @layer utilities {
