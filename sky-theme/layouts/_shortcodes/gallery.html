@@ -1,0 +1,26 @@
+{{ $images := slice }}
+
+{{ with (.Get 0) | .Page.Resources.Get }}
+  {{ with . | transform.Unmarshal }}
+    {{ $images = . }}
+  {{ end }}
+
+  <div class="not-prose grid grid-cols-[repeat(4,minmax(0,1fr))] grid-flow-dense rounded-xl overflow-hidden gap-1 space-y-1 **:rounded-none">
+    {{ range $images}}
+      {{ $span := "" }}
+      {{ if eq .orientation "vertical"}}
+        {{ $span = "row-span-2"}}
+      {{ else if eq .orientation "big" }}
+        {{ $span = "row-span-2 col-span-2"}}
+      {{ end }}
+
+      {{ $class := printf "object-cover w-full h-full %s" $span }}
+      {{ partial "imgproxy/img" (dict "src" .src "alt" .alt "class" $class)}}
+    {{end }}
+
+  </div>
+{{ else}}
+<p>nohays</p>
+{{- end -}}
+
+

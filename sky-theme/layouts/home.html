@@ -1,7 +1,7 @@
 {{ define "main" }}
   {{ $latestPosts := where site.RegularPages.ByLastmod.Reverse "Type" "posts" }}
 
-  {{/* Featured posts */}}
+  {{/* 1. Featured posts */}}
   {{ with site.Params.skytheme.home.latestStoriesFrom }}
     {{ $latestPosts := where $latestPosts "Params.categories" "intersect" . }}
   {{ end }}
@@ -15,23 +15,23 @@
   {{ end }}
 
   <div
-    class="mx-4 my-8 grid grid-cols-1 gap-4 gap-y-12 md:mx-36 md:grid-cols-3">
+    class="mx-4 my-8 grid grid-cols-1 gap-4 gap-y-8 md:mx-36 md:grid-cols-3">
     {{ range first 3 (after 1 $featuredPosts) }}
       {{ .Render "summary" }}
     {{ end }}
   </div>
 
-  {{/* Horizontal ads */}}
+  {{/* 2. Horizontal ads */}}
   {{ range partial "easyads/get.html" "home_1" }}
     <div class="my-8 flex items-center justify-center">
       {{ .Render "embed" }}
     </div>
   {{ end }}
 
-  {{/* Newsletter */}}
+  {{/* 3. Newsletter */}}
   {{ partial "subscribe/form.html" }}
 
-  {{/* Category list: etiher from config or all categories */}}
+  {{/* 4. Category list: etiher from config or all categories */}}
   {{ $categoryList := slice }}
 
   {{ with site.Params.skytheme.home.categoriesToDisplay }}
@@ -69,7 +69,7 @@
         {{ end }}
 
 
-        <div class="mx-4 my-12 grid grid-cols-1 gap-4 md:mx-36 md:grid-cols-3">
+        <div class="mx-4 my-12 grid grid-cols-1 gap-4 gap-y-8 md:mx-36 md:grid-cols-3">
           {{ range after 1 $categoryPosts }}
             {{ .Render "summary" }}
           {{ end }}
