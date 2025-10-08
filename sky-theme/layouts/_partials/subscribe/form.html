@@ -1,7 +1,6 @@
 {{ $params :=  site.Params.hugoEtheria.subscribeForm | default dict }}
 
-
-<section
+<div
   x-data="subscribeForm({{ $params | jsonify }})"
   class="overflow-hidden">
   <div
@@ -24,7 +23,7 @@
             </p>
             <form @submit.prevent="submit">
               <div
-                class="mx-auto mb-3 max-w-screen-sm items-center space-y-4 sm:flex sm:space-y-0">
+                class="mx-auto mb-3 max-w-60 items-center space-y-4 sm:flex sm:space-y-0">
                 <div class="relative w-full flex-1">
                   <label
                     for="email_address"
@@ -128,7 +127,7 @@
       </div>
     </div>
   </div>
-</section>
+</div>
 
 <script type="text/javascript">
   function subscribeForm({ action }) {

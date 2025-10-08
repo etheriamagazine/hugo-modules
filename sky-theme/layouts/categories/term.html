@@ -11,7 +11,8 @@
   {{ end }}
 
 
-  <div class="mt-12 md:mx-32">
+
+  <div class="mt-12 md:mx-36">
     <h1
       class="text-primary font-stretch-semi-condensed text-3xl font-light uppercase md:text-4xl">
       {{ .Title }}
@@ -21,11 +22,8 @@
     {{ .Content }}
 
 
-    <div class="mt-4 grid grid-cols-1 gap-2 gap-y-8 sm:grid-cols-4">
-      {{ range $pages }}
-        {{ .Render "summary" }}
-      {{ end }}
-    </div>
   </div>
+  {{ partial "hero-and-posts" (dict "posts" $pages "cols" 4) }}
+
   {{/* {{ partial "components/pagination.html" . }} */}}
 {{ end }}
