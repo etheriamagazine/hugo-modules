@@ -4,13 +4,13 @@ skytheme:
   defaultPostCover: https://placehold.co/1200x750
 
   home:
-    latestStories:
+    featured:
       - viajar-con-amigas
       - viajar-en-familia
       - viajar-en-pareja
       - viajar-sola
 
-    categoriesToDisplay:
+    categories:
       - viajar-con-amigas
       - viajar-en-familia
       - viajar-en-pareja

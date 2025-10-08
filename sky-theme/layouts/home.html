@@ -1,53 +1,47 @@
 {{ define "main" }}
   {{ $latestPosts := where site.RegularPages.ByLastmod.Reverse "Type" "posts" }}
 
-  {{/* 1. Featured posts */}}
-  {{ with site.Params.skytheme.home.latestStoriesFrom }}
+  {{/* 1. Featured Stories */}}
+  {{ with site.Params.skytheme.home.featured }}
     {{ $latestPosts := where $latestPosts "Params.categories" "intersect" . }}
   {{ end }}
 
-  {{ $featuredPosts := first 4 $latestPosts }}
+  {{ $featured := first 5 $latestPosts }}
 
-  {{ with (index $featuredPosts 0) }}
-    <div class="m-auto max-w-(--my-max-w) mt-8 px-4">
-    {{ .Render "hero" }}
-    </div>
-  {{ end }}
+  <section>
+  {{ partial "hero-and-posts" (dict "posts" $featured "cols" 4) }}
+  </section>
 
-  <div
-    class="mx-4 my-8 grid grid-cols-1 gap-4 gap-y-8 md:mx-36 md:grid-cols-3">
-    {{ range first 3 (after 1 $featuredPosts) }}
-      {{ .Render "summary" }}
-    {{ end }}
-  </div>
-
-  {{/* 2. Horizontal ads */}}
+  {{/* 2. ADS display */}}
+  <aside class="my-20 flex flex-col gap-10 items-center justify-center">
   {{ range partial "easyads/get.html" "home_1" }}
-    <div class="my-8 flex items-center justify-center">
       {{ .Render "embed" }}
-    </div>
   {{ end }}
+  </aside>
 
-  {{/* 3. Newsletter */}}
+
+  {{/* 3. Subscription form to newsletter */}}
+  <aside>
   {{ partial "subscribe/form.html" }}
+  </aside>
+  {{/* 4. Category previews */}}
+  {{ $categories := slice }}
 
-  {{/* 4. Category list: etiher from config or all categories */}}
-  {{ $categoryList := slice }}
-
-  {{ with site.Params.skytheme.home.categoriesToDisplay }}
-    {{ $categoryList = . }}
+  {{ with site.Params.skytheme.home.categories }}
+    {{ $categories = . }}
   {{ else }}
     {{ range $term, $v := .Site.Taxonomies.categories }}
-      {{ $categoryList = $categoryList | append $term }}
+      {{ $categories = $categories | append $term }}
     {{ end }}
   {{ end }}
 
-  {{ range $categoryList }}
-    {{ $weightedPages := index site.Taxonomies.categories . }}
+  {{ range $categories }}
+    {{ $wp := index site.Taxonomies.categories . }}
 
-    {{/* Use weighted pages for the TERM to check the category actually has pages to show */}}
-    {{ with and (gt $weightedPages.Count 0) $weightedPages }}
-
+    {{/* Check the weighted pages for term has pages to show
+      See https://gohugo.io/methods/taxonomy/get/#get-the-weighted-pages
+    */}}
+    {{ with and (gt $wp.Count 0) $wp }}
       <section class="mt-20">
         {{ with .Page }}
           <header class="mx-4 my-12 md:mx-36">
@@ -59,26 +53,13 @@
           </header>
         {{ end }}
 
-        {{ $categoryPosts := .Pages.ByLastmod.Reverse  | complement $featuredPosts | first 7 }}
+        {{/* Select posts not already shown featured posts */}}
+        {{ $categoryPreview := first 7 ( .Pages.ByLastmod.Reverse  | complement $featured ) }}
 
-        {{ with index $categoryPosts 0 }}
-        <div class="m-auto max-w-(--my-max-w) px-4">
-          {{ .Render "hero" }}
-        </div>
-
-        {{ end }}
-
-
-        <div class="mx-4 my-12 grid grid-cols-1 gap-4 gap-y-8 md:mx-36 md:grid-cols-3">
-          {{ range after 1 $categoryPosts }}
-            {{ .Render "summary" }}
-          {{ end }}
-        </div>
-        {{/* <aside class="bg-slate-50 rounded-2xl col-4 row-start-2 row-span-3 flex items-center justify-center border-3 border-dashed border-slate-300 text-lg text-slate-300">Publicidad</aside> */}}
+        {{ partial "hero-and-posts" (dict "posts" $categoryPreview "cols" 3) }}
 
       </section>
     {{ end }}
-
   {{ end }}
 
 {{ end }}

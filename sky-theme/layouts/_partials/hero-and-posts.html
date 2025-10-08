@@ -1,0 +1,15 @@
+{{ $cols := .cols | default 3 }}
+{{ $posts := .posts }}
+
+{{ with (index $posts 0) }}
+  <div class="m-auto max-w-(--my-max-w) mt-8 px-4">
+  {{ .Render "hero" }}
+  </div>
+{{ end }}
+
+<div
+  class="mx-4 my-8 grid grid-cols-1 gap-4 gap-y-8 md:mx-36 md:grid-cols-{{$cols}}">
+  {{ range (after 1 $posts) }}
+    {{ .Render "summary" }}
+  {{ end }}
+</div>
