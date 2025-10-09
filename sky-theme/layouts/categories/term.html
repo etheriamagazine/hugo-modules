@@ -11,7 +11,6 @@
   {{ end }}
 
 
-
   <div class="mt-12 md:mx-36">
     <h1
       class="text-primary font-stretch-semi-condensed text-3xl font-light uppercase md:text-4xl">
@@ -21,9 +20,67 @@
 
     {{ .Content }}
 
+  </div>
+
+  {{ $paginator := .Paginate $pages (mul 6  4) }}
+
+
+  <div id="posts" class="mx-4 my-8 md:mx-36">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 gap-y-8 animate-slide-top my-8">
+    {{ range $paginator.Pages }}
+      {{ .Render "summary" }}
+    {{ end }}
+    {{/* {{ partial "hero-and-posts" (dict "posts" $pages "cols" 4) }} */}}
+    {{ if and (gt $paginator.TotalPages 1) ($paginator.HasNext) }}
+    <div x-data="nextPageLoader()" x-show="visible" class="col-span-full flex items-center justify-center">
+      <a
+        @click.prevent="loadNextPage"
+        class="rounded-lg px-4 py-2 bg-primary-700 text-white"
+        href="{{ $paginator.Next.URL }}"
+        >Ver más</a
+      >
+    </div>
+    {{ end }}
+    </div>
 
   </div>
-  {{ partial "hero-and-posts" (dict "posts" $pages "cols" 4) }}
 
-  {{/* {{ partial "components/pagination.html" . }} */}}
+
+  {{ partial "pagination.html" . }}
+
+  <script>
+    function nextPageLoader() {
+      return {
+        visible: true,
+
+        async loadNextPage(e) {
+          let href = e.target.href;
+
+          // fetch next page
+          let response = await fetch(href);
+          let text = await response.text();
+
+          // add response html to hidden div to parse into a DOM representation
+          let temp = document.createElement("div");
+          temp.style.display = "none";
+          temp.innerHTML = text;
+          document.body.append(temp);
+
+          // select posts content and add to current posts display
+          let nextPagePostsContent = temp.querySelector("#posts").innerHTML;
+          document.querySelector("#posts").insertAdjacentHTML('beforeend', nextPagePostsContent);
+
+          // destory temp div
+          temp.remove();
+
+          // register a pageview
+          if(plausible) {
+            plausible("pageview", { props: { path: href } });
+          }
+
+          this.visible = false;
+        },
+      };
+    }
+  </script>
 {{ end }}
