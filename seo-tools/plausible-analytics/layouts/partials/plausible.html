@@ -42,7 +42,6 @@
     {{/* main plausible script */}}
     <script
       defer
-      event-hugo-path="{{ $.Path }}"
       data-domain="{{ $domain }}"
       {{ with (and .proxy (.proxyPath | strings.TrimRight "/")) }}
         data-api="{{ . }}/api/event" src="{{ printf `%s/js/%s` . $scriptName }}"

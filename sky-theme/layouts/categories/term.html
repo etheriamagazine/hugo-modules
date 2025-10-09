@@ -75,7 +75,7 @@
 
           // register a pageview
           if(plausible) {
-            plausible("pageview", { props: { path: href } });
+            plausible("pageview", { url: href });
           }
 
           this.visible = false;
