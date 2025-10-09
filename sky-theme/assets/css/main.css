@@ -46,6 +46,17 @@ main :focus {
   --color-primary-950: #083449;
 
 
+  --animate-slide-top: slide-top 0.8s ease;
+
+  @keyframes slide-top {
+    0% {
+      transform: translateY(40px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+
   --dashed-border: var(--color-slate-200);
 }
 
