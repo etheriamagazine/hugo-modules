@@ -1,3 +1,5 @@
+github.com/etheriamagazine/hugo-modules/analytics/plausible v0.0.0-20251020112545-1e8caca6c3a2 h1:CLl0cXipshDuTuH9YuhtZx0g+FvhZgWzWQP2/gcvTDI=
+github.com/etheriamagazine/hugo-modules/analytics/plausible v0.0.0-20251020112545-1e8caca6c3a2/go.mod h1:hbx0/wEA6E32OI10MlLaeBLkxyG0rKiqQmXDY6gJOB8=
 github.com/etheriamagazine/hugo-modules/imgproxy v0.0.0-20241028181144-20f1760e41a6 h1:psjqRiyci28WzP1nrJJXij/UawEapMFVfqSAr/vB8ws=
 github.com/etheriamagazine/hugo-modules/imgproxy v0.0.0-20241028181144-20f1760e41a6/go.mod h1:iNDU27iB9T2NWqL3TAfQmBmhlPjHOtsOpcIB9/E45WU=
 github.com/etheriamagazine/hugo-modules/jslibs/a11y-dialog v0.0.0-20250328155221-cdeb2cc1f4b7 h1:2b1NT/rw7c6p1srBvNGtuzgLkCdXv9tNqL5Ry4WFsOE=
@@ -8,7 +10,3 @@ github.com/etheriamagazine/hugo-modules/jslibs/preact-bundle v0.0.0-202410281811
 github.com/etheriamagazine/hugo-modules/jslibs/preact-bundle v0.0.0-20241028181144-20f1760e41a6/go.mod h1:5RW3I3rpse+ZWnC5RzBCR3ClUnYICZAckzk/OrllL/w=
 github.com/etheriamagazine/hugo-modules/seo-tools/basic-seo v0.0.0-20241028181144-20f1760e41a6 h1:HJC+PPFs7TSqCved5VbSSnblhbdf4ZRXYMqVUL4l+YM=
 github.com/etheriamagazine/hugo-modules/seo-tools/basic-seo v0.0.0-20241028181144-20f1760e41a6/go.mod h1:8X7C9lABk1lXLy6ybFGuKsXEq6A7cyK5C/cZxFvwY80=
-github.com/etheriamagazine/hugo-modules/seo-tools/json-ld v0.0.0-20241028181144-20f1760e41a6 h1:O6nbU5DWSP6s5IknHa3wnagey6DG11y0zL7hZ+AmF18=
-github.com/etheriamagazine/hugo-modules/seo-tools/json-ld v0.0.0-20241028181144-20f1760e41a6/go.mod h1:IzFx1VZ8zisgJdNoSuRZQmg3qPKQQ7izRfUIP/CgCiA=
-github.com/etheriamagazine/hugo-modules/seo-tools/plausible-analytics v0.0.0-20241028181144-20f1760e41a6 h1:Et2EnjtwbeWJwFsC0+57IJa2eCNMj9bA+gW2ZMN1QN4=
-github.com/etheriamagazine/hugo-modules/seo-tools/plausible-analytics v0.0.0-20241028181144-20f1760e41a6/go.mod h1:a43eIdHmsV1wFNC9Q7Ubi3Ht3BXJCnM5G0L60e+wnaM=
