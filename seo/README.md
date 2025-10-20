@@ -1,5 +1,4 @@
-# Basic SEO with Opengraph and Twitter Card
-
+# SEO module
 Taken and modified from: https://github.com/gethugothemes/hugo-modules/tree/master/seo-tools/basic-seo 
 
 Changes to original module:
@@ -7,33 +6,41 @@ Changes to original module:
   - Added `titleFormat` to adjust the format in pages.
 
 
-## Basic Seo Module
-
+## Usage
 Add the following code to your module list in the `config/_default/module.toml` file.
 
 ```toml
 [[imports]]
-path = "github.com/gethugothemes/hugo-modules/seo-tools/basic-seo"
+path = "github.com/etheriamagazine/hugo-modules/seo"
 ```
 
-<hr>
-
-## Basic Seo Implementation
-
-Call it, as a partial in your theme head.
+## Calling the partials
+Call as a partial partial in your html `<head />`.
 
 ```html
-<!-- opengraph -->
+<!-- Adds title, meta keywords & description, opengraph and twitter cards -->
 {{ partial "basic-seo.html" . }}
+
+<!-- Adds json-ld format -->
+{{ partial "json-ld.html" . }}
+
 ```
 
 Add some following configuration to your `config/_default/params.toml` file.
 
-```toml
-# seo meta data for OpenGraph / Twitter Card
-[metadata]
-keywords = ["Boilerplate", "Hugo", "Themefisher", "GetHugoThemes"]
-description = "This is default meta description"
-author = "GetHugoThemes"
-image = "images/website-thumb.png" # this image will be used as fallback if a page has no image of its own
+```yaml
+seo:
+  author: The Author
+  titleFormat: "%s — %s"
+  description: Website description
+  keywords:
+    - one
+    - two
+    - three
+  social:
+    instagram: username
+    x: username
+    facebook: username
+    pinterest: username
+    github: username
 ```

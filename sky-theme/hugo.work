@@ -1,11 +1,7 @@
 go 1.24.1
 
 use .
-
+use ../analytics/plausible
 use ../imgproxy
+use ../seo
 
-use ../seo-tools/basic-seo
-
-use ../seo-tools/json-ld
-
-use ../seo-tools/plausible-analytics
