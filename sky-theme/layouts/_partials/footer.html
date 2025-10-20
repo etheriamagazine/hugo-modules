@@ -27,7 +27,7 @@
 
     <div class="my-6 flex gap-20">
       <ul>
-        {{ with site.Params.metadata.social }}
+        {{ with site.Params.seo.social }}
           {{ with .instagram }}
             <li>
               <a
@@ -122,8 +122,8 @@
 
       </ul>
       <ul>
-        {{ range site.Menus.footer }}
-          <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+        {{ range (where site.Pages "Section" "pages") }}
+          <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
         {{ end }}
       </ul>
     </div>

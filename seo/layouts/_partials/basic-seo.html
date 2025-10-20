@@ -11,7 +11,7 @@
 <!-- title -->
 {{ $title := (or .Params.meta_title .Title site.Title) }}
 {{ if not .IsHome }}
-  {{ with site.Params.metadata.titleFormat | default "%s — %s" }}
+  {{ with site.Params.seo.titleFormat | default "%s — %s" }}
     {{ $title = printf . $title site.Title }}
   {{ end }}
 {{ end }}
@@ -41,19 +41,19 @@
 <!-- meta keywords -->
 {{ if .Params.keywords }}
   <meta name="keywords" content="{{ delimit .Params.keywords `, ` }}" />
-{{ else if site.Params.metadata.keywords }}
+{{ else if site.Params.seo.keywords }}
   <meta
     name="keywords"
-    content="{{ delimit site.Params.metadata.keywords `, ` }}" />
+    content="{{ delimit site.Params.seo.keywords `, ` }}" />
 {{ end }}
 
 
 <!-- meta description -->
-{{ $description := (or .Params.meta_description .Summary site.Params.metadata.description) | plainify | chomp }}
+{{ $description := (or .Params.meta_description .Summary site.Params.seo.description) | plainify | chomp }}
 <meta name="description" content="{{ $description }}" />
 
 <!-- meta author -->
-{{ $authors := (or .Params.authors (slice site.Params.metadata.author) ) }}
+{{ $authors := (or .Params.authors (slice site.Params.seo.author) ) }}
 {{ $author := delimit $authors ", " " y " }}
 {{ with $author }}
   <meta name="author" content="{{ . }}" />
@@ -72,7 +72,7 @@
   - and: returns first falsy value. If all are truthy, returns last argument.
   - or: returns first truthy value. If all are falsy, returns last argument.
 */}}
-{{ $image := or .Params.cover site.Params.metadata.image }}
+{{ $image := or .Params.cover site.Params.seo.image }}
 {{ $isAbsUrl := hasPrefix $image "http" }}
 {{ $isStatic :=  and $image (not $isAbsUrl) (fileExists (add `static/` (string $image))) }}
 {{ $imageResource := and $image (not $isStatic) (or (.Resources.Get $image) (resources.Get $image)) }}
@@ -109,11 +109,11 @@
 {{ with (or $imageUrlOptimized $imageUrl) }}
   <meta name="twitter:image" content="{{ . }}" />
 {{ end }}
-{{ with site.Params.metadata.social.x }}
+{{ with site.Params.seo.social.x }}
   <meta name="twitter:site" content="@{{ . }}" />
 {{ end }}
 {{/*
  TODO: eval if twitter:creator is really needed. What if multiple authors?
-{{ with site.Params.metadata.author }}
+{{ with site.Params.seo.author }}
   <meta name="twitter:creator" content="@{{ . }}" />
 {{ end }}  */}}

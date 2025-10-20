@@ -1,25 +1,3 @@
-skytheme:
-  dateFormatLong: :date_long
-  dateFormatShort: 02.01.2006
-  defaultPostCover: https://placehold.co/1200x750
-
-  home:
-    featured:
-      - viajar-con-amigas
-      - viajar-en-familia
-      - viajar-en-pareja
-      - viajar-sola
-
-    categories:
-      - viajar-con-amigas
-      - viajar-en-familia
-      - viajar-en-pareja
-      - viajar-sola
-      - estilo-de-vida
-      - organizate
-
-
-
 easyads:
   section: easyads
 
@@ -27,9 +5,6 @@ gitinfo:
   repositoryUrl: https://github.com/etheriamagazine/hugo-modules
   branch: main
   contentRoot: sky-theme/dev_content
-
-reflink:
-  errorOn404: true
 
 imgproxy:
   enabled: true
@@ -56,10 +31,33 @@ plausible:
     error404: true
     customEvents: true
 
-metadata:
+seo:
   social:
     instagram: etheriamagazine
     x: etheriamagazine
     facebook: etheriamagazine
     pinterest: etheriamagazine
     github: etheriamagazine
+
+skytheme:
+  dateFormatLong: :date_long
+  dateFormatShort: 02.01.2006
+  defaultPostCover: https://placehold.co/1200x750
+
+  home:
+    featured:
+      - viajar-con-amigas
+      - viajar-en-familia
+      - viajar-en-pareja
+      - viajar-sola
+
+    categories:
+      - viajar-con-amigas
+      - viajar-en-familia
+      - viajar-en-pareja
+      - viajar-sola
+      - estilo-de-vida
+      - organizate
+
+  reflink:
+    errorOn404: true

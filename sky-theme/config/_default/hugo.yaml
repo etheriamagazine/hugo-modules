@@ -46,12 +46,12 @@ minify:
 
 module:
   imports:
+    - path: github.com/etheriamagazine/hugo-modules/analytics/plausible
+    - path: github.com/etheriamagazine/hugo-modules/imgproxy
     - path: github.com/etheriamagazine/hugo-modules/jslibs/preact-bundle
     - path: github.com/etheriamagazine/hugo-modules/jslibs/alpinejs
     - path: github.com/etheriamagazine/hugo-modules/jslibs/a11y-dialog
-    - path: github.com/etheriamagazine/hugo-modules/imgproxy
     - path: github.com/etheriamagazine/hugo-modules/seo
-    - path: github.com/etheriamagazine/hugo-modules/analytics/plausible
 
 
 outputs:

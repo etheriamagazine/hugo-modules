@@ -65,7 +65,7 @@
     {{ $s.Set "url" . }}
   {{ end }}
 
-  {{ with or .Params.meta_description site.Params.metadata.description site.Title }}
+  {{ with or .Params.meta_description site.Params.seo.description site.Title }}
     {{ $s.Set "description" . }}
   {{ end }}
 
@@ -80,7 +80,7 @@
 {{ define "partials/json-ld/publisher.html" }}
   {{ $s := newScratch }}
   {{ $s.Set "@type" "Organization" }}
-  {{ $s.Set "name" (or site.Params.metadata.author site.Title) }}
+  {{ $s.Set "name" (or site.Params.seo.author site.Title) }}
   {{ $s.Set "url" site.BaseURL }}
 
 
@@ -94,7 +94,7 @@
 
   {{ $s.Set "sameAs" slice }}
 
-  {{ with site.Params.metadata.social }}
+  {{ with site.Params.seo.social }}
     {{ with .instagram }}
       {{ $s.Add "sameAs" (printf "https://www.instagram.com/%s" .) }}
     {{ end }}

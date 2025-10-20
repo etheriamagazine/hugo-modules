@@ -1,6 +1,6 @@
 {{ $path := or (.Get "path") (.Get 0) }}
 {{ $page := . }}
-{{ $errorOn404 := site.Params.reflink.errorOn404 | default true }}
+{{ $errorOn404 := site.Params.skytheme.reflink.errorOn404 | default true }}
 
 {{ with site.GetPage $path }}
   <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
