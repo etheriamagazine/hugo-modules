@@ -1,7 +1,6 @@
 {{ define "main" }}
   {{ $category := .Params.category }}
   {{ $tag := .Params.tag }}
-
   {{ $pages := .Pages.ByLastmod.Reverse }}
 
   {{ if (and $category $tag) }}
@@ -11,7 +10,7 @@
   {{ end }}
 
 
-  <div class="mt-12 md:mx-36">
+  <div class="max-w-(--my-max-w) mx-auto px-4 mt-4 md:mt-8">
     <h1
       class="text-primary font-stretch-semi-condensed text-3xl font-light uppercase md:text-4xl">
       {{ .Title }}
@@ -20,33 +19,32 @@
 
     {{ .Content }}
 
+    {{ $paginator := .Paginate $pages (mul 8  4) }}
   </div>
 
-  {{ $paginator := .Paginate $pages (mul 6  4) }}
-
-
-  <div id="posts" class="mx-4 my-8 md:mx-36">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 gap-y-8 animate-slide-top my-8">
-    {{ range $paginator.Pages }}
-      {{ .Render "summary" }}
-    {{ end }}
-    {{/* {{ partial "hero-and-posts" (dict "posts" $pages "cols" 4) }} */}}
-    {{ if and (gt $paginator.TotalPages 1) ($paginator.HasNext) }}
-    <div x-data="nextPageLoader()" x-show="visible" class="col-span-full flex items-center justify-center">
-      <a
-        @click.prevent="loadNextPage"
-        class="rounded-lg px-4 py-2 bg-primary-700 text-white"
-        href="{{ $paginator.Next.URL }}"
-        >Ver más</a
-      >
+  <div id="posts" class="max-w-(--my-max-w) mx-auto px-4 my-8">
+    <div
+      class="animate-slide-top my-8 grid grid-cols-1 gap-4 gap-y-8 md:grid-cols-4">
+      {{ range $paginator.Pages }}
+        {{ .Render "summary" }}
+      {{ end }}
+      {{/* {{ partial "hero-and-posts" (dict "posts" $pages "cols" 4) }} */}}
+      {{ if and (gt $paginator.TotalPages 1) ($paginator.HasNext) }}
+        <div
+          x-data="nextPageLoader()"
+          x-show="visible"
+          class="col-span-full m-8 flex items-center justify-center">
+          <a
+            @click.prevent="loadNextPage"
+            class="bg-primary-700 rounded-lg px-4 py-2 text-white"
+            href="{{ $paginator.Next.URL }}"
+            data-page="{{ $paginator.Next.PageNumber }}"
+            >Ver más</a
+          >
+        </div>
+      {{ end }}
     </div>
-    {{ end }}
-    </div>
-
   </div>
-
-
-  {{ partial "pagination.html" . }}
 
   <script>
     function nextPageLoader() {
@@ -55,6 +53,7 @@
 
         async loadNextPage(e) {
           let href = e.target.href;
+          let page = e.target.dataset.page;
 
           // fetch next page
           let response = await fetch(href);
@@ -67,16 +66,19 @@
           document.body.append(temp);
 
           // select posts content and add to current posts display
-          let nextPagePostsContent = temp.querySelector("#posts").innerHTML;
-          document.querySelector("#posts").insertAdjacentHTML('beforeend', nextPagePostsContent);
+          let content = temp.querySelector("#posts").innerHTML;
+          document
+            .querySelector("#posts")
+            .insertAdjacentHTML("beforeend", content);
 
-          // destory temp div
+          // destroy temp div
           temp.remove();
 
-          // register a pageview
-          if(plausible) {
-            plausible("pageview", { url: href });
-          }
+          // register a Load more event
+          window.plausible &&
+            window.plausible("Load more", {
+              props: { url: location.href, page: page },
+            });
 
           this.visible = false;
         },

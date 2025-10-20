@@ -55,3 +55,11 @@ plausible:
     outboundLinks: true
     error404: true
     customEvents: true
+
+metadata:
+  social:
+    instagram: etheriamagazine
+    x: etheriamagazine
+    facebook: etheriamagazine
+    pinterest: etheriamagazine
+    github: etheriamagazine

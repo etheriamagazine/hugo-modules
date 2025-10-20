@@ -51,8 +51,7 @@ module:
     - path: github.com/etheriamagazine/hugo-modules/jslibs/a11y-dialog
     - path: github.com/etheriamagazine/hugo-modules/imgproxy
     - path: github.com/etheriamagazine/hugo-modules/seo-tools/basic-seo
-    - path: github.com/etheriamagazine/hugo-modules/seo-tools/plausible-analytics
-    - path: github.com/etheriamagazine/hugo-modules/seo-tools/json-ld
+    - path: github.com/etheriamagazine/hugo-modules/analytics/plausible
 
 
 outputs:

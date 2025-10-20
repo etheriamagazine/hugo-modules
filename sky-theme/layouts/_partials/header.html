@@ -1,19 +1,25 @@
 <!-- prettier-ignore-attribute -->
-<header class="sticky top-0 z-10">
-  <!-- prettier-ignore-attribute -->
-  <div
-    id="container"
-    class="
+<header class="sticky top-0 z-10
     viewport-scroll:text-sm
     viewport-scroll:shadow-lg
     max-sm:shadow-xs
+    bg-white
+">
+  <!-- prettier-ignore-attribute -->
+  <div
+    id="containerxxx"
+    class="
+
+    mx-auto
+    max-w-(--my-max-w)
+
 
     grid
     grid-cols-[auto_1fr_auto]
     md:grid-cols-[1fr_auto_1fr]
-    md:viewport-scroll:grid-cols-[auto_1fr_auto]
+    md:viewport-scroll:grid-cols-[auto_1fr]
 
-    items-center gap-3 bg-white px-4 lg:px-36">
+    items-center gap-3  px-4">
     {{/* Etheria logo */}}
     {{/* Make either h1 or div the wrapper tag of the log based on whether page is home or no */}}
     {{ $wrapperTag := cond .IsHome "h1" "div" }}

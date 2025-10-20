@@ -109,7 +109,7 @@
 {{ with (or $imageUrlOptimized $imageUrl) }}
   <meta name="twitter:image" content="{{ . }}" />
 {{ end }}
-{{ with site.Params.metadata.twitterUsername }}
+{{ with site.Params.metadata.social.x }}
   <meta name="twitter:site" content="@{{ . }}" />
 {{ end }}
 {{/*

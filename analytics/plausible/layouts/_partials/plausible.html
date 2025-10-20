@@ -1,0 +1,71 @@
+{{ with and (hugo.IsProduction) (index site.Params "plausible") }}
+  {{ if or .enable (not (isset . "enable")) }}
+    {{ $domain := or .domain (errorf "module plausible-analytics: no tracking domain specified in config") }}
+
+    {{ $server := .selfHostedServer | default "https://plausible.io" | strings.TrimRight "/" }}
+
+    {{ $tokens := slice "script" }}
+
+    {{ with .optional }}
+      {{ if .local }}
+        {{ $tokens = append "local" $tokens }}
+      {{ end }}
+
+      {{ if .fileDownloads }}
+        {{ $tokens = append "file-downloads" $tokens }}
+      {{ end }}
+
+      {{ if .outboundLinks }}
+        {{ $tokens = append "outbound-links" $tokens }}
+      {{ end }}
+
+      {{ if .hashedPaths }}
+        {{ $tokens = append "hash" $tokens }}
+      {{ end }}
+
+      {{ if .customEvents }}
+        {{ $tokens = append "tagged-events" $tokens }}
+      {{ end }}
+
+      {{ if .customProps }}
+        {{ $tokens = append "pageview-props" $tokens }}
+      {{ end }}
+
+      {{ if .revenue }}
+        {{ $tokens = append "revenue" $tokens }}
+      {{ end }}
+
+    {{ end }}
+
+    {{ $scriptName := printf "%s.js" (delimit $tokens  ".") }}
+
+    {{/* main plausible script */}}
+    <script
+      defer
+      data-domain="{{ $domain }}"
+      {{ with (and .proxy (.proxyPath | strings.TrimRight "/")) }}
+        data-api="{{ . }}/api/event" src="{{ printf `%s/js/%s` . $scriptName }}"
+      {{ else }}
+        src="{{ printf `%s/js/  %s` $server $scriptName }}"
+      {{ end }}></script>
+
+    {{/* custom goals script */}}
+    <script>
+      const p = atob("cGxhdXNpYmxl"); // p l a u s i b l e
+      window[p] =
+        window[p] ||
+        function () {
+          (window[p].q = window[p].q || []).push(arguments);
+        };
+    </script>
+
+    {{/* track 404 when 404.html template */}}
+    {{ if and .optional.error404 (eq $.Kind "404") }}
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          plausible("404", { props: { path: document.location.pathname } });
+        });
+      </script>
+    {{ end }}
+  {{ end }}
+{{ end }}
