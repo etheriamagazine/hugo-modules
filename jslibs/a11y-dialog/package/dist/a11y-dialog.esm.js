@@ -220,12 +220,23 @@ function closest(selector, base) {
     function from(el) {
         if (!el || el === document || el === window)
             return null;
-        if (el.assignedSlot)
-            el = el.assignedSlot;
+        // Reading the `assignedSlot` property from the element (as suggested by the
+        // aforementioned StackOverflow answer) is not enough, because it does not
+        // take into consideration elements nested deeply within a <slot>. For these
+        // elements, the `assignedSlot` property is `null` as it is only specified
+        // for top-level elements within a <slot>. To still find the closest <slot>,
+        // we walk up the tree looking for the `assignedSlot` property.
+        const slot = findAssignedSlot(el);
+        if (slot)
+            el = slot;
         return (el.closest(selector) ||
             from(el.getRootNode().host));
     }
     return from(base);
+}
+function findAssignedSlot(node) {
+    return (node.assignedSlot ||
+        (node.parentNode ? findAssignedSlot(node.parentNode) : null));
 }
 
 const SCOPE = 'data-a11y-dialog';
@@ -330,14 +341,14 @@ class A11yDialog {
             return this;
         this.shown = false;
         this.$el.setAttribute('aria-hidden', 'true');
-        // Ensure the previously focused element (if any) has a `focus` method
-        // before attempting to call it to account for SVG elements
-        // See: https://github.com/KittyGiraudel/a11y-dialog/issues/108
-        this.previouslyFocused?.focus?.();
         // Remove the focus event listener to the body element and stop listening
         // for specific key presses
         document.body.removeEventListener('focus', this.maintainFocus, true);
         this.$el.removeEventListener('keydown', this.bindKeypress, true);
+        // Ensure the previously focused element (if any) has a `focus` method
+        // before attempting to call it to account for SVG elements
+        // See: https://github.com/KittyGiraudel/a11y-dialog/issues/108
+        this.previouslyFocused?.focus?.();
         return this;
     }
     /**

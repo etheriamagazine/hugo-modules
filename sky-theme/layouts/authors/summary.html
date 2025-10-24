@@ -1,19 +1,22 @@
-<div>
-  <h2 class="text-2xl"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-  <p>{{ .Pages.Len }} artículos</p>
-  <p>{{ .Params.tagline }}</p>
-
+<div class="grid grid-rows-[auto_auto_1fr]">
   {{ $resource := index (.Resources.ByType "image") 0 }}
   {{ with $resource }}
     <picture>
       <img
-        class=" border-primary w-42 rounded-full border-4 object-cover transition duration-200 ease-out"
+        class=" object-cover transition duration-200 ease-out aspect-square w-full"
         loading="lazy"
         src="{{ .Permalink }}" />
     </picture>
   {{ end }}
-
+  <div class="mb-2">
+  <h2 class="text-xl font-bold tracking-tight text-gray-900 hover:underline peer-hover:underline dark:text-white"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
   {{ with .Params.jobTitle }}
     <p>{{ . }}</p>
   {{ end }}
+  <small>{{ .Pages.Len }} artículos</small>
+  </div>
+  <p>{{ .Params.tagline }}</p>
+
+
+
 </div>

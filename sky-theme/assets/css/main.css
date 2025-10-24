@@ -131,7 +131,7 @@ main :focus {
 
     :where(& > *) {
       grid-column: 2 / 12;
-      margin-bottom: 0;
+      /* margin-bottom: 0; */
     }
 
     :where(& > header) {
