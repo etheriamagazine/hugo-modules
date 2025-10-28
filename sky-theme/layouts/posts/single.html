@@ -13,13 +13,13 @@
 
 
   <article
-    class="story-grid prose prose-p:mt-0 prose-img:object-cover prose-img:w-full prose-img:aspect-[14/16] md:prose-img:aspect-auto  md:prose-lg [&>p:first-of-type]:lead [&>figure:first-of-type+p]:drop-cap max-w-none px-4 pt-8 md:px-16 md:pt-16"
+    class="story-grid prose prose-p:mt-0 prose-img:object-cover prose-img:w-full prose-img:aspect-[14/16] md:prose-img:aspect-auto  md:prose-lg [&>p:first-of-type]:lead [&>p:nth-of-type(2):not([align])]:drop-cap max-w-none px-4 pt-8 md:px-16 md:pt-16"
     data-cover-src="{{ $coverSrc }}"
     data-cover-alt="{{ $coverAlt }}"
     data-pagefind-meta="image[data-cover-src], image_alt[data-cover-alt]">
     <header class="not-prose mb-8 md:col-[2/14]">
       <ul class="flex" data-pagefind-ignore>
-        <li class="after:mx-2 after:content-['/']">
+        <li class="">
           {{ with .GetTerms "authors" }}
             {{ range . }}
               <a class="hover:underline" href="{{ .RelPermalink }}"
@@ -28,7 +28,7 @@
             {{ end }}
           {{ end }}
         </li>
-        <li>
+        <li class="before:mx-2 before:content-['/']">
           <time
             class="text-slate-400"
             datetime="{{ .Date | time.Format "2006-01-02" }}"
@@ -36,9 +36,19 @@
             >{{ .Date | time.Format ":date_medium" }}</time
           >
         </li>
+      {{ with and (ne .Lastmod .Date) .Lastmod }}
+        <li class="before:mx-2 before:content-['/']">
+          <span class="text-slate-400">
+          Actualizado
+          <time class="" datetime="{{ . | time.Format "2006-01-02" }}" data-pagefind-ignore
+            >{{ . | time.Format "January de 2006" }}</time
+          >
+          </span>
+        </li>
+      {{ end }}
       </ul>
       <h1
-        class="text-primary-600 font-stretch-95% mb-6 text-3xl font-semibold md:text-4xl">
+        class="text-primary-600 font-stretch-95% my-2 text-3xl font-semibold md:text-4xl">
         {{ .Title }}
       </h1>
       <ul class="flex flex-col gap-x-8 md:flex-row" data-pagefind-ignore>
@@ -54,7 +64,7 @@
           {{ with .GetTerms "categories" }}
             {{ range . }}
               <a
-                class="text-primary-600 hover:underline"
+                class="text-primary-600 hover:underline mr-2"
                 href="{{ .RelPermalink }}"
                 >{{ .LinkTitle }}</a
               >
@@ -81,7 +91,10 @@
           Se lee en
           {{ printf "%d minutos" .ReadingTime }}
         </li>
+
+
       </ul>
+
     </header>
 
     {{/* Author bio */}}
@@ -111,14 +124,7 @@
       {{ end }}
     </aside>
 
-    {{ with and (ne .Lastmod .Date) .Lastmod }}
-      <span class="">
-        Artículo actualizado el
-        <time datetime="{{ . | time.Format "2006-01-02" }}" data-pagefind-ignore
-          >{{ . | time.Format "02.01.2006" }}</time
-        >
-      </span>
-    {{ end }}
+
 
     {{/* Main markdown content */}}
     {{ .Content }}

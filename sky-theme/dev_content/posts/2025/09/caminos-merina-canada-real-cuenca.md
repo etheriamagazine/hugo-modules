@@ -18,7 +18,7 @@ Conquense, parte de uno de los Caminos de la Merina, será un acierto seguro.
 
 ![Panorámica de Belmonte, en la Cañada Rural Conquense.](https://fotos.etheriamagazine.com/2025/09/caminos-merina-Belmonte.jpeg "Panorámica de Belmonte, en la Cañada Rural Conquense.")
 
-29 septiembre 2025 
+<!-- LEGACY_INFO: 29 septiembre 2025 -->
 
 No es necesario realizar grandes desplazamientos hasta destinos lejanos o reservar 
 costosos programas de bienestar para encontrar un lugar de paz donde bajar pulsaciones y 
@@ -28,7 +28,7 @@ Real Conquense**, uno de esos caminos pensados para viajar despacio, descubriend
 pueblos con historia, paisajes y tradiciones cuya riqueza no podemos permitir que 
 desaparezca. 
 
-YOUTUBE
+{{< youtube id=FMllHEX-nBA  >}}
 
 ## Caminos de la Merina
 
@@ -204,7 +204,7 @@ Trashumancia, donde se narra cómo durante siglos los pastores guiaban miles de 
 por estas mismas rutas. Y como broche final: **Albarracín**, uno de los pueblos más 
 bellos de España, con su laberinto de calles rojizas, murallas y vistas de postal. 
 
-YOUTUBE
+{{< youtube id=d51W8UmjBJA  >}}
 
 ## Una declaración de amor
 

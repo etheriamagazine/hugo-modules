@@ -90,8 +90,7 @@ related:
       weight: 1
 
 taxonomies:
-  category: categories
   author: authors
-  destino: destino
+  category: categories
   tag: tags
 
