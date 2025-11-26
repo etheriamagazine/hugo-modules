@@ -3,7 +3,7 @@
 
   {{/* 1. Featured Stories */}}
   {{ with site.Params.skytheme.home.featured }}
-    {{ $latestPosts := where $latestPosts "Params.categories" "intersect" . }}
+    {{ $latestPosts = where $latestPosts "Params.categories" "intersect" . }}
   {{ end }}
 
   {{ $featured := first 5 $latestPosts }}
