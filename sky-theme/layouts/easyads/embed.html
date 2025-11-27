@@ -1,5 +1,7 @@
 {{ $defaults := (dict "type" "plain") }}
 
+{{ printf "<!-- %s -->" .Page.File.Path | safeHTML }}
+
 {{ with merge $defaults (or .Params.easyads dict) }}
 
   {{ if eq .type "image" }}
