@@ -1,10 +1,11 @@
 ---
 title: "Leaderboard 728x90"
 date: 2025-04-01
+weight: 1
 easyads:
   type: plain
   target:
-    - home_1
+    - home
 ---
 
 <iframe

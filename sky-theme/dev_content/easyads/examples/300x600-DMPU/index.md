@@ -5,6 +5,6 @@ easyads:
   type: image
   url: https://www.exampledomain.com/
   target: 
-    - home_1
+    - home_below
     - side
 ---

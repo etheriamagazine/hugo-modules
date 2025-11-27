@@ -9,6 +9,6 @@ easyads:
     desktop: 1200x250-megabanner-Etheria-GETXO.gif
 
   target: 
-    - home_1
+    - home_above
     - side
 ---
