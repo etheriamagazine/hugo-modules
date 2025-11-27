@@ -43,6 +43,7 @@ minify:
   tdewolff:
     html:
       keepQuotes: true
+      keepComments: true
 
 module:
   imports:
