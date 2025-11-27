@@ -1,4 +1,10 @@
 {{ define "main" }}
+
+  {{/* store ads and ad index */}}
+
+  {{ .Page.Store.Set "ads" (partial "easyads/get.html" "home") }}
+  {{ .Page.Store.Set "nextAd" 0 }}
+
   {{ $latestPosts := where site.RegularPages.ByLastmod.Reverse "Type" "posts" }}
 
   {{/* 1. Featured Stories */}}
@@ -8,24 +14,27 @@
 
   {{ $featured := first 5 $latestPosts }}
 
+  {{ $ads := partial "easyads/get.html" "home" }}
+
+  {{/* 1. Hero */}}
   <section>
-  {{ partial "hero-and-posts" (dict "posts" $featured "cols" 4) }}
+    {{ partial "hero-and-posts" (dict "posts" $featured "cols" 4) }}
   </section>
 
-  {{/* 2. ADS display */}}
-  <aside class="my-20 flex flex-col gap-10 items-center justify-center">
-  {{ range partial "easyads/get.html" "home_1" }}
-      {{ .Render "embed" }}
-  {{ end }}
-  </aside>
+  {{/* 2. First Ad */}}
+  {{ partial "home/render-next-ad" . }}
 
-
-  {{/* 3. Subscription form to newsletter */}}
+  {{/* 3. Subscription */}}
   <aside>
-  {{ partial "subscribe/form.html" }}
+    {{ partial "subscribe/form.html" }}
   </aside>
-  {{/* 4. Category previews */}}
+
+  {{/* 3: Next Ad */}}
+  {{ partial "home/render-next-ad" . }}
+
+  {{/* 4. Render home category previews */}}
   {{ $categories := slice }}
+  {{ $nextAdIndex := 2 }}
 
   {{ with site.Params.skytheme.home.categories }}
     {{ $categories = . }}
@@ -59,7 +68,21 @@
         {{ partial "hero-and-posts" (dict "posts" $categoryPreview "cols" 3) }}
 
       </section>
+      {{ partial "home/render-next-ad" $ }}
     {{ end }}
   {{ end }}
 
+{{ end }}
+
+{{ define "_partials/home/render-next-ad.html" }}
+  {{ $ads := .Page.Store.Get "ads" }}
+  {{ $nextAd := .Page.Store.Get "nextAd" }}
+
+  {{ with index $ads $nextAd }}
+    <aside class="my-20 flex flex-col items-center justify-center gap-10">
+      {{ .Render "embed" }}
+    </aside>
+  {{ end }}
+
+  {{ .Page.Store.Add "nextAd" 1 }}
 {{ end }}
