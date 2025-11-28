@@ -40,24 +40,9 @@ seo:
     github: etheriamagazine
 
 skytheme:
-  dateFormatLong: :date_long
-  dateFormatShort: 02.01.2006
+  dateLong: :date_long
+  dateShort: 02.01.2006
+  dateMonthYear: January de 2006
   defaultPostCover: https://placehold.co/1200x750
-
-  home:
-    featured:
-      - viajar-con-amigas
-      - viajar-en-familia
-      - viajar-en-pareja
-      - viajar-sola
-
-    categories:
-      - viajar-con-amigas
-      - viajar-en-familia
-      - viajar-en-pareja
-      - viajar-sola
-      - estilo-de-vida
-      - organizate
-
   reflink:
     errorOn404: true

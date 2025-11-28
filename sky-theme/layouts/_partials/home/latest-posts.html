@@ -1,0 +1,13 @@
+{{/*
+  Returns latest posts for the featured area.
+  See `featuredCategories` in data/home.yaml
+*/}}
+{{ $featuredCategories := site.Data.home.featuredCategories }}
+
+{{ $posts := where site.RegularPages.ByLastmod.Reverse "Type" "posts" }}
+
+{{ with $featuredCategories }}
+  {{ $posts = where $posts "Params.categories" "intersect" . }}
+{{ end }}
+
+{{ return $posts }}

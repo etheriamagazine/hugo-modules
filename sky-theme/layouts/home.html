@@ -1,33 +1,37 @@
 {{ define "main" }}
 
-  {{/* store ads and ad index */}}
-
+  {{/* Store ads and ad index */}}
   {{ .Page.Store.Set "ads" (partial "easyads/get.html" "home") }}
   {{ .Page.Store.Set "nextAd" 0 }}
 
-  {{ $latestPosts := where site.RegularPages.ByLastmod.Reverse "Type" "posts" }}
+  {{/* Get latest and pinned posts as per configuration in data/home.yaml  */}}
+  {{ $latest := partial "home/latest-posts" }}
+  {{ $pinned := partial "home/pinned-posts" }}
 
-  {{/* 1. Featured Stories */}}
-  {{ with site.Params.skytheme.home.featured }}
-    {{ $latestPosts = where $latestPosts "Params.categories" "intersect" . }}
-  {{ end }}
+  {{/* Compute featured posts  */}}
+  {{ $featuredCount := site.Data.home.featuredPostsCount }}
 
-  {{ $featured := first 5 $latestPosts }}
+  {{ $featured := (first 1 $latest) }}
+  {{ $featured  = union $featured $pinned }}
+  {{ $featured  = union $featured (after 1 $latest) }}
+  {{ $featured  = first $featuredCount $featured }}
 
-  {{ $ads := partial "easyads/get.html" "home" }}
-
-  {{/* 1. Hero */}}
+  {{/* 1. Featured posts */}}
   <section>
-    {{ partial "hero-and-posts" (dict "posts" $featured "cols" 4) }}
+    {{ partial "hero-and-posts" (dict "posts" $featured "cols" 3) }}
   </section>
 
   {{/* 2. First Ad */}}
-  {{ partial "home/render-next-ad" . }}
 
   {{/* 3. Subscription */}}
-  <aside>
-    {{ partial "subscribe/form.html" }}
-  </aside>
+  <div class="max-w-(--my-max-w) m-auto mt-8 grid px-4 md:grid-cols-2">
+    <aside>
+      {{ partial "subscribe/form.html" }}
+    </aside>
+
+    {{ partial "home/render-next-ad" . }}
+
+  </div>
 
   {{/* 3: Next Ad */}}
   {{ partial "home/render-next-ad" . }}
@@ -36,7 +40,7 @@
   {{ $categories := slice }}
   {{ $nextAdIndex := 2 }}
 
-  {{ with site.Params.skytheme.home.categories }}
+  {{ with site.Data.home.categoriesToDisplay }}
     {{ $categories = . }}
   {{ else }}
     {{ range $term, $v := .Site.Taxonomies.categories }}
@@ -62,8 +66,9 @@
           </header>
         {{ end }}
 
+        {{ $count := site.Data.home.postsCountPerCategory | default 7 }}
         {{/* Select posts not already shown featured posts */}}
-        {{ $categoryPreview := first 7 ( .Pages.ByLastmod.Reverse  | complement $featured ) }}
+        {{ $categoryPreview := first $count ( .Pages.ByLastmod.Reverse  | complement $featured ) }}
 
         {{ partial "hero-and-posts" (dict "posts" $categoryPreview "cols" 3) }}
 

@@ -33,7 +33,7 @@
             class="text-slate-400"
             datetime="{{ .Date | time.Format "2006-01-02" }}"
             data-pagefind-ignore
-            >{{ .Date | time.Format ":date_medium" }}</time
+            >{{ .Date | time.Format site.Params.skytheme.dateLong }}</time
           >
         </li>
       {{ with and (ne .Lastmod .Date) .Lastmod }}
@@ -41,7 +41,7 @@
           <span class="text-slate-400">
           Actualizado
           <time class="" datetime="{{ . | time.Format "2006-01-02" }}" data-pagefind-ignore
-            >{{ . | time.Format "January de 2006" }}</time
+            >{{ . | time.Format site.Params.skytheme.dateMonthYear }}</time
           >
           </span>
         </li>
@@ -165,18 +165,18 @@
       <hr class="my-8" />
       {{ with .GitInfo }}
         <div>
-          Última edicion: {{ time.Format ":date_long" .AuthorDate }}:
+          Última edicion: {{ time.Format site.Params.skytheme.dateShort .AuthorDate }}
           <a
-            class="font-medium hover:underline"
+            class="hover:underline"
             href="{{ site.Params.gitinfo.repositoryUrl }}/commit/{{ .Hash }}">
-            {{ .Subject }} ({{ .AbbreviatedHash }})
+             ({{ .AbbreviatedHash }})
           </a>
         </div>
       {{ end }}
       {{ with .File }}
         <a
           class="font-medium hover:underline"
-          href="{{ site.Params.gitinfo.repositoryUrl }}/edit/{{ site.Params.gitinfo.branch | default "main" }}/{{ site.Params.gitinfo.contentRoot | default "content" }}/{{ .Path }}?plain=1">
+          href="{{ site.Params.gitinfo.repositoryUrl }}/blob/{{ site.Params.gitinfo.branch | default "main" }}/{{ site.Params.gitinfo.contentRoot | default "content" }}/{{ .Path }}">
           Ver código fuente
         </a>
       {{ end }}

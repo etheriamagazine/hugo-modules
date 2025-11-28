@@ -1,0 +1,30 @@
+{{/*
+  Returns pinned posts as per configuration
+  See `pinnedPosts` in data/home.yaml
+*/}}
+
+{{ $pinned := site.Data.home.pinnedPosts | default slice }}
+
+{{ $now := now }}
+
+{{ $posts := where site.RegularPages "Type" "posts" }}
+
+{{ $result := slice }}
+
+{{ range $pinned }}
+  {{ $slug := (cond (reflect.IsMap .) .slug . ) }}
+  {{ $until := (cond (reflect.IsMap .) .until nil ) }}
+
+  {{/* find page based on supplied slug */}}
+  {{ $found := union (where $posts "Slug" $slug) (where $posts "File.ContentBaseName" $slug) }}
+
+  {{ with index $found 0 }}
+    {{/* check until date if specified */}}
+    {{ if or (not $until) (lt $now (time $until)) }}
+      {{ $result = $result | append . }}
+    {{ end }}
+  {{ end }}
+
+{{ end }}
+
+{{ return $result }}
