@@ -33,7 +33,7 @@
             class="text-slate-400"
             datetime="{{ .Date | time.Format "2006-01-02" }}"
             data-pagefind-ignore
-            >{{ .Date | time.Format site.Params.skytheme.dateLong }}</time
+            >{{ .Date | time.Format (site.Params.skytheme.dateLong | default ":date_long") }}</time
           >
         </li>
       {{ with and (ne .Lastmod .Date) .Lastmod }}
@@ -41,7 +41,7 @@
           <span class="text-slate-400">
           Actualizado
           <time class="" datetime="{{ . | time.Format "2006-01-02" }}" data-pagefind-ignore
-            >{{ . | time.Format site.Params.skytheme.dateMonthYear }}</time
+            >{{ . | time.Format (site.Params.skytheme.dateMonthYear | default "January de 2006") }}</time
           >
           </span>
         </li>
@@ -165,7 +165,7 @@
       <hr class="my-8" />
       {{ with .GitInfo }}
         <div>
-          Última edicion: {{ time.Format site.Params.skytheme.dateShort .AuthorDate }}
+          Última edicion: {{ time.Format (site.Params.skytheme.dateShort | default ":date_short") .AuthorDate }}
           <a
             class="hover:underline"
             href="{{ site.Params.gitinfo.repositoryUrl }}/commit/{{ .Hash }}">
