@@ -11,12 +11,19 @@
     {{ end }}
   {{ end }}
 
+  {{ $authors := slice }}
+  {{ range  .GetTerms "authors" }}
+    {{ $authors = $authors | append .LinkTitle }}
+  {{ end }}
 
   <article
     class="story-grid prose prose-p:mt-0 prose-img:object-cover prose-img:w-full prose-img:aspect-[14/16] md:prose-img:aspect-auto  md:prose-lg [&>p:first-of-type]:lead [&>p:nth-of-type(2):not([align])]:drop-cap max-w-none px-4 pt-8 md:px-16 md:pt-16"
     data-cover-src="{{ $coverSrc }}"
     data-cover-alt="{{ $coverAlt }}"
-    data-pagefind-meta="image[data-cover-src], image_alt[data-cover-alt]">
+    data-date="{{ .Date | time.Format "02.01.2006" }}"
+    data-lastmod="{{ .Lastmod | time.Format "02.01.2006" }}"
+    data-author="{{delimit $authors ", " }}"
+    data-pagefind-meta="image[data-cover-src], image_alt[data-cover-alt], date[data-date], lastmod[data-lastmod], author[data-author]">
     <header class="not-prose mb-8 md:col-[2/14]">
       <ul class="flex" data-pagefind-ignore>
         <li class="">
@@ -32,7 +39,6 @@
           <time
             class="text-slate-400"
             datetime="{{ .Date | time.Format "2006-01-02" }}"
-            data-pagefind-ignore
             >{{ .Date | time.Format (site.Params.skytheme.dateLong | default ":date_long") }}</time
           >
         </li>
@@ -40,7 +46,7 @@
         <li class="before:mx-2 before:content-['/']">
           <span class="text-slate-400">
           Actualizado
-          <time class="" datetime="{{ . | time.Format "2006-01-02" }}" data-pagefind-ignore
+          <time class="" datetime="{{ . | time.Format "2006-01-02" }}"
             >{{ . | time.Format (site.Params.skytheme.dateMonthYear | default "January de 2006") }}</time
           >
           </span>

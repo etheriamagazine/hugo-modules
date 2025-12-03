@@ -46,3 +46,27 @@ skytheme:
   defaultPostCover: https://placehold.co/1200x750
   reflink:
     errorOn404: true
+
+subscribe:
+  action: /subscribe
+  title: Newsletter
+  textCallToAction: >
+   Suscríbete y recibirás los últimos artículos
+   de la revista, además de participar en sorteos y
+   obtener descuentos.
+  emailPlaceholder: "Tu correo electrónico"
+  privacyPolicyPath: pages/politica-de-privacidad
+
+  submitText: "Suscribirme"
+
+  buttonText:
+    init: "Suscribirme"
+    processing: "Registrando email"
+    error: "Error al registrar"
+    success: "Registro completado"
+
+
+  success:
+    buttonText: "Suscribirme"
+
+

@@ -1,128 +1,188 @@
-{{ $params :=  site.Params.hugoEtheria.subscribeForm | default dict }}
+{{ $params :=  site.Params.subscribe }}
 
 <div
-  x-data="subscribeForm({{ $params | jsonify }})"
-  class="overflow-hidden">
-  <div
-    class="flex transition"
-    :style="`transform: translateX(-${(page - 1) * 100}%)`">
-    <!-- form panel -->
-    <div class="flex-none basis-full">
-      <div class="bg-white dark:bg-gray-900">
-        <div class="mx-auto px-4 py-8 lg:px-6 lg:py-16">
-          <div class="mx-auto sm:text-center">
-            <h2
-              class="mb-4 text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl dark:text-white">
-              Suscríbete a <span class="uppercase">Etheria Magazine</span>
-            </h2>
-            <p
-              class="mx-auto mb-8 max-w-2xl font-light text-gray-500 sm:text-xl md:mb-12 dark:text-gray-400">
-              Si te apasiona viajar, inscríbete con tu email y recibirás los
-              últimos artículos de la revista, además de participar en sorteos y
-              obtener descuentos. Tratamos tus datos con la máxima privacidad.
-            </p>
-            <form @submit.prevent="submit">
-              <div
-                class="mx-auto mb-3 max-w-60 items-center space-y-4 sm:flex sm:space-y-0">
-                <div class="relative w-full flex-1">
-                  <label
-                    for="email_address"
-                    class="mb-2 hidden text-sm font-medium text-gray-900 dark:text-gray-300"
-                    >Correo electrónico</label
-                  >
-                  <div
-                    class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                    <svg
-                      class="h-5 w-5 text-gray-500 dark:text-gray-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
-                      <path
-                        d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
-                    </svg>
-                  </div>
-                  <input
-                    class="focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pl-10 text-sm text-gray-900 sm:rounded-none sm:rounded-l-lg dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
-                    placeholder="Introduce tu  correo electrónico"
-                    type="email"
-                    id="email_address"
-                    required=""
-                    x-model="data.email_address" />
-                </div>
-                <div class="flex-none">
-                  <button
-                    type="submit"
-                    class="bg-primary-700 border-primary-600 hover:bg-primary-800 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 w-full cursor-pointer rounded-lg border px-5 py-3 text-center text-sm font-medium text-white focus:ring-4 sm:rounded-none sm:rounded-r-lg"
-                    x-text="buttonText"
-                    :disabled="loading">
-                    Suscribirme
-                  </button>
-                </div>
-              </div>
-              <div
-                class="newsletter-form-footer mx-auto max-w-screen-sm text-left text-sm text-gray-500 dark:text-gray-300">
-                Nos tomamos muy en serio tus datos.
-                <a
-                  href="/pages/politica-de-privacidad"
-                  class="text-primary-600 dark:text-primary-500 font-medium hover:underline"
-                  >Lee nuestra política de privacidad</a
-                >.
-              </div>
-            </form>
-          </div>
-        </div>
+  x-data="subscribeForm"
+  class="overflow-hidden rounded-xl bg-gray-100 p-4 md:p-8">
+  <div class="text-center">
+    <h2 class="text-3xl font-semibold">{{ $params.title }}</h2>
+
+    <p class="mx-auto my-4 max-w-2xl text-lg font-light text-gray-400">
+      {{ $params.textCallToAction }}
+    </p>
+
+    <form @submit.prevent="submit" x-ref="form">
+      <div class="has-invalid:text-red-500 relative w-full max-w-md">
+        <!-- Icono a la izquierda -->
+        <span
+          class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            x-show="state == 'init'"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="h-5 w-5">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25H4.5a2.25
+           2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5H4.5
+           a2.25 2.25 0 0 0-2.25 2.25m19.5 0-9.75 6.75L2.25 6.75" />
+          </svg>
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            x-show="state === 'processing'"
+            class="inline h-5 w-5 animate-spin"
+            fill="none"
+            viewBox="0 0 24 24">
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"></circle>
+            <path
+              class="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            x-show="state === 'success'"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="3">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M5 13l4 4L19 7" />
+          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            x-show="state === 'error'"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="3">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 9v4m0 4h.01M12 2a10 10 0 100 20 10 10 0 000-20z" />
+          </svg>
+        </span>
+
+        <!-- Input -->
+        <input
+          type="email"
+          placeholder="Tu correo electrónico"
+          class="user-invalid:border-red-500 user-invalid:ring-red-500 user-invalid:focus:border-red-500 w-full rounded-lg border border-gray-300 bg-white py-2 px-10 text-gray-700 focus:border-blue-500 focus:outline-none focus:ring-2 disabled:text-gray-400"
+          x-model="email_address"
+          :disabled="state != 'init'"
+          required />
       </div>
-    </div>
-    <!-- result panel -->
-    <div class="flex-none basis-full">
-      <div class="flex items-center justify-center rounded-lg bg-white p-10">
-        <div>
-          <div x-show="formState === 'success'">
-            <svg
-              class="mx-auto mb-4 h-20 w-20 text-green-500"
-              viewBox="0 0 20 20"
-              fill="currentColor">
-              <path
-                fill-rule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                clip-rule="evenodd" />
-            </svg>
+      <div class="ml-1 mt-2 flex items-center">
+        <input
+          id="link-checkbox"
+          type="checkbox"
+          required
+          x-model="accepts_privacy_policy"
+          class="accent-primary/50 border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-brand-soft h-4 w-4 border focus:ring-2" />
+        <label for="link-checkbox" class="text-heading ms-2 select-none text-sm"
+          >Acepto la
 
-            <h2 class="mb-4 text-center text-2xl font-bold text-gray-800">
-              Registro completado
-            </h2>
-
-            <div class="mb-8 text-gray-600">
-              Te hemos suscrito a nuestro newsletter. ¡No te enviaremos nunca
-              correo comercial!
-            </div>
-          </div>
-          <div x-show="formState === 'error'">
-            <svg
-              class="mx-auto mb-4 h-20 w-20 text-red-500"
-              viewBox="0 0 20 20"
-              fill="currentColor">
-              <path
-                fill-rule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                clip-rule="evenodd" />
-            </svg>
-
-            <h2 class="mb-4 text-center text-2xl font-bold text-gray-800">
-              Error
-            </h2>
-
-            <div class="mb-8 text-gray-600">
-              No hemos podido darte de alta en el Newsletter.
-            </div>
-          </div>
-          <button
-            @click="reset"
-            class="mx-auto block w-40 rounded-lg border bg-white px-5 py-2 text-center font-medium text-gray-600 shadow-sm hover:bg-gray-100 focus:outline-none">
-            Atrás
-          </button>
+          {{ with site.GetPage $params.privacyPolicyPath }}
+          <a
+            href="{{ .RelPermalink }}"
+            class="font-medium hover:underline"
+            tabindex="-1"
+            >{{ .LinkTitle }}</a>
+          {{ else }}
+            Política de privacidad
+          {{ end }}
+          .</label
+        >
+      </div>
+      <div class="flex justify-center">
+        <button
+          type="submit"
+          class="mt-6 flex items-center gap-1 rounded-3xl px-4 py-3 font-semibold text-white transition-colors"
+          :disabled="state != 'init'"
+          :class="{
+            'bg-primary-600 hover:bg-primary-700': state === 'init' || state === 'processing',
+            'bg-red-500 dismiss-10': state === 'error',
+            'bg-lime-600 dismiss-10': state === 'success',
+          }">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            x-show="state === 'processing'"
+            class="inline h-4 w-4 animate-spin text-white"
+            fill="none"
+            viewBox="0 0 24 24">
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"></circle>
+            <path
+              class="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            x-show="state === 'success'"
+            class="h-4 w-4 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="3">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M5 13l4 4L19 7" />
+          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            x-show="state === 'error'"
+            class="h-4 w-4 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="3">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 9v4m0 4h.01M12 2a10 10 0 100 20 10 10 0 000-20z" />
+          </svg>
+          <span x-show="state === 'init'">
+            {{ $params.buttonText.init}}
+          </span>
+          <span x-show="state === 'processing'">
+            {{ $params.buttonText.processing}}
+          </span>
+          <span x-show="state === 'success'">
+            {{ $params.buttonText.success}}
+          </span>
+          <span x-show="state === 'error'">
+            {{ $params.buttonText.error}}
+          </span>
+        </button>
+      </div>
+    </form>
+    <div class="my-4">
+      <div x-show="state === 'error'">
+        <div class="mb-8 text-red-500">
+          Parece que tuvimos problemas para realizar el alta en nuestra
+          newsletter
         </div>
       </div>
     </div>
@@ -130,7 +190,9 @@
 </div>
 
 <script type="text/javascript">
-  function subscribeForm({ action }) {
+  function subscribeForm() {
+    let action = "{{ $params.action | safeJS }}";
+
     async function postForm(data) {
       const response = await fetch(action, {
         method: "POST",
@@ -149,56 +211,49 @@
     }
 
     return {
-      formState: "",
-      data: {},
-      buttonText: "",
-      loading: false,
+      state: "init",
       response: null,
+      email_address: "",
+      accepts_privacy_policy: false,
 
-      init() {
-        this.reset();
+      getButtonText() {
+        return buttonText[this.state] ?? "uknown";
+
       },
 
       reset() {
-        this.formState = "initial";
-        this.data = {
-          email_address: "",
-          accepts_privacy_policy: true,
-        };
-        (this.buttonText = "Suscribirme"), (this.response = null);
-        this.loading = false;
-      },
-
-      get page() {
-        switch (this.formState) {
-          case "initial":
-            return 1;
-          case "submitted":
-          case "error":
-            return 2;
-          default:
-            return 2;
-        }
+        this.$refs.form.reset();
+        this.response = null;
+        this.state = "init";
       },
 
       async submit() {
-        this.buttonText = "Enviando formulario";
-        this.loading = true;
+        this.state = "processing";
 
-        const minDelay = new Promise((resolve, reject) => {
-          setTimeout(resolve, 800, "timeout");
-        });
+        const awaitTimeout = (delay, result) =>
+          new Promise((resolve) => setTimeout(resolve, delay, result));
+
+        const rejectTimeout = (delay, result) =>
+          new Promise((resolve, reject) => setTimeout(reject, delay, result));
 
         try {
-          const [response] = await Promise.all([postForm(this.data), minDelay]);
-          this.response = response;
-          this.formState = "success";
-        } catch (err) {
-          console.log(err);
-          console.log("hola");
+          const { email_address, accepts_privacy_policy } = this;
 
-          this.formState = "error";
+          const [response, timeout] = await Promise.all([
+            postForm({
+              email_address,
+              accepts_privacy_policy,
+            }),
+            awaitTimeout(3000, "timeout"), // minimum delay
+          ]);
+          this.response = response;
+          this.state = "success";
+        } catch (err) {
+          this.state = "error";
+          console.log(err);
         } finally {
+          await awaitTimeout(9000);
+          this.reset();
         }
       },
     };

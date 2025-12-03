@@ -16,7 +16,10 @@ async function importAndInitPagefind() {
   const pagefind = await import(path);
   await pagefind.options({
     highlightParam: "highlight",
-    excerptLength: 24,
+    excerptLength: 22,
+    ranking: {
+      termSimilarity: 10.0 // default value 1.0
+    }
   });
   pagefind.init();
   console.log("pagefind initialized");
@@ -29,6 +32,9 @@ let storedSearchText = sessionStorage.getItem("Search.searchText") || "";
 let storedResults = JSON.parse(
   sessionStorage.getItem("Search.results") || "[]",
 );
+let storedSelectedIndex = parseInt(
+  sessionStorage.getItem("Search.selectedIndex") || -1,
+);
 
 // export signal isSearchOpen so other modules can interact
 export { isOpen as isSearchOpen };
@@ -38,8 +44,12 @@ export function Search(props) {
   const searchDone = useSignal(true);
   const searchText = useSignal(storedSearchText);
   const results = useSignal(storedResults);
-  const resultSize = useSignal(5);
+  const resultSize = useSignal(10);
+  const selectedIndex = useSignal(storedSelectedIndex);
+  const selectedRef = useRef();
+
   const onInput = (event) => (searchText.value = event.currentTarget.value);
+  const modulo = (number, n) => ((number % n) + n) % n;
 
   // note second parameter to useEffect
   useEffect(async () => {
@@ -52,15 +62,22 @@ export function Search(props) {
         const fiveResults = await Promise.all(
           search.results.slice(0, resultSize.value).map((r) => r.data()),
         );
+        console.log(fiveResults);
         results.value = fiveResults;
         searchDone.value = true;
-        sessionStorage.setItem("Search.searchText", searchText.value);
-        sessionStorage.setItem("Search.results", JSON.stringify(results.value));
       } else {
         results.value = [];
       }
+      selectedIndex.value = -1;
+      selectedRef.value = null;
     }
   }, [searchText.value, resultSize.value]);
+
+  useEffect(() => {
+    sessionStorage.setItem("Search.results", JSON.stringify(results.value));
+    sessionStorage.setItem("Search.selectedIndex", selectedIndex.value);
+    sessionStorage.setItem("Search.searchText", searchText.value);
+  }, [results.value, selectedIndex.value]);
 
   useEffect(async () => {
     if (isOpen.value) {
@@ -76,13 +93,38 @@ export function Search(props) {
 
   useEffect(() => {
     function onKeyDown(event) {
-      console.log(event);
+      //console.log(event);
       if (
         (event.keyCode == 27 && isOpen.value) ||
         (event.key == "k" && (event.metaKey || event.ctrlKey))
       ) {
         event.preventDefault();
         isOpen.value = !isOpen.value;
+      } else if (
+        isOpen.value &&
+        event.key == "ArrowUp" &&
+        results.value.length > 0
+      ) {
+        selectedIndex.value = modulo(
+          selectedIndex.value - 1,
+          results.value.length,
+        );
+      } else if (
+        isOpen.value &&
+        event.key == "ArrowDown" &&
+        results.value.length > 0
+      ) {
+        selectedIndex.value = modulo(
+          selectedIndex.value + 1,
+          results.value.length,
+        );
+      } else if (
+        isOpen.value &&
+        event.key == "Enter" &&
+        selectedIndex.value >= 0
+      ) {
+        event.preventDefault();
+        window.location = results.value[selectedIndex.value].url;
       }
     }
 
@@ -91,6 +133,16 @@ export function Search(props) {
       window.removeEventListener("keydown", onKeyDown);
     };
   }, []);
+
+  useEffect(() => {
+    if (isOpen.value && selectedRef.current) {
+      selectedRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+        inline: "nearest",
+      });
+    }
+  }, [selectedRef.current, isOpen.value]);
 
   function loadMoreResults() {
     resultSize.value += 5;
@@ -103,19 +155,14 @@ export function Search(props) {
   if (isOpen.value) {
     return html`<aside
       role="dialog"
-      class="fixed inset-4 z-30 flex flex-col overflow-hidden rounded bg-white shadow-lg sm:inset-8 lg:inset-x-64"
+      class="fixed inset-2 z-30 flex flex-col overflow-hidden rounded bg-white shadow-lg sm:inset-x-8 lg:inset-x-64"
     >
       <header
-        class="flex flex-initial border-b border-b-slate-200 px-6 text-slate-500"
+        class="box-border flex flex-initial border-b border-b-slate-200 px-4 text-slate-500 md:px-6"
       >
-        <form class="flex flex-auto items-center">
-          <label>
-            <svg
-              width="20"
-              height="20"
-              class="mr-8 stroke-2"
-              viewBox="0 0 20 20"
-            >
+        <form class="flex flex-auto items-center gap-3 md:gap-6">
+          <label for="search">
+            <svg width="20" height="20" class="stroke-2" viewBox="0 0 20 20">
               <path
                 d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z"
                 stroke="currentColor"
@@ -127,8 +174,9 @@ export function Search(props) {
             </svg>
           </label>
           <input
+            id="search"
             ref=${input}
-            class="h-16 flex-auto border-0 outline-0 focus:outline-none"
+            class="h-16 flex-auto border-0 text-xl font-bold text-gray-800 outline-0 focus:outline-none"
             autocomplete="off"
             autocorrect="off"
             spellcheck="false"
@@ -151,8 +199,46 @@ export function Search(props) {
         ${searchText.value &&
         searchDone.value &&
         (results.value.length > 0
-          ? html` <ol class="p-4">
-              ${results.value?.map((r) => SearchResultWithSubs(r))}
+          ? html` <ol class="">
+              ${results.value?.map(
+                (r, i) => html`
+                  <li
+                    class="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-x-6 rounded-2xl border-b border-slate-200 p-2 md:p-6 last:border-b-0 hover:bg-slate-100 aria-selected:bg-slate-100"
+                    aria-selected=${i === selectedIndex.value}
+                    ref=${i === selectedIndex.value ? selectedRef : null}
+                  >
+                    <figure class="flex-none md:block">
+                      <a href=${r.url}>
+                        <img
+                          class="aspect-4/3 mb-4 mt-1 md:max-w-64  object-cover md:block"
+                          src=${r.meta.image}
+                          alt=${r.meta.image_alt}
+                        />
+                      </a>
+                    </figure>
+                    <div class="relative text-slate-600">
+                      <a href=${r.url}>
+                        <h2
+                          class="text-xl font-bold tracking-tight text-gray-900 hover:underline peer-hover:underline"
+                        >
+                          ${r.meta.title}
+                        </h2>
+                        <p>${r.meta.date} por ${r.meta.author}</p>
+                      </a>
+
+                      <p
+                        class="mt-2 text-sm"
+                        dangerouslySetInnerHTML=${{ __html: r.excerpt }}
+                      ></p>
+                      <ul class="mt-2 pl-1 text-sm ">
+                        ${r.sub_results.slice(1, 5).map((sr) => html`
+                          <li><a class="hover:underline before:inline-block before:content-['►_']" href="${sr.url}">${sr.title}</a></li>
+                        `)}
+                      </ul>
+                    </div>
+                  </li>
+                `,
+              )}
             </ol>`
           : html`<div class="place-self-center md:text-2xl">
               🦄 Vaya, parece que no hay resultados.
@@ -210,7 +296,7 @@ function SearchResultWithSubs(r) {
 
   return html`
     <li
-      class="flex gap-x-6 rounded-2xl border-b border-slate-200 p-6 last:border-b-0 hover:bg-slate-100"
+      class="flex gap-x-6 rounded-2xl border-b border-slate-200 p-6 last:border-b-0 hover:bg-slate-100 aria-selected:bg-slate-100"
     >
       <figure class="hidden flex-none md:block">
         <a href=${r.url}>
@@ -224,10 +310,11 @@ function SearchResultWithSubs(r) {
       <div class="relative text-slate-600">
         <a href=${r.url}>
           <h2
-            class="font-stretch-95% text-lg font-medium text-slate-800 hover:underline md:text-2xl"
+            class="text-xl font-bold tracking-tight text-gray-900 hover:underline peer-hover:underline"
           >
             ${r.meta.title}
           </h2>
+          <p>${r.meta.date}</p>
         </a>
 
         <p class="mt-1" dangerouslySetInnerHTML=${{ __html: r.excerpt }}></p>

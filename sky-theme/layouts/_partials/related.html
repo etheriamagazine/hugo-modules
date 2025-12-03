@@ -1,5 +1,5 @@
 {{ with site.RegularPages.Related . | first 5 }}
-  <aside class="max-w-[300px]">
+  <aside class="max-w-[300px]" data-pagefind-ignore>
     <p class="text-lg">También te sugerimos</p>
     {{ range . }}
       <article class="mb-4 flex gap-2">

@@ -11,10 +11,10 @@
 @custom-variant aria-current (&:where([aria-current]));
 @custom-variant viewport-scroll ( &:where(.viewport-scroll, .viewport-scroll *));
 
-main :focus {
+/* main :focus {
   outline: 4px dotted var(--color-primary, #009ed0) !important;
   outline-offset: 2px;
-}
+} */
 
 @custom-variant hero (&:where(.hero, .hero *));
 
@@ -154,11 +154,29 @@ main :focus {
   @variant md {
     grid-row: calc(
         var(--story-side-start) + (--value(integer) - 1) *
-          var(--story-side-span)
+          var(--story-side-span)x
       ) /
       span calc(var(--story-side-span) - 1);
   }
 }
+
+@property --dismiss-value {
+  syntax: '<percentage>';
+  initial-value: 0%;
+  inherits: false;
+}
+
+@utility dismiss-* {
+  --dismiss-color: --alpha(#fff / 30%);
+  background-image: linear-gradient(90deg, var(--dismiss-color), --alpha(#fff / 30%) var(--dismiss-value), rgba(255,255,255,0) var(--dismiss-value), rgba(255,255,255,0));
+  animation: dismiss-animation --value(integer)s ease-out;
+}
+
+@keyframes dismiss-animation {
+  0% { --dismiss-value: 100%; }
+  100% { --dismiss-value: 0%; }
+}
+
 
 @layer components {
   .dialog-open {
