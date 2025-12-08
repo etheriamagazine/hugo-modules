@@ -1,18 +1,21 @@
 {{ $params :=  site.Params.subscribe }}
 
 
-<div
-  x-data="subscribeForm"
-  class="h-full rounded-xl bg-gray-100 p-4 md:p-8">
-  <div class="text-center">
+<div x-data="subscribeForm" class="h-full rounded-xl bg-gray-100 p-4 md:p-8">
+  <div >
+    <div class="text-center">
     <h2 class="text-3xl font-semibold">{{ $params.title }}</h2>
 
-    <p class="mx-auto my-4 max-w-2xl text-lg font-light text-gray-400">
+    <p class="mx-auto my-6 max-w-2xl text-lg font-light text-gray-400">
       {{ $params.textCallToAction }}
     </p>
-
-    <form @submit.prevent="submit" x-ref="form">
-      <div class="has-invalid:text-red-500 relative w-full max-w-md">
+  </div>
+    <form
+      @submit.prevent="submit"
+      x-ref="form"
+      class="flex flex-col items-center">
+      <div class="w-full max-w-md">
+      <div class="has-invalid:text-red-500 relative w-full ">
         <!-- Icono a la izquierda -->
         <span
           class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
@@ -81,6 +84,7 @@
 
         <!-- Input -->
         <input
+          id="email"
           type="email"
           placeholder="{{ $params.inputPlaceholder }}"
           class="user-invalid:border-red-500 user-invalid:ring-red-500 user-invalid:focus:border-red-500 w-full rounded-lg border border-gray-300 bg-white px-10 py-2 text-gray-700 focus:border-blue-500 focus:outline-none focus:ring-2 disabled:text-gray-400"
@@ -88,7 +92,7 @@
           :disabled="state != 'init'"
           required />
       </div>
-      <div class="ml-1 mt-2 flex items-center">
+      <div class="ml-1 mt-2 flex items-center ">
         <input
           id="link-checkbox"
           type="checkbox"
@@ -128,74 +132,73 @@
           {{ end }}
         </label>
       </div>
-      <div class="flex justify-center">
-        <button
-          type="submit"
-          class="mt-6 flex items-center gap-1 rounded-3xl px-4 py-3 font-semibold text-white transition-colors"
-          :disabled="state != 'init'"
-          :class="{
+      </div>
+      <button
+        type="submit"
+        class="mt-8 flex items-center gap-1 rounded-3xl px-4 py-3 font-semibold text-white transition-colors"
+        :disabled="state != 'init'"
+        :class="{
             'bg-primary-600 hover:bg-primary-700': state === 'init' || state === 'processing',
             'bg-red-500 dismiss-10': state === 'error',
             'bg-lime-600 dismiss-10': state === 'success',
           }">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            x-show="state === 'processing'"
-            class="inline h-4 w-4 animate-spin text-white"
-            fill="none"
-            viewBox="0 0 24 24">
-            <circle
-              class="opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              stroke-width="4"></circle>
-            <path
-              class="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-          </svg>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            x-show="state === 'success'"
-            class="h-4 w-4 text-white"
-            fill="none"
-            viewBox="0 0 24 24"
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          x-show="state === 'processing'"
+          class="inline h-4 w-4 animate-spin text-white"
+          fill="none"
+          viewBox="0 0 24 24">
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
             stroke="currentColor"
-            stroke-width="3">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M5 13l4 4L19 7" />
-          </svg>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            x-show="state === 'error'"
-            class="h-4 w-4 text-white"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="3">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M12 9v4m0 4h.01M12 2a10 10 0 100 20 10 10 0 000-20z" />
-          </svg>
-          <span x-show="state === 'init'">
-            {{ $params.buttonText.init }}
-          </span>
-          <span x-show="state === 'processing'">
-            {{ $params.buttonText.processing }}
-          </span>
-          <span x-show="state === 'success'">
-            {{ $params.buttonText.success }}
-          </span>
-          <span x-show="state === 'error'">
-            {{ $params.buttonText.error }}
-          </span>
-        </button>
-      </div>
+            stroke-width="4"></circle>
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          x-show="state === 'success'"
+          class="h-4 w-4 text-white"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="3">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M5 13l4 4L19 7" />
+        </svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          x-show="state === 'error'"
+          class="h-4 w-4 text-white"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="3">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M12 9v4m0 4h.01M12 2a10 10 0 100 20 10 10 0 000-20z" />
+        </svg>
+        <span x-show="state === 'init'">
+          {{ $params.buttonText.init }}
+        </span>
+        <span x-show="state === 'processing'">
+          {{ $params.buttonText.processing }}
+        </span>
+        <span x-show="state === 'success'">
+          {{ $params.buttonText.success }}
+        </span>
+        <span x-show="state === 'error'">
+          {{ $params.buttonText.error }}
+        </span>
+      </button>
     </form>
     <div class="my-4">
       <div x-show="state === 'error'">

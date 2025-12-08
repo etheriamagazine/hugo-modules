@@ -17,15 +17,15 @@
   {{ $featured  = first $featuredCount $featured }}
 
   {{/* 1. Featured posts */}}
-  <section class="mb-20">
-    {{ partial "hero-and-posts" (dict "posts" $featured "cols" 4) }}
+  <section class="mb-12 md:mb-20">
+    {{ partial "hero-and-posts" (dict "posts" $featured "cols" 3) }}
   </section>
 
   {{/* 2. First Ad */}}
 
   {{/* 3. Subscription */}}
-  <div class="max-w-(--my-max-w) mx-auto my-20 grid px-4 md:grid-cols-3 place-items-stretch">
-    <aside class="col-span-2">
+  <div class="max-w-(--my-max-w) mx-auto my-8 md:my-20 grid grid-cols-1 gap-4 gap-y-8 px-4 md:grid-cols-3 place-items-stretch">
+    <aside class="md:col-span-2">
       {{ partial "subscribe/form.html" }}
     </aside>
     {{ partial "home/render-next-ad" . }}
@@ -54,7 +54,7 @@
       See https://gohugo.io/methods/taxonomy/get/#get-the-weighted-pages
     */}}
     {{ with and (gt $wp.Count 0) $wp }}
-      <section class="my-20">
+      <section class="my-12 md:my-20">
         {{ with .Page }}
           <header class="mx-4 my-8 md:mx-36">
             <h2
@@ -83,7 +83,7 @@
   {{ $ads := .Page.Store.Get "ads" }}
   {{ $nextAd := .Page.Store.Get "nextAd" }}
 
-  {{/*  <pre>{{debug.Dump .}}</pre>  */}}
+  {{/*  <pre>{{debug.Dump $ }}</pre>  */}}
   {{ with index $ads $nextAd }}
     <aside class="max-w-(--my-max-w) mx-auto px-4 flex flex-col items-center justify-center gap-10">
       {{ .Render "embed" }}
@@ -92,3 +92,14 @@
 
   {{ .Page.Store.Add "nextAd" 1 }}
 {{ end }}
+
+
+{{ define "_partials/home/hero.html" }}
+
+  <div class="m-auto max-w-(--my-max-w) mt-8 px-4">
+  {{ .Render "hero" }}
+  </div>
+
+{{ end }}
+
+
