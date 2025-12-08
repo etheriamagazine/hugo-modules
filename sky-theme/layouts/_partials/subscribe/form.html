@@ -1,8 +1,9 @@
 {{ $params :=  site.Params.subscribe }}
 
+
 <div
   x-data="subscribeForm"
-  class="overflow-hidden rounded-xl bg-gray-100 p-4 md:p-8">
+  class="h-full rounded-xl bg-gray-100 p-4 md:p-8">
   <div class="text-center">
     <h2 class="text-3xl font-semibold">{{ $params.title }}</h2>
 
@@ -81,8 +82,8 @@
         <!-- Input -->
         <input
           type="email"
-          placeholder="Tu correo electrónico"
-          class="user-invalid:border-red-500 user-invalid:ring-red-500 user-invalid:focus:border-red-500 w-full rounded-lg border border-gray-300 bg-white py-2 px-10 text-gray-700 focus:border-blue-500 focus:outline-none focus:ring-2 disabled:text-gray-400"
+          placeholder="{{ $params.inputPlaceholder }}"
+          class="user-invalid:border-red-500 user-invalid:ring-red-500 user-invalid:focus:border-red-500 w-full rounded-lg border border-gray-300 bg-white px-10 py-2 text-gray-700 focus:border-blue-500 focus:outline-none focus:ring-2 disabled:text-gray-400"
           x-model="email_address"
           :disabled="state != 'init'"
           required />
@@ -94,20 +95,38 @@
           required
           x-model="accepts_privacy_policy"
           class="accent-primary/50 border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-brand-soft h-4 w-4 border focus:ring-2" />
-        <label for="link-checkbox" class="text-heading ms-2 select-none text-sm"
-          >Acepto la
+        <label
+          for="link-checkbox"
+          class="text-heading ms-2 select-none text-sm">
+          {{ $privacyPolicyText := $params.privacyPolicyText | default "I agree to [privacy policy and terms]" }}
 
           {{ with site.GetPage $params.privacyPolicyPath }}
-          <a
-            href="{{ .RelPermalink }}"
-            class="font-medium hover:underline"
-            tabindex="-1"
-            >{{ .LinkTitle }}</a>
+            {{ $page := . }}
+
+            {{ $matches := findRESubmatch `(.+)?\x5B(.+)\x5D(.+)?` $privacyPolicyText }}
+
+            {{ with and $matches (index $matches 0) }}
+              {{ index . 1 }}
+              <a
+                href="{{ $page.RelPermalink }}"
+                class="font-medium hover:underline"
+                tabindex="-1"
+                >{{ index . 2 }}</a
+              >
+              {{ index . 3 }}
+            {{ else }}
+              <a
+                href="{{ $page.RelPermalink }}"
+                class="font-medium hover:underline"
+                tabindex="-1"
+                >{{ $privacyPolicyText }}</a
+              >
+            {{ end }}
+
           {{ else }}
-            Política de privacidad
+            {{ $privacyPolicyText }}
           {{ end }}
-          .</label
-        >
+        </label>
       </div>
       <div class="flex justify-center">
         <button
@@ -164,16 +183,16 @@
               d="M12 9v4m0 4h.01M12 2a10 10 0 100 20 10 10 0 000-20z" />
           </svg>
           <span x-show="state === 'init'">
-            {{ $params.buttonText.init}}
+            {{ $params.buttonText.init }}
           </span>
           <span x-show="state === 'processing'">
-            {{ $params.buttonText.processing}}
+            {{ $params.buttonText.processing }}
           </span>
           <span x-show="state === 'success'">
-            {{ $params.buttonText.success}}
+            {{ $params.buttonText.success }}
           </span>
           <span x-show="state === 'error'">
-            {{ $params.buttonText.error}}
+            {{ $params.buttonText.error }}
           </span>
         </button>
       </div>
@@ -244,7 +263,7 @@
               email_address,
               accepts_privacy_policy,
             }),
-            awaitTimeout(3000, "timeout"), // minimum delay
+            awaitTimeout(2500, "timeout"), // minimum delay
           ]);
           this.response = response;
           this.state = "success";

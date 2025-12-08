@@ -154,7 +154,7 @@
   @variant md {
     grid-row: calc(
         var(--story-side-start) + (--value(integer) - 1) *
-          var(--story-side-span)x
+          var(--story-side-span)
       ) /
       span calc(var(--story-side-span) - 1);
   }

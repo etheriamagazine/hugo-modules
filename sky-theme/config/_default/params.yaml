@@ -54,19 +54,12 @@ subscribe:
    Suscríbete y recibirás los últimos artículos
    de la revista, además de participar en sorteos y
    obtener descuentos.
-  emailPlaceholder: "Tu correo electrónico"
   privacyPolicyPath: pages/politica-de-privacidad
-
-  submitText: "Suscribirme"
-
+  privacyPolicyText: Acepto la [política de privacidad]
+  inputPlaceholder: "Tu correo electrónico"
   buttonText:
     init: "Suscribirme"
     processing: "Registrando email"
     error: "Error al registrar"
     success: "Registro completado"
-
-
-  success:
-    buttonText: "Suscribirme"
-
 
