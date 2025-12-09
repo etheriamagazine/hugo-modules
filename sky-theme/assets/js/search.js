@@ -230,11 +230,7 @@ export function Search(props) {
                         class="mt-2 text-sm"
                         dangerouslySetInnerHTML=${{ __html: r.excerpt }}
                       ></p>
-                      <ul class="mt-2 pl-1 text-sm ">
-                        ${r.sub_results.slice(1, 5).map((sr) => html`
-                          <li><a class="hover:underline before:inline-block before:content-['►_']" href="${sr.url}">${sr.title}</a></li>
-                        `)}
-                      </ul>
+
                     </div>
                   </li>
                 `,

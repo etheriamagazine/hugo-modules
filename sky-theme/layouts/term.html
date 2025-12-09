@@ -1,31 +1,91 @@
 {{ define "main" }}
   {{ $category := .Params.category }}
-  {{ $destino := .Params.destino }}
+  {{ $tag := .Params.tag }}
+  {{ $pages := .Pages.ByLastmod.Reverse }}
 
-  {{ $pages := .Pages }}
-
-  {{ if (and $category $destino) }}
+  {{ if (and $category $tag) }}
     {{ $pages = site.RegularPages }}
     {{ $pages = where site.RegularPages ".Params.categories" "intersect" (slice $category) }}
-    {{ $pages = where $pages "Params.destino" "intersect" (slice $destino (lower $destino)) }}
+    {{ $pages = where $pages "Params.tags" "intersect" (slice $tag (lower $tag)) }}
   {{ end }}
 
-
-  <div class="mt-12 md:mx-32">
+  <div class="max-w-(--my-max-w) mx-auto mt-4 px-4 md:mt-8">
     <h1
-      class="text-primary font-stretch-semi-condensed text-3xl font-light uppercase md:text-4xl">
+      class="text-primary font-stretch-semi-condensed text-3xl font-light uppercase md:text-4xl my-2">
       {{ .Title }}
     </h1>
     {{ .Description }}
 
     {{ .Content }}
+  </div>
 
+  {{ $paginator := .Paginate $pages (mul 8  4) }}
 
-    <div class="mt-4 grid grid-cols-4 gap-2 gap-y-8">
-      {{ range $pages }}
-        {{ .Render "summary" }}
-      {{ end }}
+  <div class="max-w-(--my-max-w) mx-auto my-8 px-4">
+    <span class="text-base font-medium uppercase">{{ $pages.Len }} artículos</span>
+
+    <div id="posts">
+      <div
+        class="animate-slide-top my-8 grid grid-cols-1 gap-4 gap-y-8 md:grid-cols-4">
+        {{ range $paginator.Pages }}
+          {{ .Render "summary" }}
+        {{ end }}
+        {{/* {{ partial "hero-and-posts" (dict "posts" $pages "cols" 4) }} */}}
+        {{ if and (gt $paginator.TotalPages 1) ($paginator.HasNext) }}
+          <div
+            x-data="nextPageLoader()"
+            x-show="visible"
+            class="col-span-full m-8 flex items-center justify-center">
+            <a
+              @click.prevent="loadNextPage"
+              class="bg-primary-700 rounded-lg px-4 py-2 text-white"
+              href="{{ $paginator.Next.URL }}"
+              data-page="{{ $paginator.Next.PageNumber }}"
+              >Ver más</a
+            >
+          </div>
+        {{ end }}
+      </div>
     </div>
   </div>
-  {{/* {{ partial "components/pagination.html" . }} */}}
+
+  <script>
+    function nextPageLoader() {
+      return {
+        visible: true,
+
+        async loadNextPage(e) {
+          let href = e.target.href;
+          let page = e.target.dataset.page;
+
+          // fetch next page
+          let response = await fetch(href);
+          let text = await response.text();
+
+          // add response html to hidden div to parse into a DOM representation
+          let temp = document.createElement("div");
+          temp.style.display = "none";
+          temp.innerHTML = text;
+          document.body.append(temp);
+
+          // select posts content and add to current posts display
+          let content = temp.querySelector("#posts").innerHTML;
+          document
+            .querySelector("#posts")
+            .insertAdjacentHTML("beforeend", content);
+
+          // destroy temp div
+          temp.remove();
+
+          // register a Load more event
+          window.plausible &&
+            window.plausible("Load more", {
+              props: { url: location.href, page: page },
+            });
+
+          this.visible = false;
+        },
+      };
+    }
+  </script>
 {{ end }}
