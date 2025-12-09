@@ -172,19 +172,7 @@
       {{ with .GitInfo }}
         <div>
           Última edicion: {{ time.Format (site.Params.skytheme.dateShort | default ":date_short") .AuthorDate }}
-          <a
-            class="hover:underline"
-            href="{{ site.Params.gitinfo.repositoryUrl }}/commit/{{ .Hash }}">
-             ({{ .AbbreviatedHash }})
-          </a>
         </div>
-      {{ end }}
-      {{ with .File }}
-        <a
-          class="font-medium hover:underline"
-          href="{{ site.Params.gitinfo.repositoryUrl }}/blob/{{ site.Params.gitinfo.branch | default "main" }}/{{ site.Params.gitinfo.contentRoot | default "content" }}/{{ .Path }}">
-          Ver código fuente
-        </a>
       {{ end }}
     </footer>
   </article>
