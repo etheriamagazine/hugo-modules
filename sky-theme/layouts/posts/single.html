@@ -107,7 +107,7 @@
     <aside
       class="md:col-13 not-prose max-sm:hidden md:row-start-2 md:row-end-5"
       data-pagefind-ignore>
-      {{ range .GetTerms "authors" }}
+      {{ with index (.GetTerms "authors") 0 }}
         {{ $authorPage := . }}
         {{ $resource := index (.Resources.ByType "image") 0 }}
         {{ $resource = $resource.Process "resize 300x webp" }}
