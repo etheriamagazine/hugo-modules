@@ -2,18 +2,17 @@
   <header
     class="grid h-full grid-rows-[auto_auto_minmax(auto,1fr)_auto_auto] gap-2">
     <div class="row-1 flex gap-2">
-
-
       {{ with .GetTerms "tags" }}
         {{ range . }}
           <span class="text-sm font-medium">{{ or .Params.name .Title }}</span>
         {{ end }}
 
       {{ else }}
-
         {{ with where (.GetTerms "categories") "Params.pretitle" true }}
           {{ range first 1 . }}
-            <span class="text-sm font-medium">{{ or .Params.shortname .Title }}</span>
+            <span class="text-sm font-medium"
+              >{{ or .Params.shortname .Title }}</span
+            >
           {{ end }}
         {{ end }}
 
@@ -39,7 +38,11 @@
         >{{ .Lastmod | time.Format (site.Params.skytheme.dateShort | default ":date_short") }}</time
       >
       {{ with index (.GetTerms "authors") 0 }}
-        por
+        {{ if not .Params.isGenericAuthor }}
+          por
+        {{ else }}
+          —
+        {{ end }}
         {{ .Title }}
       {{ end }}
     </span>
