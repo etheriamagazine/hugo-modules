@@ -1,8 +1,10 @@
-{{ $cols := .cols | default 3 }}
 {{ $posts := .posts }}
+{{ $cols := .cols | default 3 }}
+{{ $rendersAboveTheFold := .rendersAboveTheFold | default false }}
 
 {{ with (index $posts 0) }}
   <div class="max-w-(--my-max-w) m-auto mt-8 px-4">
+    {{ .Page.Store.Set "rendersAboveTheFold" $rendersAboveTheFold }}
     {{ .Render "hero" }}
   </div>
 {{ end }}

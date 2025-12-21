@@ -18,7 +18,7 @@
 
   {{/* 1. Featured posts */}}
   <section class="mb-12 md:mb-20">
-    {{ partial "hero-and-posts" (dict "posts" $featured "cols" 3) }}
+    {{ partial "hero-and-posts" (dict "posts" $featured "cols" 3 "rendersAboveTheFold" true) }}
   </section>
 
   {{/* 2. First Ad */}}
@@ -93,13 +93,5 @@
   {{ .Page.Store.Add "nextAd" 1 }}
 {{ end }}
 
-
-{{ define "_partials/home/hero.html" }}
-
-  <div class="m-auto max-w-(--my-max-w) mt-8 px-4">
-  {{ .Render "hero" }}
-  </div>
-
-{{ end }}
 
 

@@ -6,7 +6,6 @@
         {{ range . }}
           <span class="text-sm font-medium">{{ or .Params.name .Title }}</span>
         {{ end }}
-
       {{ else }}
         {{ with where (.GetTerms "categories") "Params.pretitle" true }}
           {{ range first 1 . }}
@@ -20,7 +19,12 @@
     </div>
     <a class="row-2 peer" href="{{ .RelPermalink }}">
       {{ with partial "page/get-cover" . }}
-        {{ partial "imgproxy/img" (dict "src" .src "alt" .alt "class" "transition w-full object-cover aspect-[3/2]") }}
+        {{ partial "imgproxy/img" (dict
+          "src" .src
+          "alt" .alt
+          "sizes" "(width <= 48rem) 100vw, (width <= 80rem) calc(100vw / 3), calc(80rem / 3)"
+          "class" "transition w-full object-cover aspect-[3/2]")
+        }}
       {{ end }}
     </a>
     <h2

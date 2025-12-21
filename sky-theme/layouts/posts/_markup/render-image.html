@@ -1,0 +1,22 @@
+{{/*  This image render hook requires wrapStandAloneImageWithinParagraph = false ?  */}}
+
+{{ if .IsBlock }}
+  <figure>
+    {{ partial "imgproxy/img" (dict
+      "src" .Destination
+      "alt" .PlainText
+      "sizes" "(width <= 48rem) 100vw, (width <= 80rem) calc(100vw * 2 / 3), calc(80rem * 2 / 3)"
+      )
+    }}
+    {{ with (or .Title .PlainText) -}}
+      <figcaption>{{ . | markdownify }}</figcaption>
+    {{- end }}
+  </figure>
+{{ else }}
+  {{ partial "imgproxy/img" (dict
+    "src" .Destination
+    "alt" .PlainText
+    "title" .Title
+    )
+  }}
+{{ end }}

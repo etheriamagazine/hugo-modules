@@ -1,29 +1,21 @@
-{{/* Authored by Germán!
-
-  Big article story that can accomodate various sizes.
-
-  - It uses grid for overlay positioning See https://css-tricks.com/positioning-overlay-content-with-css-grid/
-  - Note h3 has z-index so that linear gradient on ::after pseudoelement doesn't affect the text
-
-  after:col-1 after:row-1 after:bg-linear-to-b after:rounded-xl
-  after:pointer-events-none after:from-transparent after:from-20% after:to-black/35 after:opacity-60 after:transition-opacity hover:after:opacity-100
-*/}}
+{{/* Hero template */}}
+{{ $rendersAboveTheFold := .Page.Store.Get "rendersAboveTheFold" }}
 <article
-  class="@container *:col-1 *:row-1  grid grid-cols-1 grid-rows-1 after:col-1 after:row-1 after:bg-linear-to-b after:from-transparent after:from-60% after:to-black/45 after:rounded-xl after:pointer-events-none">
+  class="@container *:col-1 *:row-1 after:col-1 after:row-1 after:bg-linear-to-b grid grid-cols-1 grid-rows-1 after:pointer-events-none after:rounded-xl after:from-transparent after:from-60% after:to-black/45">
   <a href="{{ .RelPermalink }}">
     {{ with partial "page/get-cover" . }}
       {{ partial "imgproxy/img" (dict
         "src" .src
         "alt" .alt
+        "sizes" "(width <= 80rem) 100vw, 80rem"
         "class" "w-full h-full object-cover aspect-[16/8] max-sm:aspect-[14/16]"
-        "loading" "eager"
-        "fetchpriority" "high")
+        "loading" (cond $rendersAboveTheFold "eager" "")
+        "fetchpriority" (cond $rendersAboveTheFold "high" ""))
       }}
     {{ end }}
   </a>
-
   <h2
-    class="z-2 max-w-5/6 @md:max-w-4/5 @lg:text-4xl font-title-overlay place-self-center self-end mb-20 text-center text-2xl text-white text-shadow-cartoon">
+    class="z-2 max-w-5/6 @md:max-w-4/5 @lg:text-4xl font-title-overlay text-shadow-cartoon mb-20 place-self-center self-end text-center text-2xl text-white">
     <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
   </h2>
 </article>

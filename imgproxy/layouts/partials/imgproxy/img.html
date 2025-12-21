@@ -5,17 +5,22 @@
   - [src]: original source image
 
   Optional:
+  - [alt]: alt text.
   - [loading=lazy]: Loading attribute, lazy or eager.
   - [decoding=async]: Decoding attribute, async or sync?
   - [fetchpriority=false]: If set to 'high', preaload image
 */}}
 {{ $src := .src }}
+
 {{ $srcset := false }}
 {{ $original := false }}
 
 {{ $loading := .loading | default "lazy" }}
 {{ $decoding := .decoding | default "async" }}
 {{ $fetchpriority := .fetchpriority | default false }}
+
+{{ $format := site.Params.imgproxy.format | default "" | strings.TrimLeft "." }}
+{{ $process := site.Params.imgproxy.process | default "rs:fit:900" }}
 
 {{ with urls.Parse $src }}
   {{ if not .IsAbs }}
@@ -28,10 +33,23 @@
 {{ if site.Params.imgproxy.enabled }}
   {{ $original = $src }}
 
-  {{ with partial "imgproxy/responsive-urls" $src }}
-    {{ $src = .src }}
-    {{ $srcset = .srcset }}
+  {{ $src = partial "imgproxy/url" (dict
+    "src" $original
+    "processingOptions" $process
+    "format" $format)
+  }}
+
+  {{ with (and site.Params.imgproxy.responsive.enabled site.Params.imgproxy.responsive.srcset) }}
+    {{ range . }}
+      {{ $url := partial "imgproxy/url" (dict
+        "src" $original
+        "processingOptions" .process
+        "format" $format)
+      }}
+      {{ $srcset = append (slice (printf "%s %s" $url .size)) (or $srcset slice) }}
+    {{ end }}
   {{ end }}
+
 {{ end }}
 
 {{ with $original }}
@@ -41,9 +59,14 @@
   {{ with .class }}
     class="{{ . }}"
   {{ end }}
-  src="{{ $src | safeURL }}"
+  {{ with $src }}
+    src="{{ . | safeURL }}"
+  {{ end }}
   {{ with $srcset }}
-    srcset="{{ delimit . "," | safeHTMLAttr }}"
+    srcset="{{ delimit . ",\n" | safeHTMLAttr }}"
+  {{ end }}
+  {{ with (and $srcset .sizes) }}
+    sizes="{{ . | safeHTMLAttr }}"
   {{ end }}
   {{ with .alt }}
     alt="{{ . }}"
