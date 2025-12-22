@@ -79,7 +79,7 @@
 
           // register a Load more event
           window.plausible &&
-            window.plausible("Load more", {
+            plausible("Load more", {
               props: { url: location.href, page: page },
             });
 

@@ -1,71 +1,25 @@
-{{ with and (hugo.IsProduction) (index site.Params "plausible") }}
+{{ with and hugo.IsProduction site.Params.plausible }}
   {{ if or .enable (not (isset . "enable")) }}
-    {{ $domain := or .domain (errorf "module plausible-analytics: no tracking domain specified in config") }}
+    {{ $siteScriptId := or (.siteScriptId | strings.TrimSuffix ".js") (errorf "module plausible: no tracking script specified in config") }}
 
-    {{ $server := .selfHostedServer | default "https://plausible.io" | strings.TrimRight "/" }}
+    {{ $src := printf "https://plausible.io/js/%s.js" $siteScriptId  }}
+    {{ $opts := dict }}
 
-    {{ $tokens := slice "script" }}
-
-    {{ with .optional }}
-      {{ if .local }}
-        {{ $tokens = append "local" $tokens }}
-      {{ end }}
-
-      {{ if .fileDownloads }}
-        {{ $tokens = append "file-downloads" $tokens }}
-      {{ end }}
-
-      {{ if .outboundLinks }}
-        {{ $tokens = append "outbound-links" $tokens }}
-      {{ end }}
-
-      {{ if .hashedPaths }}
-        {{ $tokens = append "hash" $tokens }}
-      {{ end }}
-
-      {{ if .customEvents }}
-        {{ $tokens = append "tagged-events" $tokens }}
-      {{ end }}
-
-      {{ if .customProps }}
-        {{ $tokens = append "pageview-props" $tokens }}
-      {{ end }}
-
-      {{ if .revenue }}
-        {{ $tokens = append "revenue" $tokens }}
-      {{ end }}
-
+    {{ with (and .proxy (.proxyPath | strings.TrimRight "/")) }}
+      {{ $src = printf "%s/js/%s.js" . $siteScriptId }}
+      {{ $opts = merge $opts (dict "endpoint" (printf "%s/api/event" .)) }}
     {{ end }}
 
-    {{ $scriptName := printf "%s.js" (delimit $tokens  ".") }}
+    {{ with .captureOnLocalhost }}
+      {{ $opts = merge $opts (dict "captureOnLocalhost" true)}}
+    {{ end }}
 
-    {{/* main plausible script */}}
-    <script
-      defer
-      data-domain="{{ $domain }}"
-      {{ with (and .proxy (.proxyPath | strings.TrimRight "/")) }}
-        data-api="{{ . }}/api/event" src="{{ printf `%s/js/%s` . $scriptName }}"
-      {{ else }}
-        src="{{ printf `%s/js/  %s` $server $scriptName }}"
-      {{ end }}></script>
-
-    {{/* custom goals script */}}
+    <!-- Privacy-friendly analytics by Plausible -->
+    <script async src="{{ $src }}"></script>
     <script>
-      const p = atob("cGxhdXNpYmxl"); // p l a u s i b l e
-      window[p] =
-        window[p] ||
-        function () {
-          (window[p].q = window[p].q || []).push(arguments);
-        };
+      window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+      plausible.init({{ $opts | jsonify | safeJS }})
     </script>
 
-    {{/* track 404 when 404.html template */}}
-    {{ if and .optional.error404 (eq $.Kind "404") }}
-      <script>
-        document.addEventListener("DOMContentLoaded", function () {
-          plausible("404", { props: { path: document.location.pathname } });
-        });
-      </script>
-    {{ end }}
   {{ end }}
 {{ end }}
