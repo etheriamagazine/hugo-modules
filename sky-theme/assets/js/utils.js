@@ -25,4 +25,13 @@ function setCookie(name, value, { owner, isSecure, days } = {}) {
     document.cookie = cookie;
 }
 
-export { readCookie, setCookie };
+
+function detectMacOSPlatform() {
+  try {
+    if (/(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+      document.documentElement.classList.add('os-macos')
+    }
+  } catch (_) {}
+}
+
+export { readCookie, setCookie, detectMacOSPlatform };
