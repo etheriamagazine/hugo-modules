@@ -11,8 +11,8 @@
 <!-- title -->
 {{ $title := (or .Params.meta_title .Title site.Title) }}
 {{ if not .IsHome }}
-  {{ with site.Params.seo.titleFormat | default "%s — %s" }}
-    {{ $title = printf . $title site.Title }}
+  {{ with site.Params.seo.titleFormat | default "%s" }}
+    {{ $title = printf . $title }}
   {{ end }}
 {{ end }}
 <title>{{ $title }}</title>
@@ -23,9 +23,9 @@
 {{ end }}
 
 
-<!-- meta canonical -->
-{{ with .Params.canonical }}
-  <link rel="canonical" href="{{ . }}" itemprop="url" />
+<!-- meta canonical, fallback to self-referencing canonical -->
+{{ with or .Params.canonical .Permalink }}
+  <link rel="canonical" href="{{ . }}" />
 {{ end }}
 
 

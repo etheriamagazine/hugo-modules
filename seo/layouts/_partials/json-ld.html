@@ -83,7 +83,6 @@
   {{ $s.Set "name" (or site.Params.seo.author site.Title) }}
   {{ $s.Set "url" site.BaseURL }}
 
-
   {{ $paths := slice "static/images/logo.png" "static/images/logo.svg" "static/img/logo.png" "static/img/logo.svg" }}
 
   {{ range $paths }}
@@ -120,11 +119,17 @@
   {{ $s.Set "@type" "Person" }}
   {{ $s.Set "name" .Title }}
   {{ $s.Set "description" .Params.description }}
-  {{ $s.Set "image" (printf "https://gravatar.com/avatar/%s" (sha256 .Params.email)) }}
+
+  {{ with index (.Resources.ByType "image") 0 }}
+    {{ $resource := . }}
+    {{ $resource := $resource.Process "resize 300x webp" }}
+    {{ $s.Set "image" $resource.Permalink }}
+  {{ end }}
 
   {{ with .Params.jobTitle }}
     {{ $s.Set "jobTitle" . }}
   {{ end }}
+
   {{ with .Params.knowsAbout }}
     {{ $s.Set "knowsAbout" . }}
   {{ end }}
@@ -142,7 +147,6 @@
 
   {{ end }}
 
-
-
   {{ return $s.Values }}
+
 {{ end }}
