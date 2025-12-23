@@ -3,7 +3,7 @@
   font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
   font-family: 'Mona Sans';
   src:
-    url('../fonts/MonaSansVF[wdth,wght,opsz].woff2') format(woff2) tech(variations);
+    url('../fonts/MonaSansVF[wdth,wght,opsz]-subset.woff2') format(woff2) tech(variations);
   font-weight: 200 900;
   font-stretch: 75% 125%;
   text-decoration-thickness: 0.15rem;
