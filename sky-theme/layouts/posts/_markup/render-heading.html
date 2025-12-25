@@ -1,8 +1,12 @@
+{{ if (eq .Level 2) }}
+  {{ "<!--BEFORE_H2-->" | safeHTML }}
+{{ end }}
+
 <!-- prettier-ignore -->
 <h{{ .Level }} id="{{ .Anchor }}">
   {{- .Text | safeHTML -}}
 </h{{ .Level }}>
 
-{{/*  {{ if (in (slice 2) .Level) }}
-  {{ .Page.Render "aside" }}
-{{ end }}  */}}
+{{ if (eq .Level 2) }}
+  {{ "<!--AFTER_H2-->" | safeHTML }}
+{{ end }}

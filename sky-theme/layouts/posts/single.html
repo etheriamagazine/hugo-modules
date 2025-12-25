@@ -1,5 +1,4 @@
 {{ define "main" }}
-  {{ .Page.Store.Set "aside_counter" 0 }}
 
   {{ $coverSrc := "" }}
   {{ $coverAlt := "" }}
@@ -18,14 +17,14 @@
 
 
   <article
-    class="story-grid prose prose-p:mt-0 prose-img:object-cover prose-img:w-full prose-img:aspect-[14/16] md:prose-img:aspect-auto md:prose-lg [&>p:first-of-type]:lead [&>p:nth-of-type(2):not([align])]:drop-cap max-w-none px-4 pt-8 md:px-16 md:pt-16"
+    class="max-w-(--my-max-w) mx-auto story-grid prose prose-img:object-cover prose-img:w-full prose-img:aspect-[14/16] md:prose-img:aspect-auto md:prose-lg [&>p:first-of-type]:lead [&>p:nth-of-type(2):not([align])]:drop-cap px-4 pt-8 md:pt-16"
     data-cover-src="{{ $coverSrc }}"
     data-cover-alt="{{ $coverAlt }}"
     data-date="{{ .Date | time.Format "02.01.2006" }}"
     data-lastmod="{{ .Lastmod | time.Format "02.01.2006" }}"
     data-author="{{ delimit $authors ", " }}"
     data-pagefind-meta="image[data-cover-src], image_alt[data-cover-alt], date[data-date], lastmod[data-lastmod], author[data-author]">
-    <header class="not-prose mb-8 md:col-[2/14]">
+    <header class="not-prose mb-8">
       <ul class="flex" data-pagefind-ignore>
         <li class="">
           {{ with .GetTerms "authors" }}
@@ -101,72 +100,84 @@
       </ul>
     </header>
 
-    {{/* Author bio */}}
-    <aside
-      class="md:col-13 not-prose max-sm:hidden md:row-start-2 md:row-end-5"
-      data-pagefind-ignore>
-      {{ with index (.GetTerms "authors") 0 }}
-        {{ $authorPage := . }}
-        {{ $resource := index (.Resources.ByType "image") 0 }}
-        {{ $resource = $resource.Process "resize 300x webp" }}
-        <div
-          class="border-primary-600 not-prose h-40 w-40 origin-bottom-left -rotate-12 overflow-clip rounded-3xl border-4 shadow-xl transition duration-200 ease-out hover:rotate-0">
-          {{/* {{ with resources.GetMatch (printf "images/authors/%s.*" .Name) }}
-          */}}
-          {{ with $resource }}
-            <a href="{{ $authorPage.RelPermalink }}">
-              <picture>
-                <img
-                  class="scale-120 w-full rotate-12 object-cover transition duration-200 ease-out hover:rotate-0"
-                  loading="lazy"
-                  src="{{ .RelPermalink }}" />
-              </picture>
-            </a>
-          {{ end }}
+    {{ $parts := (split .Content "<!--BEFORE_H2-->") }}
+
+    {{ if gt (len $parts) 1 }}
+
+      {{/*  First part  */}}
+      {{ with index $parts 0}}
+        <div class="[&>p:first-of-type]:lead [&>p:nth-of-type(2)]:drop-cap">
+          {{ . | safeHTML }}
         </div>
-        <h4 class="mt-4">
-          {{ if not .Params.isGenericAuthor }}
-            Acerca de
-          {{ end }}
-          {{ .Params.title }}
-        </h4>
-        <p class="prose">{{ .Params.biography }}</p>
       {{ end }}
-    </aside>
 
-    {{/* Main markdown content */}}
-    {{ .Content }}
-
-    {{/* EasyAds
-      - Selects ads with "side" target
-      - Assumes there will be at most a handful of ads active in any given moment
-      - Renders 3 story-side-(integer) panels in the article-grid with 2 ads in each panel
-    */}}
-
-    {{ $easyads := partial "easyads/get.html" "side" }}
-
-    {{ $easyads = partial "fns/chunk" (dict "number_of_chunks" 3 "collection" $easyads) }}
-
-    {{ range seq 3 }}
-      {{ $i :=  . }}
-      {{ with (index $easyads (string (sub $i 1)) ) }}
-        <aside class="not-prose story-side-{{ $i }}">
-          <div class="md:sticky md:top-20">
-            {{ range . }}
-              <div
-                class="**:w-full **:rounded-none mb-12 overflow-clip rounded-none shadow-2xl">
-                {{ .Render "embed" }}
-              </div>
+      {{/* Author bio */}}
+      <aside
+        class="not-prose max-sm:hidden"
+        data-pagefind-ignore>
+        {{ with index (.GetTerms "authors") 0 }}
+          {{ $authorPage := . }}
+          {{ $resource := index (.Resources.ByType "image") 0 }}
+          {{ $resource = $resource.Process "resize 300x webp" }}
+          <div
+            class="border-primary-600 not-prose h-40 w-40 origin-bottom-left -rotate-12 overflow-clip rounded-3xl border-4 shadow-xl transition duration-200 ease-out hover:rotate-0">
+            {{/* {{ with resources.GetMatch (printf "images/authors/%s.*" .Name) }}
+            */}}
+            {{ with $resource }}
+              <a href="{{ $authorPage.RelPermalink }}">
+                <picture>
+                  <img
+                    class="scale-120 w-full rotate-12 object-cover transition duration-200 ease-out hover:rotate-0"
+                    loading="lazy"
+                    src="{{ .RelPermalink }}" />
+                </picture>
+              </a>
             {{ end }}
           </div>
-        </aside>
+          <h4 class="mt-4">
+            {{ if not .Params.isGenericAuthor }}
+              Acerca de
+            {{ end }}
+            {{ .Params.title }}
+          </h4>
+          <p class="prose">{{ .Params.biography }}</p>
+        {{ end }}
+      </aside>
+
+      {{ $easyads := partial "easyads/get.html" "side" }}
+
+      {{ range $i, $v := after 1 $parts }}
+          {{ with (split $v "<!--AFTER_H2-->")}}
+            {{/*  Render h2  */}}
+            {{ (index . 0) | safeHTML }}
+
+            {{/*  Render everything else wrapped in a div  */}}
+            <div class="[&>p:first-of-type]:mt-0">
+              {{ delimit (after 1 .) "" | safeHTML}}
+            </div>
+
+            {{/*  Render ad  */}}
+            {{ with index $easyads $i }}
+              <aside class="not-prose max-w-xs mx-auto">
+                <div class="md:sticky md:top-20">
+                    <div
+                      class="**:w-full **:rounded-none rounded-none my-12 md:my-0 overflow-clip shadow-2xl">
+                      {{ .Render "embed" }}
+                    </div>
+                </div>
+              </aside>
+            {{ end }}
+
+          {{ end }}
+
       {{ end }}
+
+    {{ else }}
+
+      {{ .Content }}
+
     {{ end }}
 
-    {{/* 4th side panel is related content */}}
-    <aside class="story-side-4 not-prose">
-      {{ partial "related" . }}
-    </aside>
 
     {{/* Render footer with last modification info */}}
     <footer class="not-prose" data-pagefind-ignore>

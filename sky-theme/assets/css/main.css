@@ -94,69 +94,23 @@
     --story-grid-cols: 1;
 
     @apply grid-cols-(--story-grid-cols) grid;
+    /* @apply grid-flow-row-dense; */
 
     @variant md {
-      --story-grid-cols: 1fr repeat(10, minmax(0, 1fr)) 1.4fr 260px 1fr;
+      --story-grid-cols: repeat(10, minmax(0, 1fr)) 1fr 240px;
 
       :where(& > :not(aside, header)) {
-        grid-column: 2 / 12;
+        grid-column: 1 / 11;
       }
 
       :where(& > header) {
-        grid-column: 2 / 14;
+        grid-column: 1 / 13;
       }
 
       :where(& > aside) {
-        grid-column: 13;
+        grid-column: 12;
       }
     }
-  }
-
-  .story2 {
-    @apply px-4 pt-8;
-
-    @variant prose-img {
-      @apply min-h-96 w-full object-cover;
-    }
-
-    @variant md {
-      --story-grid-cols: 1fr repeat(10, minmax(0, 1fr)) 1.6fr 240px 1fr;
-      @apply px-8 pt-16;
-      @apply grid-cols-(--story-grid-cols) grid;
-
-      @variant prose-img {
-        @apply w-auto;
-      }
-    }
-
-    :where(& > *) {
-      grid-column: 2 / 12;
-      /* margin-bottom: 0; */
-    }
-
-    :where(& > header) {
-      grid-column: 2/14;
-    }
-
-    :where(& > [class*="aside"]) {
-      grid-column: 13;
-      grid-row: span 4;
-    }
-  }
-}
-
-@utility story-side-* {
-  --story-side-start: 5;
-  --story-side-span: 8;
-
-  grid-row: calc(--value(integer) * var(--story-side-span));
-
-  @variant md {
-    grid-row: calc(
-        var(--story-side-start) + (--value(integer) - 1) *
-          var(--story-side-span)
-      ) /
-      span calc(var(--story-side-span) - 1);
   }
 }
 
@@ -226,11 +180,7 @@
     0px 0px  2px rgba(26, 16, 38,.1),
     0px 0px 10px rgba(26, 16, 38,.6),
     0px 0px 20px rgba(26, 16, 38,.9)
-
-
   ;
-
-
 }
 
 @layer utilities {
