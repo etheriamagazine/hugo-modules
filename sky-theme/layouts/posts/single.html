@@ -126,10 +126,16 @@
             {{ with $resource }}
               <a href="{{ $authorPage.RelPermalink }}">
                 <picture>
+                  {{ $alt := $authorPage.Title }}
+                  {{ if not $authorPage.Params.isGenericAuthor }}
+                    {{ $alt = printf "%s, %s" $alt ( (or $authorPage.Params.altText "autora del reportaje")) }}
+                  {{ end }}
                   <img
+                    src="{{ .RelPermalink }}"
+                    alt="{{ $alt }}"
                     class="scale-120 w-full rotate-12 object-cover transition duration-200 ease-out hover:rotate-0"
                     loading="lazy"
-                    src="{{ .RelPermalink }}" />
+                     />
                 </picture>
               </a>
             {{ end }}
