@@ -1,5 +1,4 @@
-{{/*
-  Returns latest posts for the featured area.
+{{/* Returns latest posts for the featured area.
   See `featuredCategories` in data/home.yaml
 */}}
 {{ $featuredCategories := site.Data.home.featuredCategories }}
@@ -9,5 +8,10 @@
 {{ with $featuredCategories }}
   {{ $posts = where $posts "Params.categories" "intersect" . }}
 {{ end }}
+
+{{/* Exclude items with featured: false in frontmatter
+  https://gohugo.io/functions/collections/where/#booleanundefined-comparison
+*/}}
+{{ $posts = where $posts "Params.featured" "ne" false }}
 
 {{ return $posts }}
