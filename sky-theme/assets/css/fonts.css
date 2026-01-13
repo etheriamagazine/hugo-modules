@@ -9,3 +9,15 @@
   text-decoration-thickness: 0.15rem;
   font-optical-sizing: auto;
 }
+
+/* Mona Sans fallback
+  Major culprit for high CLS is desktop navbar with it's condensed type.
+  To lower CLS, we define this fallback font with local buit-in condensed fonts.
+  Windows: Arial Narrow
+  Mac: Helvetica Neue Condensed
+  Linux: Liberation Sans Narrow
+*/
+@font-face {
+  font-family: 'mona-sans-fallback';
+  src: local('Helvetica Neue Condensed'), local('Arial Narrow'), local('Liberation Sans Narrow');
+}
