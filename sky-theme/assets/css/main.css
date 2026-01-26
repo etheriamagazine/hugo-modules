@@ -57,6 +57,7 @@
   }
 
   --dashed-border: var(--color-slate-200);
+
 }
 
 @layer base {
@@ -180,6 +181,14 @@
     0px 0px 10px rgba(26, 16, 38,.6),
     0px 0px 20px rgba(26, 16, 38,.9)
   ;
+}
+
+/* configure @tailwindcss/typography */
+@utility prose-lg {
+  :where(h2):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+    /* reduce margin top as grid layout doesn't collapse borders */
+    margin-top: calc(32em/30);
+  }
 }
 
 @layer utilities {
