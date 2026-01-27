@@ -191,6 +191,14 @@
   }
 }
 
+@utility prose {
+  :where(h2):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+    /* reduce margin top as grid layout doesn't collapse borders */
+    margin-top: 1em;
+  }
+}
+
+
 @layer utilities {
   input[type="search"]::-webkit-search-decoration,
   input[type="search"]::-webkit-search-cancel-button,
