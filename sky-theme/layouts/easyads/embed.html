@@ -17,7 +17,9 @@
     <a
       {{ with $url }}
         href="{{ . }}"
-      {{ end }}>
+      {{ end }}
+      target="_blank"
+      rel="noopener external">
       <img
         src="{{ $img.RelPermalink }}"
         {{ with $alt }}
@@ -51,7 +53,9 @@
       <a
         {{ with $url }}
           href="{{ . }}"
-        {{ end }}>
+        {{ end }}
+        target="_blank"
+        rel="noopener external">
         <picture>
           {{ with $desktop }}
             <source media="(width >= 40em)" srcset="{{ .RelPermalink }}" />
