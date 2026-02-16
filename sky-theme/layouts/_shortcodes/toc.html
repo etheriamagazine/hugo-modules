@@ -1,0 +1,8 @@
+<details class="bg-gray-100 md:w-fit p-4 rounded-2xl" open>
+  <summary class="text-xl">
+    {{ or (.Get 0) "Índice" }}
+  </summary>
+  <aside class="not-prose [&_ul]:pl-4 [&_a]:font-medium [&_a]:underline">
+    {{ .Page.TableOfContents }}
+  </aside>
+</details>
