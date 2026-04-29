@@ -9,7 +9,7 @@
   {{ $pinned := partial "home/pinned-posts" }}
 
   {{/* Compute featured posts  */}}
-  {{ $featuredCount := site.Data.home.featuredPostsCount }}
+  {{ $featuredCount := hugo.Data.home.featuredPostsCount }}
 
   {{ $featured := (first 1 $latest) }}
   {{ $featured  = union $featured $pinned }}
@@ -39,7 +39,7 @@
   {{ $categories := slice }}
   {{ $nextAdIndex := 2 }}
 
-  {{ with site.Data.home.categoriesToDisplay }}
+  {{ with hugo.Data.home.categoriesToDisplay }}
     {{ $categories = . }}
   {{ else }}
     {{ range $term, $v := .Site.Taxonomies.categories }}
@@ -65,7 +65,7 @@
           </header>
         {{ end }}
 
-        {{ $count := site.Data.home.postsCountPerCategory | default 7 }}
+        {{ $count := hugo.Data.home.postsCountPerCategory | default 7 }}
         {{/* Select posts not already shown featured posts */}}
         {{ $categoryPreview := first $count ( .Pages.ByLastmod.Reverse  | complement $featured ) }}
 

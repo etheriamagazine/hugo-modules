@@ -1,7 +1,7 @@
 {{/* Returns latest posts for the featured area.
   See `featuredCategories` in data/home.yaml
 */}}
-{{ $featuredCategories := site.Data.home.featuredCategories }}
+{{ $featuredCategories := hugo.Data.home.featuredCategories }}
 
 {{ $posts := where site.RegularPages.ByLastmod.Reverse "Type" "posts" }}
 

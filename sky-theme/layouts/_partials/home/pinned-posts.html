@@ -3,7 +3,7 @@
   See `pinnedPosts` in data/home.yaml
 */}}
 
-{{ $pinned := site.Data.home.pinnedPosts | default slice }}
+{{ $pinned := hugo.Data.home.pinnedPosts | default slice }}
 
 {{ $now := now }}
 
