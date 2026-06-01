@@ -1,5 +1,4 @@
 {{ define "main" }}
-
   {{ $coverSrc := "" }}
   {{ $coverAlt := "" }}
 
@@ -17,10 +16,10 @@
 
 
   <article
-    class="max-w-(--my-max-w) mx-auto story-grid prose prose-img:object-cover prose-img:w-full prose-img:aspect-[14/16] md:prose-img:aspect-auto md:prose-img:min-h-[400px] md:prose-lg [&>p:first-of-type]:lead [&>p:nth-of-type(2):not([align])]:drop-cap px-4 pt-8 md:pt-16"
+    class="max-w-(--my-max-w) story-grid prose prose-img:object-cover prose-img:w-full prose-img:aspect-[14/16] md:prose-img:aspect-auto md:prose-img:min-h-[400px] md:prose-lg [&>p:first-of-type]:lead [&>p:nth-of-type(2):not([align])]:drop-cap mx-auto px-4 pt-8 md:pt-16"
     data-cover-src="{{ $coverSrc }}"
     data-cover-alt="{{ $coverAlt }}"
-    data-date="{{ .Date | time.Format "02.01.2006" }}"
+    data-date="{{ .Lastmod | time.Format "02.01.2006" }}"
     data-lastmod="{{ .Lastmod | time.Format "02.01.2006" }}"
     data-author="{{ delimit $authors ", " }}"
     data-pagefind-meta="image[data-cover-src], image_alt[data-cover-alt], date[data-date], lastmod[data-lastmod], author[data-author]">
@@ -38,20 +37,10 @@
         <li class="before:mx-2 before:content-['/']">
           <time
             class="text-slate-400"
-            datetime="{{ .Date | time.Format "2006-01-02" }}"
-            >{{ .Date | time.Format (site.Params.skytheme.dateLong | default ":date_long") }}</time
+            datetime="{{ .Lastmod | time.Format "2006-01-02" }}"
+            >{{ .Lastmod | time.Format (site.Params.skytheme.dateLong | default ":date_long") }}</time
           >
         </li>
-        {{ with and (ne .Lastmod .Date) .Lastmod }}
-          <li class="before:mx-2 before:content-['/']">
-            <span class="text-slate-400">
-              Actualizado
-              <time class="" datetime="{{ . | time.Format "2006-01-02" }}"
-                >{{ . | time.Format (site.Params.skytheme.dateMonthYear | default "January de 2006") }}</time
-              >
-            </span>
-          </li>
-        {{ end }}
       </ul>
       <h1
         class="text-primary-600 font-stretch-95% my-2 text-3xl font-semibold md:text-4xl">
@@ -104,17 +93,16 @@
 
     {{ if gt (len $parts) 1 }}
 
-      {{/*  First part  */}}
-      {{ with index $parts 0}}
-        <div class="[&>p:first-of-type]:lead [&>p:nth-of-type(2)]:drop-cap [&>figure:last-of-type]:mb-0 [&>p:last-of-type]:mb-0">
+      {{/* First part */}}
+      {{ with index $parts 0 }}
+        <div
+          class="[&>p:first-of-type]:lead [&>p:nth-of-type(2)]:drop-cap [&>figure:last-of-type]:mb-0 [&>p:last-of-type]:mb-0">
           {{ . | safeHTML }}
         </div>
       {{ end }}
 
       {{/* Author bio */}}
-      <aside
-        class="not-prose max-sm:hidden"
-        data-pagefind-ignore>
+      <aside class="not-prose max-sm:hidden" data-pagefind-ignore>
         {{ with index (.GetTerms "authors") 0 }}
           {{ $authorPage := . }}
           {{ $resource := index (.Resources.ByType "image") 0 }}
@@ -134,8 +122,7 @@
                     src="{{ .RelPermalink }}"
                     alt="{{ $alt }}"
                     class="scale-120 w-full rotate-12 object-cover transition duration-200 ease-out hover:rotate-0"
-                    loading="lazy"
-                     />
+                    loading="lazy" />
                 </picture>
               </a>
             {{ end }}
@@ -153,28 +140,29 @@
       {{ $easyads := partial "easyads/get.html" "side" }}
 
       {{ range $i, $v := after 1 $parts }}
-          {{ with (split $v "<!--AFTER_H2-->")}}
-            {{/*  Render h2  */}}
-            {{ (index . 0) | safeHTML }}
+        {{ with (split $v "<!--AFTER_H2-->") }}
+          {{/* Render h2 */}}
+          {{ (index . 0) | safeHTML }}
 
-            {{/*  Render everything else wrapped in a div  */}}
-            <div class="[&>p:first-of-type]:mt-0 [&>figure:last-of-type]:mb-0 [&>p:last-of-type]:mb-0">
-              {{ delimit (after 1 .) "" | safeHTML}}
-            </div>
+          {{/* Render everything else wrapped in a div */}}
+          <div
+            class="[&>figure:last-of-type]:mb-0 [&>p:first-of-type]:mt-0 [&>p:last-of-type]:mb-0">
+            {{ delimit (after 1 .) "" | safeHTML }}
+          </div>
 
-            {{/*  Render ad  */}}
-            {{ with index $easyads $i }}
-              <aside class="not-prose max-w-xs mx-auto">
-                <div class="md:sticky md:top-20">
-                    <div
-                      class="**:w-full **:rounded-none rounded-none my-12 md:my-0 overflow-clip shadow-2xl">
-                      {{ .Render "embed" }}
-                    </div>
+          {{/* Render ad */}}
+          {{ with index $easyads $i }}
+            <aside class="not-prose mx-auto max-w-xs">
+              <div class="md:sticky md:top-20">
+                <div
+                  class="**:w-full **:rounded-none my-12 overflow-clip rounded-none shadow-2xl md:my-0">
+                  {{ .Render "embed" }}
                 </div>
-              </aside>
-            {{ end }}
-
+              </div>
+            </aside>
           {{ end }}
+
+        {{ end }}
 
       {{ end }}
 
@@ -184,10 +172,19 @@
 
     {{ end }}
 
-
-    {{/* Render footer with last modification info */}}
+    {{/* Render footer with first publicacion and git info */}}
     <footer class="not-prose" data-pagefind-ignore>
       <hr class="my-8" />
+
+      {{ with and (ne .Lastmod .Date) .Date }}
+        <div>
+          Primera publicación:
+          <time class="" datetime="{{ . | time.Format "2006-01-02" }}"
+            >{{ . | time.Format (site.Params.skytheme.dateShort | default ":date_short") }}</time
+          >
+        </div>
+      {{ end }}
+
       {{ with .GitInfo }}
         <div>
           Última edicion:
